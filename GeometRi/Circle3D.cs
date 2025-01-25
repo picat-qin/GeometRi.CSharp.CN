@@ -5,6 +5,7 @@ using System.Collections.Generic;
 namespace GeometRi
 {
     /// <summary>
+    /// 由中心点、半径和法线向量定义的三维空间中的圆。<br></br>
     /// Circle in 3D space defined by center point, radius and normal vector.
     /// </summary>
 #if NET20
@@ -18,6 +19,7 @@ namespace GeometRi
         internal Vector3d _normal;
 
         /// <summary>
+        /// 使用中心点、半径和法线向量初始化圆实例。<br></br>
         /// Initializes circle instance using center point, radius and normal vector.
         /// </summary>
         public Circle3d(Point3d Center, double Radius, Vector3d Normal)
@@ -28,6 +30,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 初始化通过三点的圆。<br></br>
         /// Initializes circle passing through three points.
         /// </summary>
         public Circle3d(Point3d p1, Point3d p2, Point3d p3)
@@ -60,6 +63,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 创建对象的副本<br></br>
         /// Creates copy of the object
         /// </summary>
         public Circle3d Copy()
@@ -68,6 +72,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 圆心<br></br>
         /// Center of the circle
         /// </summary>
         public Point3d Center
@@ -77,6 +82,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 圆的半径<br></br>
         /// Radius of the circle
         /// </summary>
         public double R
@@ -86,6 +92,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 圆的法线
         /// Normal of the circle
         /// </summary>
         public Vector3d Normal
@@ -94,17 +101,23 @@ namespace GeometRi
             set { _normal = value.Copy(); }
         }
 
+        /// <inheritdoc/>
         public bool IsOriented
         {
             get { return false; }
         }
 
+        /// <summary>
+        /// 圆的周长<br></br>
+        /// Perimeter of the circle.
+        /// </summary>
         public double Perimeter
         {
             get { return 2 * PI * _r; }
         }
 
         /// <summary>
+        /// 圆的面积。<br></br>
         /// Area of the circle.
         /// </summary>
         public double Area
@@ -113,6 +126,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 将圆转换为椭圆对象。<br></br>
         /// Convert circle to ellipse object.
         /// </summary>
         public Ellipse ToEllipse
@@ -126,6 +140,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 将圆形转换为平面对象。<br></br>
         /// Convert circle to plane object.
         /// </summary>
         public Plane3d ToPlane
@@ -136,8 +151,9 @@ namespace GeometRi
             }
         }
 
-        #region "ParallelMethods"
+        #region "平行方法 ParallelMethods"
         /// <summary>
+        /// 检查两个物体是否平行<br></br>
         /// Check if two objects are parallel
         /// </summary>
         public bool IsParallelTo(ILinearObject obj)
@@ -146,6 +162,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否不平行<br></br>
         /// Check if two objects are NOT parallel
         /// </summary>
         public bool IsNotParallelTo(ILinearObject obj)
@@ -154,6 +171,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否正交<br></br>
         /// Check if two objects are orthogonal
         /// </summary>
         public bool IsOrthogonalTo(ILinearObject obj)
@@ -162,6 +180,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否平行<br></br>
         /// Check if two objects are parallel
         /// </summary>
         public bool IsParallelTo(IPlanarObject obj)
@@ -170,6 +189,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否不平行<br></br>
         /// Check if two objects are NOT parallel
         /// </summary>
         public bool IsNotParallelTo(IPlanarObject obj)
@@ -178,6 +198,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否正交<br></br>
         /// Check if two objects are orthogonal
         /// </summary>
         public bool IsOrthogonalTo(IPlanarObject obj)
@@ -186,6 +207,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否共面<br></br>
         /// Check if two objects are coplanar
         /// </summary>
         public bool IsCoplanarTo(IPlanarObject obj)
@@ -194,6 +216,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否共面
         /// Check if two objects are coplanar
         /// </summary>
         public bool IsCoplanarTo(ILinearObject obj)
@@ -202,8 +225,9 @@ namespace GeometRi
         }
         #endregion
 
-        #region "BoundingBox"
+        #region "边界框 BoundingBox"
         /// <summary>
+        /// 返回最小边界框。<br></br>
         /// Return minimum bounding box.
         /// </summary>
         public Box3d MinimumBoundingBox
@@ -220,6 +244,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回给定坐标系中的边界框。<br></br>
         /// Return Bounding Box in given coordinate system.
         /// </summary>
         public Box3d BoundingBox(Coord3d coord = null)
@@ -234,6 +259,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回轴对齐边界框（AABB）。<br></br>
         /// Return Axis Aligned Bounding Box (AABB).
         /// </summary>
         public AABB AABB()
@@ -246,6 +272,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回边界球。<br></br>
         /// Return bounding sphere.
         /// </summary>
         public Sphere BoundingSphere
@@ -255,10 +282,12 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查圆是否位于由全局公差属性（Geomet Ri3D.Tolerance）定义的公差的框内。<br></br>
         /// Check if circle is located inside box with tolerance defined by global tolerance property (GeometRi3D.Tolerance).
         /// </summary>
         public bool IsInside(Box3d box)
         {
+            // 相对公差 ================================
             // Relative tolerance ================================
             if (!GeometRi3D.UseAbsoluteTolerance)
             {
@@ -288,6 +317,7 @@ namespace GeometRi
         #endregion
 
         /// <summary>
+        /// 返回给定参数“t”的圆上的点（0 &lt; t &lt; 2Pi）<br></br>
         /// Returns point on circle for given parameter 't' (0 &lt;= t &lt; 2Pi)
         /// </summary>
         public Point3d ParametricForm(double t)
@@ -302,6 +332,7 @@ namespace GeometRi
 
         #region "DistanceMethods"
         /// <summary>
+        /// 圆到平面的距离<br></br>
         /// Distance from circle to plane
         /// </summary>
         public double DistanceTo(Plane3d s)
@@ -321,12 +352,16 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 平面与圆之间的最短距离
         /// Shortest distance between plane and circle
-        /// <para> The output points may be not unique in case of parallel or intersecting objects.</para>
+        /// <para> 
+        /// 如果物体平行或相交，输出点可能不唯一。<br></br>
+        /// The output points may be not unique in case of parallel or intersecting objects.
+        /// </para>
         /// </summary>
-        /// <param name="p">Target plane</param>
-        /// <param name="point_on_circle">Closest point on circle</param>
-        /// <param name="point_on_plane">Closest point on plane</param>
+        /// <param name="p">目标平面<br></br>Target plane</param>
+        /// <param name="point_on_circle">圆上最近的点<br></br> Closest point on circle</param>
+        /// <param name="point_on_plane">平面上最近的点<br></br> Closest point on plane</param>
         public double DistanceTo(Plane3d p, out Point3d point_on_circle, out Point3d point_on_plane)
         {
             if (this.IsParallelTo(p))
@@ -357,6 +392,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 点到圆的最短距离（包括内部点）<br></br>
         /// Shortest distance from point to circle (including interior points)
         /// </summary>
         public double DistanceTo(Point3d p)
@@ -374,6 +410,7 @@ namespace GeometRi
             }
             else
             {
+                // 找到圆边界上的最近点
                 // find closest point on circle's boundary
                 double x = this._point.X + this.R / proj_dist_cent * (projection.X - this._point.X);
                 double y = this._point.Y + this.R / proj_dist_cent * (projection.Y - this._point.Y);
@@ -384,6 +421,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 圆上最接近目标点“p”的点（包括内部点）。<br></br>
         /// Point on circle (including interior points) closest to target point "p".
         /// </summary>
         public Point3d ClosestPoint(Point3d p)
@@ -401,6 +439,7 @@ namespace GeometRi
             }
             else
             {
+                // 找到圆边界上的最近点
                 // find closest point on circle's boundary
                 double x = this._point.X + this.R / proj_dist_cent * (projection.X - this._point.X);
                 double y = this._point.Y + this.R / proj_dist_cent * (projection.Y - this._point.Y);
@@ -411,8 +450,12 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 两个圆之间的最短距离（包括内部点）（近似解）<br></br>
         /// Shortest distance between two circles (including interior points) (approximate solution)
-        /// <para> Default tolerance for numerical solution: GeometRi3D.DefaultTolerance.</para>
+        /// <para> 
+        /// 数值解的默认公差：Geomet Ri3D.Default Tolerance。<br></br>
+        /// Default tolerance for numerical solution: GeometRi3D.DefaultTolerance.
+        /// </para>
         /// </summary>
         /// <param name="c">Target circle</param>
         public double DistanceTo(Circle3d c)
@@ -421,10 +464,14 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 两个圆之间的最短距离（包括内部点）（近似解）<br></br>
         /// Shortest distance between two circles (including interior points) (approximate solution)
         /// </summary>
-        /// <param name="c">Target circle</param>
-        /// <param name="tolerance">Tolerance for numerical solution, default GeometRi3D.DefaultTolerance</param>
+        /// <param name="c">目标圆<br></br> Target circle</param>
+        /// <param name="tolerance">
+        /// 数值解的公差，默认 Geomet Ri3D.Default Tolerance<br></br>
+        /// Tolerance for numerical solution, default GeometRi3D.DefaultTolerance
+        /// </param>
         public double DistanceTo(Circle3d c, double tolerance)
         {
             double dist;
@@ -451,6 +498,7 @@ namespace GeometRi
             object obj = this.IntersectionWith(c);
             if (obj != null)
             {
+                // 恢复初始状态
                 // Restore initial state
                 GeometRi3D.UseAbsoluteTolerance = mode;
                 GeometRi3D.Tolerance = tol;
@@ -462,6 +510,7 @@ namespace GeometRi
             dist = this.DistanceTo(c.ToPlane, out p_on_circle, out p_on_plane);
             if (p_on_plane.DistanceTo(c._point) <= c.R)
             {
+                // 恢复初始状态
                 // Restore initial state
                 GeometRi3D.UseAbsoluteTolerance = mode;
                 GeometRi3D.Tolerance = tol;
@@ -471,6 +520,7 @@ namespace GeometRi
             dist = c.DistanceTo(this.ToPlane, out p_on_circle, out p_on_plane);
             if (p_on_plane.DistanceTo(this._point) <= this.R)
             {
+                // 恢复初始状态
                 // Restore initial state
                 GeometRi3D.UseAbsoluteTolerance = mode;
                 GeometRi3D.Tolerance = tol;
@@ -478,6 +528,7 @@ namespace GeometRi
             }
 
             dist = _distance_circle_to_circle(this, c, out Point3d p1, out Point3d p2, tolerance);
+            // 恢复初始状态
             // Restore initial state
             GeometRi3D.UseAbsoluteTolerance = mode;
             GeometRi3D.Tolerance = tol;
@@ -486,9 +537,16 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 两个圆之间的最短距离（包括内部点）（近似解）<br></br>
         /// Shortest distance between two circles (including interior points) (approximate solution)
-        /// <para> The output points may be not unique in case of parallel or intersecting circles.</para>
-        /// <para> Default tolerance for numerical solution: GeometRi3D.DefaultTolerance.</para>
+        /// <para> 
+        /// 在平行或相交的圆的情况下，输出点可能不唯一。<br></br>
+        /// The output points may be not unique in case of parallel or intersecting circles.
+        /// </para>
+        /// <para> 
+        /// 数值解的默认公差：GeometRi3D.DefaultTolerance。
+        /// Default tolerance for numerical solution: GeometRi3D.DefaultTolerance.
+        /// </para>
         /// </summary>
         /// <param name="c">Target circle</param>
         /// <param name="p1">Closest point on source circle</param>
@@ -499,13 +557,20 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 两个圆之间的最短距离（包括内部点）（近似解）<br></br>
         /// Shortest distance between two circles (including interior points) (approximate solution)
-        /// <para> The output points may be not unique in case of parallel or intersecting circles.</para>
+        /// <para> 
+        /// 如果是平行或相交的圆，输出点可能不唯一。<br></br>
+        /// The output points may be not unique in case of parallel or intersecting circles.
+        /// </para>
         /// </summary>
-        /// <param name="c">Target circle</param>
-        /// <param name="p1">Closest point on source circle</param>
-        /// <param name="p2">Closest point on target circle</param>
-        /// <param name="tolerance">Tolerance for numerical solution, default GeometRi3D.DefaultTolerance</param>
+        /// <param name="c">目标圆<br></br>Target circle</param>
+        /// <param name="p1">源圆上的最近点<br></br> Closest point on source circle</param>
+        /// <param name="p2">目标圆上最近的点 Closest point on target circle</param>
+        /// <param name="tolerance">
+        /// 数值解的容差<br></br>
+        /// Tolerance for numerical solution
+        /// </param>
         public double DistanceTo(Circle3d c, out Point3d p1, out Point3d p2, double tolerance)
         {
             double dist;
@@ -545,6 +610,7 @@ namespace GeometRi
             object obj = this.IntersectionWith(c);
             if (obj != null)
             {
+                // 恢复初始状态
                 // Restore initial state
                 GeometRi3D.UseAbsoluteTolerance = mode;
                 GeometRi3D.Tolerance = tol;
@@ -571,6 +637,7 @@ namespace GeometRi
             dist = this.DistanceTo(c.ToPlane, out p1, out p2);
             if (p2.DistanceTo(c._point) <= c.R)
             {
+                // 恢复初始状态
                 // Restore initial state
                 GeometRi3D.UseAbsoluteTolerance = mode;
                 GeometRi3D.Tolerance = tol;
@@ -580,6 +647,7 @@ namespace GeometRi
             dist = c.DistanceTo(this.ToPlane, out p2, out p1);
             if (p1.DistanceTo(this._point) <= this.R)
             {
+                // 恢复初始状态
                 // Restore initial state
                 GeometRi3D.UseAbsoluteTolerance = mode;
                 GeometRi3D.Tolerance = tol;
@@ -588,6 +656,7 @@ namespace GeometRi
 
             dist = _distance_circle_to_circle(this, c, out p1, out p2, tolerance);
 
+            // 恢复初始状态
             // Restore initial state
             GeometRi3D.UseAbsoluteTolerance = mode;
             GeometRi3D.Tolerance = tol;
@@ -597,10 +666,11 @@ namespace GeometRi
         }
 
 
-        [Obsolete]
         /// <summary>
+        /// 检查两个圆之间的距离是否大于阈值<br></br>
         /// Check if distance between two circles is greater than threshold
         /// </summary>
+        [Obsolete]
         public bool DistanceGreater(Circle3d c, double threshold, double tolerance)
         {
 
@@ -668,6 +738,15 @@ namespace GeometRi
             }
         }
 
+        /// <summary>
+        /// 圆与圆之间的距离
+        /// </summary>
+        /// <param name="c1"></param>
+        /// <param name="c2"></param>
+        /// <param name="p1"></param>
+        /// <param name="p2"></param>
+        /// <param name="tol"></param>
+        /// <returns></returns>
         private double _distance_circle_to_circle(Circle3d c1, Circle3d c2, out Point3d p1, out Point3d p2, double tol)
         // Use quadratic interpolation to find closest point on one circle to other
         // p1 and p2 - closest points on both circles
@@ -779,6 +858,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 圆与球之间的最短距离（包括内部点）（近似解）<br></br>
         /// Shortest distance between circle and sphere (including interior points) (approximate solution)
         /// </summary>
         public double DistanceTo(Sphere s)
@@ -787,10 +867,14 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 圆与球之间的最短距离（包括内部点）（近似解）<br></br>
         /// Shortest distance between circle and sphere (including interior points) (approximate solution)
         /// </summary>
-        /// <param name="s">Target sphere</param>
-        /// <param name="tolerance">Tolerance for numerical solution, default GeometRi3D.DefaultTolerance</param>
+        /// <param name="s">目标球体 Target sphere</param>
+        /// <param name="tolerance">
+        /// 数值解的容差<br></br>
+        /// Tolerance for numerical solution
+        /// </param>
         public double DistanceTo(Sphere s, double tolerance)
         {
             Plane3d p = this.ToPlane;
@@ -809,26 +893,40 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 圆与球之间的最短距离（包括内部点）（近似解）<br></br>
         /// Shortest distance between circle and sphere (including interior points) (approximate solution)
-        /// <para> The output points may be not unique in case of intersecting objects.</para>
-        /// <para> Default tolerance for numerical solution: GeometRi3D.DefaultTolerance.</para>
+        /// <para> 
+        /// 如果物体相交，输出点可能不唯一。<br></br>
+        /// The output points may be not unique in case of intersecting objects.
+        /// </para>
+        /// <para> 
+        /// 数值解的默认公差: GeometRi3D.DefaultTolerance.<br></br>
+        /// Default tolerance for numerical solution: GeometRi3D.DefaultTolerance.
+        /// </para>
         /// </summary>
-        /// <param name="s">Target sphere</param>
-        /// <param name="p1">Closest point on circle</param>
-        /// <param name="p2">Closest point on sphere</param>
+        /// <param name="s">目标球<br></br>Target sphere</param>
+        /// <param name="p1">圆上最近的点<br></br> Closest point on circle</param>
+        /// <param name="p2">球体上最近的点<br></br> Closest point on sphere</param>
         public double DistanceTo(Sphere s, out Point3d p1, out Point3d p2)
         {
             return DistanceTo(s, out p1, out p2, GeometRi3D.DefaultTolerance);
         }
 
         /// <summary>
+        /// 圆与球之间的最短距离（包括内部点）（近似解）<br></br>
         /// Shortest distance between circle and sphere (including interior points) (approximate solution)
-        /// <para> The output points may be not unique in case of intersecting objects.</para>
+        /// <para> 
+        /// 如果物体相交，输出点可能不唯一。<br></br>
+        /// The output points may be not unique in case of intersecting objects.
+        /// </para>
         /// </summary>
-        /// <param name="s">Target sphere</param>
-        /// <param name="p1">Closest point on circle</param>
-        /// <param name="p2">Closest point on sphere</param>
-        /// <param name="tolerance">Tolerance for numerical solution, default GeometRi3D.DefaultTolerance</param>
+        /// <param name="s">目标球<br></br> Target sphere</param>
+        /// <param name="p1">圆上最近的点<br></br> Closest point on circle</param>
+        /// <param name="p2">球体上最近的点<br></br> Closest point on sphere</param>
+        /// <param name="tolerance">
+        /// 数值解的容差<br></br>
+        /// Tolerance for numerical solution
+        /// </param>
         public double DistanceTo(Sphere s, out Point3d p1, out Point3d p2, double tolerance)
         {
             Plane3d p = this.ToPlane;
@@ -868,6 +966,15 @@ namespace GeometRi
             return dist;
         }
 
+        /// <summary>
+        /// 圆到球之间的距离
+        /// </summary>
+        /// <param name="c1"></param>
+        /// <param name="c2"></param>
+        /// <param name="p1"></param>
+        /// <param name="p2"></param>
+        /// <param name="tol"></param>
+        /// <returns></returns>
         private double _distance_circle_to_sphere(Circle3d c1, Sphere c2, out Point3d p1, out Point3d p2, double tol)
         // Use quadratic interpolation to find closest point on circle
         // p1 and p2 - closest points on circle and sphere respectively
@@ -943,6 +1050,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 线与圆之间的最短距离（包括内部点）<br></br>
         /// Shortest distance between line and circle (including interior points)
         /// </summary>
         public double DistanceTo(Line3d l)
@@ -953,6 +1061,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 线与圆之间的最短距离（不包括内部点）<br></br>
         /// Shortest distance between line and circle (excluding interior points)
         /// </summary>
         public double DistanceToBoundary(Line3d l)
@@ -963,11 +1072,12 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 线与圆之间的最短距离（包括内部点）<br></br>
         /// Shortest distance between line and circle (including interior points)
         /// </summary>
-        /// <param name="l">Target line</param>
-        /// <param name="point_on_circle">Closest point on circle</param>
-        /// <param name="point_on_line">Closest point on line</param>
+        /// <param name="l">目标线<br></br> Target line</param>
+        /// <param name="point_on_circle">圆上最近的点<br></br> Closest point on circle</param>
+        /// <param name="point_on_line">线上最近的点<br></br> Closest point on line</param>
         public double DistanceTo(Line3d l, out Point3d point_on_circle, out Point3d point_on_line)
         {
             double dist = _distance_circle_to_line(l, out point_on_circle, out point_on_line);
@@ -975,11 +1085,12 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 线与圆之间的最短距离（不包括内部点）<br></br>
         /// Shortest distance between line and circle (excluding interior points)
         /// </summary>
-        /// <param name="l">Target line</param>
-        /// <param name="point_on_circle">Closest point on circle</param>
-        /// <param name="point_on_line">Closest point on line</param>
+        /// <param name="l">目标线<br></br> Target line</param>
+        /// <param name="point_on_circle">圆上最近的点<br></br> Closest point on circle</param>
+        /// <param name="point_on_line">线上最近的点<br></br> Closest point on line</param>
         public double DistanceToBoundary(Line3d l, out Point3d point_on_circle, out Point3d point_on_line)
         {
             double dist = _distance_circle_boundary_to_line(l, out point_on_circle, out point_on_line);
@@ -987,6 +1098,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 射线与圆之间的最短距离（包括内部点）<br></br>
         /// Shortest distance between ray and circle (including interior points)
         /// </summary>
         public double DistanceTo(Ray3d r)
@@ -996,11 +1108,12 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 射线与圆之间的最短距离（包括内部点）<br></br>
         /// Shortest distance between ray and circle (including interior points)
         /// </summary>
-        /// <param name="r">Target ray</param>
-        /// <param name="point_on_circle">Closest point on circle</param>
-        /// <param name="point_on_ray">Closest point on ray</param>
+        /// <param name="r">目标射线<br></br> Target ray</param>
+        /// <param name="point_on_circle">圆上最近的点<br></br> Closest point on circle</param>
+        /// <param name="point_on_ray">射线上最近的点<br></br> Closest point on ray</param>
         public double DistanceTo(Ray3d r, out Point3d point_on_circle, out Point3d point_on_ray)
         {
             double dist = _distance_circle_to_line(r.ToLine, out point_on_circle, out point_on_ray);
@@ -1013,6 +1126,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 线段与圆之间的最短距离（包括内部点）<br></br>
         /// Shortest distance between segment and circle (including interior points)
         /// </summary>
         public double DistanceTo(Segment3d s)
@@ -1022,11 +1136,12 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 线段与圆之间的最短距离（包括内部点）<br></br>
         /// Shortest distance between segment and circle (including interior points)
         /// </summary>
-        /// <param name="s">Target segment</param>
-        /// <param name="point_on_circle">Closest point on circle</param>
-        /// <param name="point_on_segment">Closest point on segment</param>
+        /// <param name="s">目标线段<br></br> Target segment</param>
+        /// <param name="point_on_circle">圆上最近的点<br></br> Closest point on circle</param>
+        /// <param name="point_on_segment">线段上最近的点<br></br> Closest point on segment</param>
         public double DistanceTo(Segment3d s, out Point3d point_on_circle, out Point3d point_on_segment)
         {
             double dist = _distance_circle_to_line(s.ToLine, out point_on_circle, out point_on_segment);
@@ -1054,6 +1169,7 @@ namespace GeometRi
 
 
         /// <summary>
+        /// 线与圆之间的最短距离（包括内部点）<br></br>
         /// Shortest distance between line and circle (including interior points)
         /// </summary>
         /// <param name="l">Target line</param>
@@ -1083,7 +1199,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Shortest distance between line and circle's boundary (excluding interior points)
+        /// 线与圆边界之间的最短距离（不包括内部点）<br></br>
+        /// Shortest distance between line and circle's boundary (excluding interior points)<br></br>
+        /// （对称情况仅返回一个点）<br></br>
         /// (only one point will be returned for symmetrical case)
         /// </summary>
         /// <param name="l">Target line</param>
@@ -1220,6 +1338,7 @@ namespace GeometRi
 
 
         /// <summary>
+        /// 三角形与圆之间的最短距离（包括内部点）<br></br>
         /// Shortest distance between triangle and circle (including interior points)
         /// </summary>
         public double DistanceTo(Triangle t)
@@ -1229,11 +1348,12 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 三角形与圆之间的最短距离（包括内部点）<br></br>
         /// Shortest distance between triangle and circle (including interior points)
         /// </summary>
-        /// <param name="t">Target triangle</param>
-        /// <param name="point_on_circle">Closest point on circle</param>
-        /// <param name="point_on_triangle">Closest point on triangle</param>
+        /// <param name="t">目标三角形<br></br> Target triangle</param>
+        /// <param name="point_on_circle">圆上最近的点<br></br> Closest point on circle</param>
+        /// <param name="point_on_triangle">三角形上最近的点<br></br> Closest point on triangle</param>
         public double DistanceTo(Triangle t, out Point3d point_on_circle, out Point3d point_on_triangle)
         {
             double dist = this.DistanceTo(t.ToPlane, out point_on_circle, out point_on_triangle);
@@ -1266,6 +1386,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 圆到方框的最短距离<br></br>
         /// Shortest distance from circle to box
         /// </summary>
         public double DistanceTo(Box3d box)
@@ -1275,6 +1396,7 @@ namespace GeometRi
         #endregion
 
         /// <summary>
+        /// 圆与球的相交检查<br></br>
         /// Intersection check between circle and sphere
         /// </summary>
         public bool Intersects(Sphere s)
@@ -1301,6 +1423,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 两个圆之间的相交检查<br></br>
         /// Intersection check between two circles
         /// </summary>
         public bool Intersects(Circle3d c)
@@ -1442,6 +1565,7 @@ namespace GeometRi
 
 
         /// <summary>
+        /// 圆与三角形的相交检查<br></br>
         /// Intersection check between circle and triangle
         /// </summary>
         public bool Intersects(Triangle t)
@@ -1475,6 +1599,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 圆与盒子之间的相交检查<br></br>
         /// Intersection check between circle and box
         /// </summary>
         public bool Intersects(Box3d box)
@@ -1483,6 +1608,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 圆与线段的相交检查<br></br>
         /// Intersection check between circle and segment
         /// </summary>
         public bool Intersects(Segment3d s)
@@ -1491,6 +1617,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 圆到平面的正交投影<br></br>
         /// Orthogonal projection of the circle to plane
         /// </summary>
         public Ellipse ProjectionTo(Plane3d s)
@@ -1499,6 +1626,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 圆到线的正交投影<br></br>
         /// Orthogonal projection of the circle to line
         /// </summary>
         public Segment3d ProjectionTo(Line3d l)
@@ -1510,7 +1638,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Intersection of circle with line.
+        /// 圆与线的交点。<br></br>
+        /// Intersection of circle with line.<br></br>
+        /// 返回“null”（无交点）或“Point3d”或“Segment3d”类型的对象。<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Segment3d'.
         /// </summary>
         public object IntersectionWith(Line3d l)
@@ -1585,7 +1715,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Intersection of circle with segment.
+        /// 圆与线段的交点。<br></br>
+        /// Intersection of circle with segment.<br></br>
+        /// 返回“null”（无交点）或“Point3d”或“Segment3d”类型的对象。<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Segment3d'.
         /// </summary>
         public object IntersectionWith(Segment3d s)
@@ -1629,7 +1761,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Intersection of circle with ray.
+        /// 圆与射线的交点。<br></br>
+        /// Intersection of circle with ray.<br></br>
+        /// 返回“null”（无交点）或“Point3d”或“Segment3d”类型的对象。
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Segment3d'.
         /// </summary>
         public object IntersectionWith(Ray3d r)
@@ -1673,7 +1807,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Intersection of circle with plane.
+        /// 圆与平面的交点。<br></br>
+        /// Intersection of circle with plane.<br></br>
+        /// 返回“null”（无交点）或“Circle3d”、“Point3d”或“Segment3d”类型的对象。<br></br>
         /// Returns 'null' (no intersection) or object of type 'Circle3d', 'Point3d' or 'Segment3d'.
         /// </summary>
         public object IntersectionWith(Plane3d s)
@@ -1735,8 +1871,11 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 两个圆的交点。<br></br>
         /// Intersection of two circles.
-        /// Returns 'null' (no intersection) or object of type 'Circle3d', 'Point3d' or 'Segment3d'.
+        /// 返回“null”（无交点）或“Circle3d”、“Point3d”或“Segment3d”类型的对象。<br></br>
+        /// Returns 'null' (no intersection) or object of type 'Circle3d', 'Point3d' or 'Segment3d'.<br></br>
+        /// 在 2D（共面圆）中，线段将定义两个交点。<br></br>
         /// In 2D (coplanar circles) the segment will define two intersection points.
         /// </summary>
         public object IntersectionWith(Circle3d c)
@@ -1920,6 +2059,7 @@ namespace GeometRi
 
         #region "AngleTo"
         /// <summary>
+        /// 两个物体之间的角度（以弧度表示）（0 &lt; angle &lt; Pi）<br></br>
         /// Angle between two objects in radians (0 &lt; angle &lt; Pi)
         /// </summary>
         public double AngleTo(ILinearObject obj)
@@ -1927,6 +2067,7 @@ namespace GeometRi
             return GeometRi3D.GetAngle(this, obj);
         }
         /// <summary>
+        /// 两个物体之间的角度（以度为单位）（0 &lt; 角度 &lt; 180）<br></br>
         /// Angle between two objects in degrees (0 &lt; angle &lt; 180)
         /// </summary>
         public double AngleToDeg(ILinearObject obj)
@@ -1935,6 +2076,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 两个物体之间的角度（以弧度表示）（0 &lt; 角度 &lt; Pi）<br></br>
         /// Angle between two objects in radians (0 &lt; angle &lt; Pi)
         /// </summary>
         public double AngleTo(IPlanarObject obj)
@@ -1942,6 +2084,7 @@ namespace GeometRi
             return GeometRi3D.GetAngle(this, obj);
         }
         /// <summary>
+        /// 两个物体之间的角度（以度为单位）（0 &lt; 角度 &lt; 180）<br></br>
         /// Angle between two objects in degrees (0 &lt; angle &lt; 180)
         /// </summary>
         public double AngleToDeg(IPlanarObject obj)
@@ -1950,8 +2093,9 @@ namespace GeometRi
         }
         #endregion
 
-        #region "TranslateRotateReflect"
+        #region "平移 旋转 反射 TranslateRotateReflect"
         /// <summary>
+        /// 通过矢量平移圆<br></br>
         /// Translate circle by a vector
         /// </summary>
         public Circle3d Translate(Vector3d v)
@@ -1960,6 +2104,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 按给定的旋转矩阵旋转一圈<br></br>
         /// Rotate circle by a given rotation matrix
         /// </summary>
         [System.Obsolete("use Rotation object and specify rotation center: this.Rotate(Rotation r, Point3d p)")]
@@ -1969,6 +2114,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 以点 'p' 为旋转中心，按照给定的旋转矩阵旋转一圈<br></br>
         /// Rotate circle by a given rotation matrix around point 'p' as a rotation center
         /// </summary>
         [System.Obsolete("use Rotation object: this.Rotate(Rotation r, Point3d p)")]
@@ -1978,6 +2124,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 以点 'p' 为旋转中心旋转圆<br></br>
         /// Rotate circle around point 'p' as a rotation center
         /// </summary>
         public Circle3d Rotate(Rotation r, Point3d p)
@@ -1986,6 +2133,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 在给定点处反射圆<br></br>
         /// Reflect circle in given point
         /// </summary>
         public Circle3d ReflectIn(Point3d p)
@@ -1994,6 +2142,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 在给定的线中反射圆<br></br>
         /// Reflect circle in given line
         /// </summary>
         public Circle3d ReflectIn(Line3d l)
@@ -2002,6 +2151,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 在给定平面内反射圆<br></br>
         /// Reflect circle in given plane
         /// </summary>
         public Circle3d ReflectIn(Plane3d s)
@@ -2010,6 +2160,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 相对于给定点的缩放圆<br></br>
         /// Scale circle relative to given point
         /// </summary>
         public virtual Circle3d Scale(double scale, Point3d scaling_center)
@@ -2020,6 +2171,7 @@ namespace GeometRi
         #endregion
 
         /// <summary>
+        /// 确定两个对象是否相等。<br></br>
         /// Determines whether two objects are equal.
         /// </summary>
         public override bool Equals(object obj)
@@ -2043,6 +2195,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回对象的哈希码。<br></br>
         /// Returns the hashcode for the object.
         /// </summary>
         public override int GetHashCode()
@@ -2051,6 +2204,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 全局坐标系中对象的字符串表示形式。<br></br>
         /// String representation of an object in global coordinate system.
         /// </summary>
         public override String ToString()
@@ -2059,6 +2213,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 参考坐标系中对象的字符串表示。<br></br>
         /// String representation of an object in reference coordinate system.
         /// </summary>
         public String ToString(Coord3d coord)
@@ -2076,6 +2231,7 @@ namespace GeometRi
             return str;
         }
 
+        // 运算符重载
         // Operators overloads
         //-----------------------------------------------------------------
 

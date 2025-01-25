@@ -4,6 +4,7 @@ using static System.Math;
 namespace GeometRi
 {
     /// <summary>
+    /// 由三点定义的三维空间中的三角形。<br></br>
     /// Triangle in 3D space defined by three points.
     /// </summary>
 #if NET20
@@ -17,6 +18,7 @@ namespace GeometRi
         internal Point3d _c;
 
         /// <summary>
+        /// 使用三个点初始化三角形对象。<br></br>
         /// Initializes triangle object using three points.
         /// </summary>
         public Triangle(Point3d A, Point3d B, Point3d C)
@@ -32,6 +34,7 @@ namespace GeometRi
 
         /// <summary>
         /// Creates copy of the object
+        /// Creates copy of the object
         /// </summary>
         public Triangle Copy()
         {
@@ -40,6 +43,7 @@ namespace GeometRi
 
         #region "Properties"
         /// <summary>
+        /// 三角形的第一点<br></br>
         /// First point of triangle
         /// </summary>
         public Point3d A
@@ -56,6 +60,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 三角形的第二点<br></br>
         /// Second point of triangle
         /// </summary>
         public Point3d B
@@ -72,6 +77,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 三角形的第三点<br></br>
         /// Third point of triangle
         /// </summary>
         public Point3d C
@@ -88,6 +94,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// AB 边的长度<br></br>
         /// Length of AB side
         /// </summary>
         public double AB
@@ -96,6 +103,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// AC边长度<br></br>
         /// Length of AC side
         /// </summary>
         public double AC
@@ -104,6 +112,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// BC边的长度<br></br>
         /// Length of BC side
         /// </summary>
         public double BC
@@ -112,6 +121,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 三角形的周长<br></br>
         /// Perimeter of the triangle
         /// </summary>
         public double Perimeter
@@ -120,6 +130,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 三角形面积<br></br>
         /// Area of the triangle
         /// </summary>
         public double Area
@@ -132,17 +143,20 @@ namespace GeometRi
             }
         }
 
+        /// <inheritdoc/>
         public Vector3d Normal
         {
             get { return new Vector3d(_a, _b).Cross(new Vector3d(_a, _c)).Normalized; }
         }
 
+        /// <inheritdoc/>
         public bool IsOriented
         {
             get { return false; }
         }
 
         /// <summary>
+        /// 将三角形转换为平面物体。<br></br>
         /// Convert triangle to plane object.
         /// </summary>
         public Plane3d ToPlane
@@ -154,6 +168,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 三角形的外接圆<br></br>
         /// Circumcircle of the triangle
         /// </summary>
         public Circle3d Circumcircle
@@ -162,6 +177,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 顶点 A 处的角度
         /// Angle at the vertex A
         /// </summary>
         public double Angle_A
@@ -170,6 +186,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 顶点 B 处的角度<br></br>
         /// Angle at the vertex B
         /// </summary>
         public double Angle_B
@@ -178,6 +195,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 顶点 C 处的角度<br></br>
         /// Angle at the vertex C
         /// </summary>
         public double Angle_C
@@ -186,6 +204,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 顶点 A 处的角平分线<br></br>
         /// Angle bisector at the vertex A
         /// </summary>
         public Segment3d Bisector_A
@@ -198,6 +217,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 顶点 B 处的角平分线<br></br>
         /// Angle bisector at the vertex B
         /// </summary>
         public Segment3d Bisector_B
@@ -210,6 +230,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 顶点 C 处的角平分线<br></br>
         /// Angle bisector at the vertex C
         /// </summary>
         public Segment3d Bisector_C
@@ -222,6 +243,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 顶点 A 处的外角平分线<br></br>
         /// External angle bisector at the vertex A
         /// </summary>
         public Line3d ExternalBisector_A
@@ -234,6 +256,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 顶点 B 处的外角平分线<br></br>
         /// External angle bisector at the vertex B
         /// </summary>
         public Line3d ExternalBisector_B
@@ -246,6 +269,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 顶点 C 处的外角平分线<br></br>
         /// External angle bisector at the vertex C
         /// </summary>
         public Line3d ExternalBisector_C
@@ -258,6 +282,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 三角形内心<br></br>
         /// Incenter of the triangle
         /// </summary>
         public Point3d Incenter
@@ -266,6 +291,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 三角形的质心<br></br>
         /// Centroid of the triangle
         /// </summary>
         public Point3d Centroid
@@ -274,6 +300,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 三角形的垂心<br></br>
         /// Orthocenter of the triangle
         /// </summary>
         public Point3d Orthocenter
@@ -282,6 +309,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 三角形的外心<br></br>
         /// Circumcenter of the triangle
         /// </summary>
         public Point3d Circumcenter
@@ -290,6 +318,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 三角形的内切圆<br></br>
         /// Incircle of the triangle
         /// </summary>
         public Circle3d Incircle
@@ -304,6 +333,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 顶点 A 处的高度<br></br>
         /// Altitude at the vertex A
         /// </summary>
         public Segment3d Altitude_A
@@ -316,6 +346,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 顶点 B 处的高度<br></br>
         /// Altitude at the vertex B
         /// </summary>
         public Segment3d Altitude_B
@@ -328,6 +359,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 顶点 C 处的高度<br></br>
         /// Altitude at the vertex C
         /// </summary>
         public Segment3d Altitude_C
@@ -340,6 +372,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 顶点 A 处的中位数<br></br>
         /// Median at the vertex A
         /// </summary>
         public Segment3d Median_A
@@ -348,6 +381,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 顶点 B 处的中线<br></br>
         /// Median at the vertex B
         /// </summary>
         public Segment3d Median_B
@@ -356,6 +390,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 顶点 C 处的中位数<br></br>
         /// Median at the vertex C
         /// </summary>
         public Segment3d Median_C
@@ -366,6 +401,7 @@ namespace GeometRi
 
         #region "TriangleProperties"
         /// <summary>
+        /// 如果三角形的所有边都等长，则为真<br></br>
         /// True if all sides of the triangle are the same length
         /// </summary>
         public bool IsEquilateral
@@ -374,6 +410,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 如果三角形的两条边长度相同，则为真<br></br>
         /// True if two sides of the triangle are the same length
         /// </summary>
         public bool IsIsosceles
@@ -382,6 +419,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 如果各方不平等，则为真<br></br>
         /// True if all sides are unequal
         /// </summary>
         public bool IsScalene
@@ -390,6 +428,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 如果一个角度等于 90 度，则为真<br></br>
         /// True if one angle is equal 90 degrees
         /// </summary>
         public bool IsRight
@@ -398,6 +437,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 如果一个角度大于 90 度，则为真<br></br>
         /// True if one angle is greater than 90 degrees
         /// </summary>
         public bool IsObtuse
@@ -406,6 +446,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 如果所有角度都小于 90 度，则为真<br></br>
         /// True if all angles are less than 90 degrees
         /// </summary>
         public bool IsAcute
@@ -416,6 +457,7 @@ namespace GeometRi
 
         #region "ParallelMethods"
         /// <summary>
+        /// 检查两个物体是否平行<br></br>
         /// Check if two objects are parallel
         /// </summary>
         public bool IsParallelTo(ILinearObject obj)
@@ -424,6 +466,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否不平行<br></br>
         /// Check if two objects are NOT parallel
         /// </summary>
         public bool IsNotParallelTo(ILinearObject obj)
@@ -432,6 +475,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否正交<br></br>
         /// Check if two objects are orthogonal
         /// </summary>
         public bool IsOrthogonalTo(ILinearObject obj)
@@ -440,6 +484,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否平行<br></br>
         /// Check if two objects are parallel
         /// </summary>
         public bool IsParallelTo(IPlanarObject obj)
@@ -448,6 +493,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否不平行<br></br>
         /// Check if two objects are NOT parallel
         /// </summary>
         public bool IsNotParallelTo(IPlanarObject obj)
@@ -456,6 +502,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否正交<br></br>
         /// Check if two objects are orthogonal
         /// </summary>
         public bool IsOrthogonalTo(IPlanarObject obj)
@@ -464,6 +511,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否共面<br></br>
         /// Check if two objects are coplanar
         /// </summary>
         public bool IsCoplanarTo(IPlanarObject obj)
@@ -472,6 +520,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否共面<br></br>
         /// Check if two objects are coplanar
         /// </summary>
         public bool IsCoplanarTo(ILinearObject obj)
@@ -482,6 +531,7 @@ namespace GeometRi
 
         #region "BoundingBox"
         /// <summary>
+        /// 返回最小边界框。<br></br>
         /// Return minimum bounding box.
         /// </summary>
         public Box3d MinimumBoundingBox
@@ -518,6 +568,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回给定坐标系中的边界框。<br></br>
         /// Return Bounding Box in given coordinate system.
         /// </summary>
         public Box3d BoundingBox(Coord3d coord = null)
@@ -542,6 +593,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回轴对齐边界框（AABB）。<br></br>
         /// Return Axis Aligned Bounding Box (AABB).
         /// </summary>
         public AABB AABB()
@@ -550,6 +602,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回边界球。<br></br>
         /// Return bounding sphere.
         /// </summary>
         public Sphere BoundingSphere
@@ -560,6 +613,7 @@ namespace GeometRi
 
         #region "Distance"
         /// <summary>
+        /// 三角形和点之间的最短距离<br></br>
         /// Shortest distance between triangle and point
         /// </summary>
         public double DistanceTo(Point3d p)
@@ -585,6 +639,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 三角形和点之间的最短距离<br></br>
         /// Shortest distance between triangle and point
         /// </summary>
         public double DistanceTo(Point3d p, out Point3d closest_point)
@@ -623,6 +678,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 计算三角形上距离给定点最近的点。<br></br>
         /// Calculates the point on the triangle closest to given point.
         /// </summary>
         public Point3d ClosestPoint(Point3d p)
@@ -659,6 +715,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 三角形与圆之间的最短距离（包括内部点）<br></br>
         /// Shortest distance between triangle and circle (including interior points)
         /// </summary>
         public double DistanceTo(Circle3d c)
@@ -668,17 +725,19 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 三角形与圆之间的最短距离（包括内部点）<br></br>
         /// Shortest distance between triangle and circle (including interior points)
         /// </summary>
-        /// <param name="c">Target circle</param>
-        /// <param name="point_on_triangle">Closest point on triangle</param>
-        /// <param name="point_on_circle">Closest point on circle</param>
+        /// <param name="c">Target circle Target circle</param>
+        /// <param name="point_on_triangle">Closest point on triangle Closest point on triangle</param>
+        /// <param name="point_on_circle">Closest point on circle Closest point on circle</param>
         public double DistanceTo(Circle3d c, out Point3d point_on_triangle, out Point3d point_on_circle)
         {
             return c.DistanceTo(this, out point_on_circle, out point_on_triangle);
         }
 
         /// <summary>
+        /// 三角形和线段之间的最短距离<br></br>
         /// Shortest distance between triangle and segment
         /// </summary>
         public double DistanceTo(Segment3d s)
@@ -690,6 +749,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 三角形和线段之间的最短距离（包含最近点）<br></br>
         /// Shortest distance between triangle and segment (with closest points)
         /// </summary>
         public double DistanceTo(Segment3d s, out Point3d point_on_triangle, out Point3d point_on_segment)
@@ -700,6 +760,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 三角形和线段之间的最短距离<br></br>
         /// Shortest distance between triangle and segment
         /// </summary>
         internal double _DistanceToSegment(Segment3d s)
@@ -771,11 +832,12 @@ namespace GeometRi
 
 
         /// <summary>
+        /// 三角形和线段之间的最短距离<br></br>
         /// Shortest distance between triangle and segment
         /// </summary>
         /// <param name="s">Target segment</param>
-        /// <param name="point_on_triangle">Closest point on triangle</param>
-        /// <param name="point_on_segment">Closest point on segment</param>
+        /// <param name="point_on_triangle">Closest point on triangle Closest point on triangle</param>
+        /// <param name="point_on_segment">Closest point on segment Closest point on segment</param>
         internal double _DistanceToSegment_with_points(Segment3d s, out Point3d point_on_triangle, out Point3d point_on_segment)
         {
             if (s.P1.BelongsTo(this))
@@ -882,6 +944,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 两个三角形之间的最短距离<br></br>
         /// Shortest distance between two triangles
         /// </summary>
         public double DistanceTo(Triangle t)
@@ -893,6 +956,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 两个三角形之间的最短距离（具有最近点）<br></br>
         /// Shortest distance between two triangles (with closest points)
         /// </summary>
         public double DistanceTo(Triangle t, out Point3d point_on_this_triangle, out Point3d point_on_target_triangle)
@@ -904,6 +968,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 两个三角形之间的最短距离<br></br>
         /// Shortest distance between two triangles
         /// </summary>
         internal double _DistanceToTriangle(Triangle t)
@@ -970,6 +1035,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 两个三角形之间的最短距离（具有最近点）<br></br>
         /// Shortest distance between two triangles (with closest points)
         /// </summary>
         internal double _DistanceToTriangle(Triangle t, out Point3d point_on_this_triangle, out Point3d point_on_target_triangle)
@@ -1060,6 +1126,7 @@ namespace GeometRi
         #endregion
 
         /// <summary>
+/// 三角形到线的正交投影<br></br>
         /// Orthogonal projection of the triangle to line
         /// </summary>
         public Segment3d ProjectionTo(Line3d l)
@@ -1087,7 +1154,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Get intersection of line with triangle.
+/// 获取线与三角形的交点。<br></br>
+/// 返回“null”（无交点）或“Point3d”或“Segment3d”类型的对象。  <br></br>    
+        /// Get intersection of line with triangle.<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Segment3d'.
         /// </summary>
         public object IntersectionWith(Line3d l)
@@ -1138,7 +1207,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Get intersection of plane with triangle.
+/// 获取平面与三角形的交点。<br></br>
+/// 返回“null”（无交点）或“Triangle”、“Point3d”或“Segment3d”类型的对象。    <br></br>  
+        /// Get intersection of plane with triangle.<br></br>
         /// Returns 'null' (no intersection) or object of type 'Triangle', 'Point3d' or 'Segment3d'.
         /// </summary>
         public object IntersectionWith(Plane3d s)
@@ -1179,7 +1250,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Get intersection of line with triangle (coplanar).
+/// 获取线与三角形的交点（共面）。<br></br>
+/// 返回“null”（无交点）或“Point3d”或“Segment3d”类型的对象。<br></br>
+        /// Get intersection of line with triangle (coplanar).<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Segment3d'.
         /// </summary>
         internal object _coplanar_IntersectionWith(Line3d l)
@@ -1245,7 +1318,9 @@ namespace GeometRi
 
 
         /// <summary>
-        /// Get intersection of segment with triangle.
+/// 获取线段与三角形的交点。<br></br>
+/// 返回“null”（无交点）或“Point3d”或“Segment3d”类型的对象。<br></br>
+        /// Get intersection of segment with triangle.<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Segment3d'.
         /// </summary>
         public object IntersectionWith(Segment3d s)
@@ -1288,7 +1363,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Get intersection of ray with triangle.
+/// 获取射线与三角形的交点。<br></br>
+/// 返回“null”（无交点）或“Point3d”或“Segment3d”类型的对象。<br></br>
+        /// Get intersection of ray with triangle.<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Segment3d'.
         /// </summary>
         public object IntersectionWith(Ray3d r)
@@ -1332,6 +1409,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 圆与三角形的相交检查<br></br>
         /// Intersection check between circle and triangle
         /// </summary>
         public bool Intersects(Circle3d c)
@@ -1340,6 +1418,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 四面体与三角形的相交检查<br></br>
         /// Intersection check between tetrahedron and triangle
         /// </summary>
         public bool Intersects(Tetrahedron t)
@@ -1348,6 +1427,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 三角形与球体的相交检查<br></br>
         /// Intersection check between triangle and sphere
         /// </summary>
         public bool Intersects(Sphere s)
@@ -1371,6 +1451,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 两个三角形之间的相交检查<br></br>
         /// Intersection check between two triangles
         /// </summary>
         public bool Intersects(Triangle t)
@@ -1406,6 +1487,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查三角形与方框的交点<br></br>
         /// Check intersection of triangle with box
         /// </summary>
         public bool Intersects(Box3d box)
@@ -1463,6 +1545,7 @@ namespace GeometRi
 
         #region "AngleTo"
         /// <summary>
+        /// 两个物体之间的角度（以弧度表示）(0 &lt; angle &lt; Pi)<br></br>
         /// Angle between two objects in radians (0 &lt; angle &lt; Pi)
         /// </summary>
         public double AngleTo(ILinearObject obj)
@@ -1470,6 +1553,7 @@ namespace GeometRi
             return GeometRi3D.GetAngle(this, obj);
         }
         /// <summary>
+        /// 两个物体之间的角度（以度为单位）(0 &lt; angle &lt; 180)<br></br>
         /// Angle between two objects in degrees (0 &lt; angle &lt; 180)
         /// </summary>
         public double AngleToDeg(ILinearObject obj)
@@ -1478,6 +1562,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 两个物体之间的角度（以弧度表示）(0 &lt; angle &lt; Pi)<br></br>
         /// Angle between two objects in radians (0 &lt; angle &lt; Pi)
         /// </summary>
         public double AngleTo(IPlanarObject obj)
@@ -1485,6 +1570,7 @@ namespace GeometRi
             return GeometRi3D.GetAngle(this, obj);
         }
         /// <summary>
+        /// 两个物体之间的角度（以度为单位）(0 &lt; angle &lt; 180)<br></br>
         /// Angle between two objects in degrees (0 &lt; angle &lt; 180)
         /// </summary>
         public double AngleToDeg(IPlanarObject obj)
@@ -1495,6 +1581,7 @@ namespace GeometRi
 
         #region "TranslateRotateReflect"
         /// <summary>
+        /// 通过向量平移三角形<br></br>
         /// Translate triangle by a vector
         /// </summary>
         public Triangle Translate(Vector3d v)
@@ -1503,6 +1590,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 根据给定的旋转矩阵旋转三角形
         /// Rotate triangle by a given rotation matrix
         /// </summary>
         [System.Obsolete("use Rotation object and specify rotation center: this.Rotate(Rotation r, Point3d p)")]
@@ -1512,6 +1600,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 以点“p”为旋转中心，按照给定的旋转矩阵旋转三角形<br></br>
         /// Rotate triangle by a given rotation matrix around point 'p' as a rotation center
         /// </summary>
         [System.Obsolete("use Rotation object: this.Rotate(Rotation r, Point3d p)")]
@@ -1521,6 +1610,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 以点 'p' 为中心旋转三角形<br></br>
         /// Rotate triangle around point 'p' as a rotation center
         /// </summary>
         public Triangle Rotate(Rotation r, Point3d p)
@@ -1529,6 +1619,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 在给定点反射三角形<br></br>
         /// Reflect triangle in given point
         /// </summary>
         public Triangle ReflectIn(Point3d p)
@@ -1537,6 +1628,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 在给定的线上反映三角形<br></br>
         /// Reflect triangle in given line
         /// </summary>
         public Triangle ReflectIn(Line3d l)
@@ -1545,6 +1637,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 在给定平面上反射三角形<br></br>
         /// Reflect triangle in given plane
         /// </summary>
         public Triangle ReflectIn(Plane3d s)
@@ -1553,6 +1646,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 相对于给定点缩放三角形<br></br>
         /// Scale triangle relative to given point
         /// </summary>
         public virtual Triangle Scale(double scale, Point3d scaling_center)

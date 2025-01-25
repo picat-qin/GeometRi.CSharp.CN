@@ -4,6 +4,7 @@ using static System.Math;
 namespace GeometRi
 {
     /// <summary>
+    /// 在全局或局部参考系中定义的 3D 空间中的点。<br></br>
     /// Point in 3D space defined in global or local reference frame.
     /// </summary>
 #if NET20
@@ -19,9 +20,13 @@ namespace GeometRi
 
         #region "Constructors"
         /// <summary>
+        /// 默认构造函数，初始化零点。<br></br>
         /// Default constructor, initializes zero point.
         /// </summary>
-        /// <param name="coord">Reference coordinate system (default - Coord3d.GlobalCS).</param>
+        /// <param name="coord">
+        /// 参考坐标系（默认 - Coord3d.GlobalCS）。<br></br>
+        /// Reference coordinate system (default - Coord3d.GlobalCS).
+        /// </param>
         public Point3d(Coord3d coord = null)
         {
             _x = 0.0;
@@ -31,9 +36,13 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 使用坐标初始化点对象。<br></br>
         /// Initiaizes point object using coordinates.
         /// </summary>
-        /// <param name="coord">Reference coordinate system (default - Coord3d.GlobalCS).</param>
+        /// <param name="coord">
+        /// 参考坐标系（默认 - Coord3d.Global CS）。<br></br>
+        /// Reference coordinate system (default - Coord3d.GlobalCS).
+        /// </param>
         public Point3d(double x, double y, double z, Coord3d coord = null)
         {
             _x = x;
@@ -43,9 +52,13 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 使用双精度数组初始化点对象。<br></br>
         /// Initiaizes point object using double array.
         /// </summary>
-        /// <param name="coord">Reference coordinate system (default - Coord3d.GlobalCS).</param>
+        /// <param name="coord">
+        /// 参考坐标系（默认 - Coord3d.Global CS）。<br></br>
+        /// Reference coordinate system (default - Coord3d.GlobalCS).
+        /// </param>
         public Point3d(double[] a, Coord3d coord = null)
         {
             if (a.GetUpperBound(0) < 2)
@@ -58,7 +71,7 @@ namespace GeometRi
         #endregion
 
         /// <summary>
-        /// Creates copy of the object
+        /// 创建对象的副本<br></br>
         /// </summary>
         public Point3d Copy()
         {
@@ -66,6 +79,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 参考坐标系中的 X 坐标<br></br>
         /// X coordinate in reference coordinate system
         /// </summary>
         public double X
@@ -74,6 +88,7 @@ namespace GeometRi
             set { _x = value; }
         }
         /// <summary>
+        /// 参考坐标系中的 Y 坐标<br></br>
         /// Y coordinate in reference coordinate system
         /// </summary>
         public double Y
@@ -82,6 +97,7 @@ namespace GeometRi
             set { _y = value; }
         }
         /// <summary>
+        /// 参考坐标系中的 Z 坐标<br></br>
         /// Z coordinate in reference coordinate system
         /// </summary>
         public double Z
@@ -91,6 +107,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        ///  参考坐标系<br></br>
         ///  Reference coordinate system
         /// </summary>
         public Coord3d Coord
@@ -99,6 +116,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 点的半径矢量（在全局坐标系中）<br></br>
         /// Radius vector of point (in global coordinate system)
         /// </summary>
         public Vector3d ToVector
@@ -107,6 +125,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 将点转换为参考坐标系<br></br>
         /// Convert point to reference coordinate system
         /// </summary>
         public Point3d ConvertTo(Coord3d coord)
@@ -123,6 +142,7 @@ namespace GeometRi
             return p;
         }
         /// <summary>
+        /// 将点转换为全局坐标系<br></br>
         /// Convert point to global coordinate system
         /// </summary>
         /// <returns></returns>
@@ -143,6 +163,11 @@ namespace GeometRi
 
         }
 
+        /// <summary>
+        /// 加法
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
         public Point3d Add(Point3d p)
         {
             if ((this._coord != p._coord))
@@ -153,6 +178,12 @@ namespace GeometRi
             tmp.Z += p.Z;
             return tmp;
         }
+
+        /// <summary>
+        /// 减法
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
         public Point3d Subtract(Point3d p)
         {
             if ((this._coord != p._coord))
@@ -163,6 +194,12 @@ namespace GeometRi
             tmp.Z -= p.Z;
             return tmp;
         }
+
+        /// <summary>
+        /// 乘法
+        /// </summary>
+        /// <param name="a"></param>
+        /// <returns></returns>
         public Point3d Scale(double a)
         {
             Point3d tmp = this.Copy();
@@ -174,6 +211,7 @@ namespace GeometRi
 
         #region "DistanceTo"
         /// <summary>
+        /// 返回两点之间的距离<br></br>
         /// Returns distance between two points
         /// </summary>
         public double DistanceTo(Point3d p)
@@ -184,6 +222,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回两点之间的平方距离<br></br>
         /// Returns squared distance between two points
         /// </summary>
         public double DistanceSquared(Point3d p)
@@ -194,6 +233,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回到线的最短距离<br></br>
         /// Returns shortest distance to the line
         /// </summary>
         /// <param name="l"></param>
@@ -205,6 +245,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回从点到平面的最短距离<br></br>
         /// Returns shortest distance from point to the plane
         /// </summary>
         public double DistanceTo(Plane3d s)
@@ -214,6 +255,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回从点到射线的最短距离<br></br>
         /// Returns shortest distance from point to the ray
         /// </summary>
         public double DistanceTo(Ray3d r)
@@ -229,6 +271,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回从点到线段的最短距离<br></br>
         /// Returns shortest distance from point to the segment
         /// </summary>
         public double DistanceTo(Segment3d s)
@@ -245,6 +288,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 点与球体（包括内部点）之间的最短距离。<br></br>
         /// Shortest distance between point and sphere (including interior points).
         /// </summary>
         public double DistanceTo(Sphere s)
@@ -253,6 +297,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 点到圆的最短距离（包括内部点）<br></br>
         /// Shortest distance from point to circle (including interior points)
         /// </summary>
         public double DistanceTo(Circle3d c)
@@ -261,6 +306,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 框到点的距离（对于位于框内的点将返回零）<br></br>
         /// Distance from box to point (zero will be returned for point located inside box)
         /// </summary>
         public double DistanceTo(Box3d box)
@@ -269,6 +315,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 从 AABB 到点的距离（对于位于框内的点将返回零）<br></br>
         /// Distance from AABB to point (zero will be returned for point located inside box)
         /// </summary>
         public double DistanceTo(AABB box)
@@ -277,6 +324,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 从点到三角形的最短距离（包括内部点）<br></br>
         /// Shortest distance from point to triangle (including interior points)
         /// </summary>
         public double DistanceTo(Triangle t)
@@ -285,6 +333,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 从点到三角形的最短距离（包括内部点）<br></br>
         /// Shortest distance from point to triangle (including interior points)
         /// </summary>
         public double DistanceTo(Triangle t, out Point3d closest_point)
@@ -296,6 +345,7 @@ namespace GeometRi
         #endregion
 
         /// <summary>
+        /// 圆上最近的点（包括内部点）。<br></br>
         /// Closest point on circle (including interior points).
         /// </summary>
         public Point3d ClosestPoint(Circle3d c)
@@ -304,6 +354,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 盒子上最近的点（包括内部点）。<br></br>
         /// Closest point on box (including interior points).
         /// </summary>
         public Point3d ClosestPoint(Box3d box)
@@ -312,6 +363,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 三角形上的最近点。<br></br>
         /// Closest point on triangle.
         /// </summary>
         public Point3d ClosestPoint(Triangle t)
@@ -320,6 +372,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 球体表面上最接近目标点“p”的点。<br></br>
         /// Point on sphere's surface closest to target point "p".
         /// </summary>
         public Point3d ClosestPoint(Sphere s)
@@ -329,6 +382,7 @@ namespace GeometRi
 
 
         /// <summary>
+        /// 返回点到平面的正交投影<br></br>
         /// Returns orthogonal projection of the point to the plane
         /// </summary>
         public Point3d ProjectionTo(Plane3d s)
@@ -340,6 +394,7 @@ namespace GeometRi
             return r0.ToPoint;
         }
         /// <summary>
+        /// 返回点到线的正交投影<br></br>
         /// Returns orthogonal projection of the point to the line
         /// </summary>
         public Point3d ProjectionTo(Line3d l)
@@ -352,6 +407,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回点到球体表面的正交投影<br></br>
         /// Returns orthogonal projection of the point to the surface of the sphere
         /// </summary>
         public Point3d ProjectionTo(Sphere s)
@@ -361,7 +417,9 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// <para>测试点是否位于该线的 epsilon 邻域内。</para>
         /// <para>Test if point is located in the epsilon neighborhood of the line.</para>
+        /// <para>Epsilon 邻域由 Geomet Ri3D.Tolerance 属性定义。</para>
         /// <para>Epsilon neighborhood is defined by a GeometRi3D.Tolerance property.</para>
         /// </summary>
         public bool BelongsTo(Line3d l)
@@ -370,6 +428,8 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// <para>测试点是否位于射线的 epsilon 邻域内。</para> 
+        /// <para>Epsilon 邻域由 Geomet Ri3D.Tolerance 属性定义。</para>
         /// <para>Test if point is located in the epsilon neighborhood of the ray.</para>
         /// <para>Epsilon neighborhood is defined by a GeometRi3D.Tolerance property.</para>
         /// </summary>
@@ -392,6 +452,8 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// <para>测试点是否位于平面的 epsilon 邻域内。</para> 
+        /// <para>Epsilon 邻域由 Geomet Ri3D.Tolerance 属性定义。</para>       
         /// <para>Test if point is located in the epsilon neighborhood of the plane.</para>
         /// <para>Epsilon neighborhood is defined by a GeometRi3D.Tolerance property.</para>
         /// </summary>
@@ -423,6 +485,9 @@ namespace GeometRi
         #region "Point location"
 
         /// <summary>
+        /// <para>测试点是否位于对象的 epsilon 邻域内。</para> 
+        /// <para>Epsilon 邻域由 Geomet Ri3D.Tolerance 属性定义。</para> 
+        /// <para>对于相对公差测试，典型对象尺寸的一小部分用于定义 epsilon 邻域。</para>
         /// <para>Test if point is located in the epsilon neighborhood of the object.</para>
         /// <para>Epsilon neighborhood is defined by a GeometRi3D.Tolerance property.</para>
         /// <para>For relative tolerance tests a fraction of the typical object's dimension is used to define epsilon neighborhood.</para>
@@ -434,6 +499,9 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// <para>测试点是否严格位于对象内部（不在边界的 epsilon 邻域内）。</para> 
+        /// <para>Epsilon 邻域由 Geomet Ri3D.Tolerance 属性定义。</para> 
+        /// <para>对于相对公差测试，典型对象尺寸的一小部分用于定义 epsilon 邻域。</para>
         /// <para>Test if point is located strictly inside (not in the epsilon neighborhood of the boundary) of the object.</para>
         /// <para>Epsilon neighborhood is defined by a GeometRi3D.Tolerance property.</para>
         /// <para>For relative tolerance tests a fraction of the typical object's dimension is used to define epsilon neighborhood.</para>
@@ -445,6 +513,9 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// <para>测试点是否位于对象的 epsilon 邻域之外。</para> 
+        /// <para>Epsilon 邻域由 Geomet Ri3D.Tolerance 属性定义。</para> 
+        /// <para>对于相对公差测试，典型对象尺寸的一小部分用于定义 epsilon 邻域。</para>
         /// <para>Test if point is located outside of the epsilon neighborhood of the object.</para>
         /// <para>Epsilon neighborhood is defined by a GeometRi3D.Tolerance property.</para>
         /// <para>For relative tolerance tests a fraction of the typical object's dimension is used to define epsilon neighborhood.</para>
@@ -456,6 +527,9 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// <para>测试点是否位于对象边界的 epsilon 邻域内。</para> 
+        /// <para>Epsilon 邻域由 Geomet Ri3D.Tolerance 属性定义。</para> 
+        /// <para>对于相对公差测试，典型对象尺寸的一小部分用于定义 epsilon 邻域。</para>
         /// <para>Test if point is located in the epsilon neighborhood of the object's boundary.</para>
         /// <para>Epsilon neighborhood is defined by a GeometRi3D.Tolerance property.</para>
         /// <para>For relative tolerance tests a fraction of the typical object's dimension is used to define epsilon neighborhood.</para>
@@ -473,6 +547,7 @@ namespace GeometRi
 
         #region "TranslateRotateReflect"
         /// <summary>
+        /// 通过向量平移点<br></br>
         /// Translate point by a vector
         /// </summary>
         public Point3d Translate(Vector3d v)
@@ -483,6 +558,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 根据给定的旋转矩阵旋转点<br></br>
         /// Rotate point by a given rotation matrix
         /// </summary>
         [System.Obsolete("use Rotation object and specify rotation center: this.Rotate(Rotation r, Point3d p)")]
@@ -492,6 +568,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 以点“p”为旋转中心，按照给定的旋转矩阵旋转点<br></br>
         /// Rotate point by a given rotation matrix around point 'p' as a rotation center
         /// </summary>
         [System.Obsolete("use Rotation object: this.Rotate(Rotation r, Point3d p)")]
@@ -503,6 +580,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 围绕对象参考坐标系中的原点旋转对象。<br></br>
         /// Rotate object around origin in object's reference coordinate system.
         /// </summary>
         public Point3d Rotate(Rotation r)
@@ -512,6 +590,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 以点“p”为旋转中心旋转点。<br></br>
         /// Rotate point around point 'p' as a rotation center.
         /// </summary>
         public Point3d Rotate(Rotation r, Point3d p)
@@ -522,6 +601,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 在给定点处反射点<br></br>
         /// Reflect point in given point
         /// </summary>
         public Point3d ReflectIn(Point3d p)
@@ -533,6 +613,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 给定线上的反射点<br></br>
         /// Reflect point in given line
         /// </summary>
         public Point3d ReflectIn(Line3d l)
@@ -542,6 +623,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 给定平面内的反射点<br></br>
         /// Reflect point in given plane
         /// </summary>
         public Point3d ReflectIn(Plane3d s)
@@ -552,6 +634,7 @@ namespace GeometRi
         #endregion
 
         /// <summary>
+        /// 检查三个点是否共线<br></br>
         /// Check if three points are collinear
         /// </summary>
         public static bool CollinearPoints(Point3d A, Point3d B, Point3d C)
@@ -569,6 +652,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 确定两个对象是否相等。<br></br>
         /// Determines whether two objects are equal.
         /// </summary>
         public override bool Equals(object obj)
@@ -600,6 +684,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回对象的哈希码。<br></br>
         /// Returns the hashcode for the object.
         /// </summary>
         public override int GetHashCode()

@@ -4,6 +4,7 @@ using static System.Math;
 namespace GeometRi
 {
     /// <summary>
+    /// 由中心点和三个相互正交的向量定义的椭圆体物体。<br></br>
     /// Ellipsoid object defined by center point and three mutually orthogonal vectors.
     /// </summary>
 #if NET20
@@ -18,12 +19,13 @@ namespace GeometRi
         private Vector3d _v3;
 
         /// <summary>
+        /// 使用中心点和三个正交向量初始化椭圆体实例。<br></br>
         /// Initializes ellipsoid instance using center point and three orthogonal vectors.
         /// </summary>
-        /// <param name="Center">Center point.</param>
-        /// <param name="v1">First semiaxis.</param>
-        /// <param name="v2">Second semiaxis.</param>
-        /// <param name="v3">Third semiaxis.</param>
+        /// <param name="Center">中心点<br></br> Center point.</param>
+        /// <param name="v1">第一向量<br></br> First semiaxis.</param>
+        /// <param name="v2">第二向量<br></br> Second semiaxis.</param>
+        /// <param name="v3">第三向量<br></br> Third semiaxis.</param>
         public Ellipsoid(Point3d Center, Vector3d v1, Vector3d v2, Vector3d v3)
         {
             if ( !(v1.IsOrthogonalTo(v2) && v1.IsOrthogonalTo(v3) && v3.IsOrthogonalTo(v2)) )
@@ -76,6 +78,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 创建对象的副本<br></br>
         /// Creates copy of the object
         /// </summary>
         public Ellipsoid Copy()
@@ -84,12 +87,16 @@ namespace GeometRi
         }
 
         #region "Properties"
+        /// <summary>
+        /// 中心点
+        /// </summary>
         public Point3d Center
         {
             get { return _point.Copy(); }
         }
 
         /// <summary>
+        /// 长半轴<br></br>
         /// Major semiaxis
         /// </summary>
         public Vector3d SemiaxisA
@@ -98,6 +105,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 中间半轴<br></br>
         /// Intermediate semiaxis
         /// </summary>
         public Vector3d SemiaxisB
@@ -106,6 +114,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 小半轴
         /// Minor semiaxis
         /// </summary>
         public Vector3d SemiaxisC
@@ -114,6 +123,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 长半轴长度<br></br>
         /// Length of the major semiaxis
         /// </summary>
         public double A
@@ -122,6 +132,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 中间半轴的长度<br></br>
         /// Length of the intermediate semiaxis
         /// </summary>
         public double B
@@ -130,6 +141,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 短半轴的长度<br></br>
         /// Length of the minor semiaxis
         /// </summary>
         public double C
@@ -138,6 +150,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 椭圆体的体积<br></br>
         /// Volume of the ellipsoid
         /// </summary>
         public double Volume
@@ -146,6 +159,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 椭圆体的近似表面积（精确到1.061%）。
         /// Approximate surface area of the ellipsoid (accurate up to 1.061%).
         /// </summary>
         public double Area
@@ -160,6 +174,7 @@ namespace GeometRi
 
         #region "BoundingBox"
         /// <summary>
+        /// 返回最小边界框。<br></br>
         /// Return minimum bounding box.
         /// </summary>
         public Box3d MinimumBoundingBox
@@ -176,6 +191,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回给定坐标系中的边界框。<br></br>
         /// Return Bounding Box in given coordinate system.
         /// </summary>
         public Box3d BoundingBox(Coord3d coord = null)
@@ -191,6 +207,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回轴对齐边界框（AABB）。<br></br>
         /// Return Axis Aligned Bounding Box (AABB).
         /// </summary>
         public AABB AABB()
@@ -205,6 +222,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回边界球。<br></br>
         /// Return bounding sphere.
         /// </summary>
         public Sphere BoundingSphere
@@ -215,6 +233,7 @@ namespace GeometRi
         #endregion
 
         /// <summary>
+        /// 椭圆体到线的正交投影。<br></br>
         /// Orthogonal projection of ellipsoid to line.
         /// </summary>
         public Segment3d ProjectionTo(Line3d l)
@@ -236,19 +255,26 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Intersection of ellipsoid with line.
+        /// 椭圆体与线的交点。<br></br>
+        /// Intersection of ellipsoid with line.<br></br>
+        /// 返回“null”（无交点）或“Point3d”或“Segment3d”类型的对象。<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Segment3d'.
         /// </summary>
         public object IntersectionWith(Line3d s)
         {
+            // 解析解来自：
             // Analytical solution from:
             // https://johannesbuchner.github.io/intersection/intersection_line_ellipsoid.html
+
+            // 定义椭球的局部坐标系 
+            // 并在局部坐标系中以参数形式呈现线
 
             // Define local cordinate system for ellipsoid
             // and present line in parametric form in local coordinate system
             // x: t + x0
             // y: k * t + y0
             // z: l * t + z0
+            // 为了数值稳定性，选择局部 X 轴，使得 k<=1 和 l<=1 !!!
             // For numerical stability choose local X axis such that k<=1 and l<=1 !!!
 
             Coord3d lc = new Coord3d(_point, _v1, _v2);
@@ -258,6 +284,7 @@ namespace GeometRi
             double c = C;
             if (Abs(v0.Y) > Abs(v0.X) || Abs(v0.Z) > Abs(v0.X))
             {
+                // X 轴选择错误，请重试
                 // Bad choice of X axis, try again
                 lc = new Coord3d(_point, _v2, _v3);
                 v0 = s.Direction.ConvertTo(lc);
@@ -273,6 +300,7 @@ namespace GeometRi
                     c = B;
                 }
             }
+            // 规范化方向向量
             // Normalize direction vector
             double k = v0.Y / v0.X;
             double l = v0.Z / v0.X;
@@ -316,7 +344,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Intersection of ellipsoid with segment.
+        /// 椭圆体与线段的交点。<br></br>
+        /// Intersection of ellipsoid with segment.<br></br>
+        /// 返回“null”（无交点）或“Point3d”或“Segment3d”类型的对象。<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Segment3d'.
         /// </summary>
         public object IntersectionWith(Segment3d s)
@@ -360,7 +390,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Intersection of ellipsoid with ray.
+        /// 椭圆体与射线的交点。<br></br>
+        /// Intersection of ellipsoid with ray.<br></br>
+        /// 返回“null”（无交点）或“Point3d”或“Segment3d”类型的对象。<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Segment3d'.
         /// </summary>
         public object IntersectionWith(Ray3d r)
@@ -404,15 +436,27 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Intersection of ellipsoid with plane.
+        /// 椭圆体与平面的交点。<br></br>
+        /// Intersection of ellipsoid with plane.<br></br>
+        /// 返回“null”（无交点）或“Point3d”或“Ellipse”类型的对象。<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Ellipse'.
         /// </summary>
         public object IntersectionWith(Plane3d plane)
         {
+            // 解决方案 1： 
+            // Peter Paul Klein 
+            // 关于椭球面与平面相交方程 
+            // 应用数学，2012，3，1634-1640（DOI：10.4236/am.2012.311226）
+
             // Solution 1:
             // Peter Paul Klein 
             // On the Ellipsoid and Plane Intersection Equation
             // Applied Mathematics, 2012, 3, 1634-1640 (DOI:10.4236/am.2012.311226)
+
+            // 解决方案 2： 
+            // Sebahattin Bektas 
+            // 椭圆体与平面的交点 
+            // 国际工程与应用科学研究杂志，第 6 卷，第 6 期（2016 年 6 月）
 
             // Solution 2:
             // Sebahattin Bektas
@@ -464,8 +508,9 @@ namespace GeometRi
             Point3d P0 = new Point3d(X0, Y0, Z0, lc);
             if (P0.IsOnBoundary(this))
                 {
-                    // the plane is tangent to ellipsoid
-                    return P0;
+                // 该平面与椭圆体相切
+                // the plane is tangent to ellipsoid
+                return P0;
             }
             else if (P0.IsInside(this))
             {
@@ -549,11 +594,13 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 计算椭圆体边界上距离给定点最近的点。<br></br>
         /// Calculates the point on the ellipsoid's boundary closest to given point.
         /// </summary>
         public Point3d ClosestPoint(Point3d p)
         {
 
+            // Robert Nurnberg 博士的算法
             // Algorithm by Dr. Robert Nurnberg
             // http://wwwf.imperial.ac.uk/~rn/distance2ellipse.pdf
 
@@ -562,6 +609,7 @@ namespace GeometRi
 
             if (GeometRi3D.AlmostEqual(p.X, 0) && GeometRi3D.AlmostEqual(p.Y, 0))
             {
+                // 中心点，选择任意短轴
                 // Center point, choose any minor-axis
                 return new Point3d(0, C, 0, local_coord);
             }
@@ -613,6 +661,7 @@ namespace GeometRi
 
         #region "TranslateRotateReflect"
         /// <summary>
+        /// 通过矢量平移椭圆体<br></br>
         /// Translate ellipsoid by a vector
         /// </summary>
         public Ellipsoid Translate(Vector3d v)
@@ -621,6 +670,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 按给定的旋转矩阵旋转椭圆体<br></br>
         /// Rotate ellipsoid by a given rotation matrix
         /// </summary>
         [System.Obsolete("use Rotation object and specify rotation center: this.Rotate(Rotation r, Point3d p)")]
@@ -630,6 +680,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 以点“p”为旋转中心，按照给定的旋转矩阵旋转椭圆体<br></br>
         /// Rotate ellipsoid by a given rotation matrix around point 'p' as a rotation center
         /// </summary>
         [System.Obsolete("use Rotation object: this.Rotate(Rotation r, Point3d p)")]
@@ -639,6 +690,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 以点 'p' 为旋转中心旋转椭圆体<br></br>
         /// Rotate ellipsoid around point 'p' as a rotation center
         /// </summary>
         public Ellipsoid Rotate(Rotation r, Point3d p)
@@ -647,6 +699,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 在给定点反射椭圆体<br></br>
         /// Reflect ellipsoid in given point
         /// </summary>
         public Ellipsoid ReflectIn(Point3d p)
@@ -655,6 +708,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 在给定的线上反射椭圆体<br></br>
         /// Reflect ellipsoid in given line
         /// </summary>
         public Ellipsoid ReflectIn(Line3d l)
@@ -663,6 +717,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 在给定平面上反射椭圆体<br></br>
         /// Reflect ellipsoid in given plane
         /// </summary>
         public Ellipsoid ReflectIn(Plane3d s)
@@ -671,6 +726,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 相对于给定点的比例椭球<br></br>
         /// Scale ellipsoid relative to given point
         /// </summary>
         public virtual Ellipsoid Scale(double scale, Point3d scaling_center)
@@ -681,6 +737,7 @@ namespace GeometRi
         #endregion
 
         /// <summary>
+        /// 确定两个对象是否相等。<br></br>
         /// Determines whether two objects are equal.
         /// </summary>
         public override bool Equals(object obj)
@@ -802,6 +859,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回对象的哈希码。<br></br>
         /// Returns the hashcode for the object.
         /// </summary>
         public override int GetHashCode()
@@ -810,6 +868,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 全局坐标系中对象的字符串表示形式。<br></br>
         /// String representation of an object in global coordinate system.
         /// </summary>
         public override String ToString()
@@ -818,6 +877,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 参考坐标系中对象的字符串表示。<br></br>
         /// String representation of an object in reference coordinate system.
         /// </summary>
         public String ToString(Coord3d coord)

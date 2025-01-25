@@ -4,6 +4,7 @@ using static System.Math;
 namespace GeometRi
 {
     /// <summary>
+    /// 由点和法线向量定义的 3D 平面。<br></br>
     /// 3D plane defined by point and a normal vector.
     /// </summary>
 #if NET20
@@ -18,6 +19,7 @@ namespace GeometRi
 
         #region "Constructors"
         /// <summary>
+        /// 默认构造函数，在全局坐标系中初始化 XY 平面。<br></br>
         /// Default constructor, initializes XY plane in global cordinate system.
         /// </summary>
         public Plane3d()
@@ -27,13 +29,17 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 使用三维空间中的一般方程初始化平面：A*x+B*y+C*z+D=0。<br></br>
         /// Initializes plane using general equation in 3D space: A*x+B*y+C*z+D=0.
         /// </summary>
         /// <param name="a">Parameter "A" in general plane equation.</param>
         /// <param name="b">Parameter "B" in general plane equation.</param>
         /// <param name="c">Parameter "C" in general plane equation.</param>
         /// <param name="d">Parameter "D" in general plane equation.</param>
-        /// <param name="coord">Coordinate system in which plane equation is defined (default: Coord3d.GlobalCS).</param>
+        /// <param name="coord">
+        /// 定义平面方程的坐标系（默认值：Coord3d.GlobalCS）。<br></br>
+        /// Coordinate system in which plane equation is defined (default: Coord3d.GlobalCS).
+        /// </param>
         public Plane3d(double a, double b, double c, double d, Coord3d coord = null)
         {
             if (coord == null)
@@ -56,6 +62,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 使用三点初始化平面。<br></br>
         /// Initializes plane using three points.
         /// </summary>
         /// <param name="p1">First point.</param>
@@ -70,6 +77,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 使用平面内的点和两个向量初始化平面。<br></br>
         /// Initializes plane using point and two vectors lying in the plane.
         /// </summary>
         public Plane3d(Point3d p1, Vector3d v1, Vector3d v2)
@@ -79,6 +87,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 使用点和法线向量初始化平面。<br></br>
         /// Initializes plane using point and normal vector.
         /// </summary>
         /// <param name="p1"></param>
@@ -91,6 +100,7 @@ namespace GeometRi
         #endregion
 
         /// <summary>
+        /// 创建对象的副本<br></br>
         /// Creates copy of the object
         /// </summary>
         public Plane3d Copy()
@@ -99,6 +109,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 平面上的点<br></br>
         /// Point on the plane
         /// </summary>
         /// <returns></returns>
@@ -109,6 +120,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 平面的法向量<br></br>
         /// Normal vector of the plane
         /// </summary>
         /// <returns></returns>
@@ -118,12 +130,14 @@ namespace GeometRi
             set { _normal = value.Copy(); }
         }
 
+        /// <inheritdoc/>
         public bool IsOriented
         {
             get { return false; }
         }
 
         /// <summary>
+        /// 设定一般平面方程的参考坐标系<br></br>
         /// Set reference coordinate system for general plane equation
         /// </summary>
         public void SetCoord(Coord3d coord)
@@ -132,6 +146,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 一般平面方程中的系数A<br></br>
         /// Coefficient A in the general plane equation
         /// </summary>
         public double A
@@ -140,6 +155,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 一般平面方程中的系数B<br></br>
         /// Coefficient B in the general plane equation
         /// </summary>
         public double B
@@ -148,6 +164,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 一般平面方程中的系数C<br></br>
         /// Coefficient C in the general plane equation
         /// </summary>
         public double C
@@ -156,6 +173,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 一般平面方程中的系数D<br></br>
         /// Coefficient D in the general plane equation
         /// </summary>
         public double D
@@ -169,6 +187,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回对象的副本
         /// Returns copy of the object
         /// </summary>
         public Plane3d ToPlane
@@ -181,6 +200,7 @@ namespace GeometRi
 
         #region "ParallelMethods"
         /// <summary>
+        /// 检查两个物体是否平行<br></br>
         /// Check if two objects are parallel
         /// </summary>
         public bool IsParallelTo(ILinearObject obj)
@@ -189,6 +209,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否不平行<br></br>
         /// Check if two objects are NOT parallel
         /// </summary>
         public bool IsNotParallelTo(ILinearObject obj)
@@ -197,6 +218,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否正交<br></br>
         /// Check if two objects are orthogonal
         /// </summary>
         public bool IsOrthogonalTo(ILinearObject obj)
@@ -205,6 +227,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否平行<br></br>
         /// Check if two objects are parallel
         /// </summary>
         public bool IsParallelTo(IPlanarObject obj)
@@ -213,6 +236,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否不平行<br></br>
         /// Check if two objects are NOT parallel
         /// </summary>
         public bool IsNotParallelTo(IPlanarObject obj)
@@ -221,6 +245,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否正交<br></br>
         /// Check if two objects are orthogonal
         /// </summary>
         public bool IsOrthogonalTo(IPlanarObject obj)
@@ -229,6 +254,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否共面<br></br>
         /// Check if two objects are coplanar
         /// </summary>
         public bool IsCoplanarTo(IPlanarObject obj)
@@ -237,6 +263,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否共面<br></br>
         /// Check if two objects are coplanar
         /// </summary>
         public bool IsCoplanarTo(ILinearObject obj)
@@ -246,6 +273,7 @@ namespace GeometRi
         #endregion
 
         /// <summary>
+        /// 平面到圆的距离<br></br>
         /// Distance from plane to circle
         /// </summary>
         public double DistanceTo(Circle3d c)
@@ -254,6 +282,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 平面与圆之间的最短距离（包括内部点）<br></br>
         /// Shortest distance between plane and circle (including interior points)
         /// </summary>
         /// <param name="c">Target circle</param>
@@ -265,7 +294,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Get intersection of line with plane.
+        /// 得到线与平面的交点。<br></br>
+        /// Get intersection of line with plane.<br></br>
+        /// 返回“null”（无交点）或“Point3d”或“Line3d”类型的对象。<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Line3d'.
         /// </summary>
         public object IntersectionWith(Line3d l)
@@ -296,7 +327,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Finds the common intersection of three planes.
+        /// 找到三个平面的公共交点。<br></br>
+        /// Finds the common intersection of three planes.<br></br>
+        /// 返回“null”（没有公共交点）或“Point3d”、“Line3d”或“Plane3d”类型的对象<br></br>
         /// Return 'null' (no common intersection) or object of type 'Point3d', 'Line3d' or 'Plane3d'
         /// </summary>
         public object IntersectionWith(Plane3d s2, Plane3d s3)
@@ -351,7 +384,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Get intersection of two planes.
+        /// 获取两个平面的交点。<br></br>
+        /// Get intersection of two planes.<br></br>
+        /// 返回“null”（无交点）或“Line3d”或“Plane3d”类型的对象。<br></br>
         /// Returns 'null' (no intersection) or object of type 'Line3d' or 'Plane3d'.
         /// </summary>
         public object IntersectionWith(Plane3d s2)
@@ -394,7 +429,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Get intersection of plane with sphere.
+        /// 获取平面与球体的交点。<br></br>
+        /// Get intersection of plane with sphere.<br></br>
+        /// 返回“null”（无交点）或“Point3d”或“Circle3d”类型的对象。<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Circle3d'.
         /// </summary>
         public object IntersectionWith(Sphere s)
@@ -403,7 +440,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Get intersection of plane with ellispoid.
+        /// 获取平面与椭圆体的交点。<br></br>
+        /// Get intersection of plane with ellispoid.<br></br>
+        /// 返回“null”（无交点）或“Point3d”或“Ellipse”类型的对象。<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Ellipse'.
         /// </summary>
         public object IntersectionWith(Ellipsoid e)
@@ -412,7 +451,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Intersection of circle with plane.
+        /// 圆与平面的交点。<br></br>
+        /// Intersection of circle with plane.<br></br>
+        /// 返回“null”（无交点）或“Circle3d”、“Point3d”或“Segment3d”类型的对象。<br></br>
         /// Returns 'null' (no intersection) or object of type 'Circle3d', 'Point3d' or 'Segment3d'.
         /// </summary>
         public object IntersectionWith(Circle3d c)
@@ -421,7 +462,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Intersection of triangle with plane.
+        /// 三角形与平面的交点。<br></br>
+        /// Intersection of triangle with plane.<br></br>
+        /// 返回“null”（无交点）或“Triangle”、“Point3d”或“Segment3d”类型的对象。<br></br>
         /// Returns 'null' (no intersection) or object of type 'Triangle', 'Point3d' or 'Segment3d'.
         /// </summary>
         public object IntersectionWith(Triangle t)
@@ -431,6 +474,7 @@ namespace GeometRi
 
         #region "AngleTo"
         /// <summary>
+        /// 两个物体之间的角度（以弧度表示）(0 &lt; angle &lt; Pi)<br></br>
         /// Angle between two objects in radians (0 &lt; angle &lt; Pi)
         /// </summary>
         public double AngleTo(ILinearObject obj)
@@ -438,6 +482,7 @@ namespace GeometRi
             return GeometRi3D.GetAngle(this, obj);
         }
         /// <summary>
+        /// 两个物体之间的角度（以度为单位）(0 &lt; angle &lt; 180)<br></br>
         /// Angle between two objects in degrees (0 &lt; angle &lt; 180)
         /// </summary>
         public double AngleToDeg(ILinearObject obj)
@@ -446,6 +491,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 两个物体之间的角度（以弧度表示）(0 &lt; angle &lt; Pi)<br></br>
         /// Angle between two objects in radians (0 &lt; angle &lt; Pi)
         /// </summary>
         public double AngleTo(IPlanarObject obj)
@@ -453,6 +499,7 @@ namespace GeometRi
             return GeometRi3D.GetAngle(this, obj);
         }
         /// <summary>
+        /// 两个物体之间的角度（以度为单位）(0 &lt; angle &lt; 180)<br></br>
         /// Angle between two objects in degrees (0 &lt; angle &lt; 180)
         /// </summary>
         public double AngleToDeg(IPlanarObject obj)
@@ -464,6 +511,7 @@ namespace GeometRi
 
         #region "TranslateRotateReflect"
         /// <summary>
+        /// 通过矢量平移平面<br></br>
         /// Translate plane by a vector
         /// </summary>
         public Plane3d Translate(Vector3d v)
@@ -472,6 +520,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 根据给定的旋转矩阵旋转平面<br></br>
         /// Rotate plane by a given rotation matrix
         /// </summary>
         [System.Obsolete("use Rotation object and specify rotation center: this.Rotate(Rotation r, Point3d p)")]
@@ -481,6 +530,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 根据给定的旋转矩阵以点“p”为旋转中心旋转平面<br></br>
         /// Rotate plane by a given rotation matrix around point 'p' as a rotation center
         /// </summary>
         [System.Obsolete("use Rotation object: this.Rotate(Rotation r, Point3d p)")]
@@ -490,6 +540,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 以点“p”为旋转中心旋转平面<br></br>
         /// Rotate plane around point 'p' as a rotation center
         /// </summary>
         public Plane3d Rotate(Rotation r, Point3d p)
@@ -498,6 +549,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 在给定点处反射平面<br></br>
         /// Reflect plane in given point
         /// </summary>
         public Plane3d ReflectIn(Point3d p)
@@ -506,6 +558,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 沿给定线反射平面<br></br>
         /// Reflect plane in given line
         /// </summary>
         public Plane3d ReflectIn(Line3d l)
@@ -514,6 +567,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 在给定平面内反射平面<br></br>
         /// Reflect plane in given plane
         /// </summary>
         public Plane3d ReflectIn(Plane3d s)
@@ -523,6 +577,7 @@ namespace GeometRi
         #endregion
 
         /// <summary>
+        /// 确定两个对象是否相等。<br></br>
         /// Determines whether two objects are equal.
         /// </summary>
         public override bool Equals(object obj)
@@ -551,6 +606,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回对象的哈希码。<br></br>
         /// Returns the hashcode for the object.
         /// </summary>
         public override int GetHashCode()
@@ -559,6 +615,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 全局坐标系中对象的字符串表示。<br></br>
         /// String representation of an object in global coordinate system.
         /// </summary>
         public override String ToString()
@@ -567,6 +624,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 参考坐标系中对象的字符串表示。<br></br>
         /// String representation of an object in reference coordinate system.
         /// </summary>
         public String ToString(Coord3d coord)

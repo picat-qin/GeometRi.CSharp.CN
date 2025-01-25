@@ -5,6 +5,7 @@ using System.Collections.Generic;
 namespace GeometRi
 {
     /// <summary>
+    /// 任意方向的 3D 框，可以退化为一个或多个等于 0 的维度。<br></br>
     /// Arbitrary oriented 3D box, can be degenerated with one or more dimensions equal 0.
     /// </summary>
 #if NET20
@@ -26,6 +27,7 @@ namespace GeometRi
         #region "Constructors"
 
         /// <summary>
+        /// 默认构造函数，在与坐标轴对齐的全局坐标系的原点中初始化盒子。<br></br>
         /// Default constructor, initializes box in the origin of the global coordinate system aligned with coordinate axes.
         /// </summary>
         public Box3d(Point3d center, double lx, double ly, double lz)
@@ -39,6 +41,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 在与坐标轴对齐的参考坐标系的原点初始化单位框。<br></br>
         /// Initializes unit box in the origin of the reference coordinate system aligned with coordinate axes.
         /// </summary>
         /// <param name="coord">Reference coordinate system.</param>
@@ -49,6 +52,7 @@ namespace GeometRi
             _r = new Rotation(coord);
             if (coord != null)
             {
+                // 不要设置与全局 CS 对齐的框的本地坐标
                 // do not set local_coord for box aligned with global CS
                 _local_coord = new Coord3d(_center, _r.ConvertToGlobal().ToRotationMatrix.Transpose());
             }
@@ -56,13 +60,14 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 使用旋转对象定义的指定尺寸和方向初始化盒子。<br></br>
         /// Initializes box with specified dimensions and orientation defined by rotation object.
         /// </summary>
-        /// <param name="center">Center point of the box.</param>
-        /// <param name="lx">First dimension.</param>
-        /// <param name="ly">Second dimension.</param>
-        /// <param name="lz">Third dimension.</param>
-        /// <param name="r">Orientation of the box, defined as rotation from axis aligned position (in global CS) to final position.</param>
+        /// <param name="center">盒子的中心点。<br></br>Center point of the box.</param>
+        /// <param name="lx">第一维度。<br></br>Center point of the box.</param>
+        /// <param name="ly">第二维度。<br></br>Second dimension.</param>
+        /// <param name="lz">第三维度。<br></br>Third dimension.</param>
+        /// <param name="r">盒子的方向，定义为从轴对齐位置（在全局 CS 中）到最终位置的旋转。<br></br>Orientation of the box, defined as rotation from axis aligned position (in global CS) to final position.</param>
         public Box3d(Point3d center, double lx, double ly, double lz, Rotation r)
         {
             _center = center.Copy();
@@ -74,12 +79,13 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 在局部坐标系中初始化轴对齐框。
         /// Initializes axis aligned box in local coordinate system.
         /// </summary>
-        /// <param name="center">Center point of the box.</param>
-        /// <param name="lx">First dimension.</param>
-        /// <param name="ly">Second dimension.</param>
-        /// <param name="lz">Third dimension.</param>
+        /// <param name="center">盒子的中心点。<br></br>Center point of the box.</param>
+        /// <param name="lx">第一维度。<br></br>First dimension.</param>
+        /// <param name="ly">第二维度。<br></br>Second dimension.</param>
+        /// <param name="lz">第三维度。<br></br>Third dimension.</param>
         /// <param name="coord">Local coordinate system.</param>
         public Box3d(Point3d center, double lx, double ly, double lz, Coord3d coord)
         {
@@ -90,9 +96,10 @@ namespace GeometRi
             _r = new Rotation(coord);
             _local_coord = new Coord3d(_center, _r.ConvertToGlobal().ToRotationMatrix.Transpose());
         }
-#endregion
+        #endregion
 
         /// <summary>
+        /// 创建对象的副本<br></br>
         /// Creates copy of the object
         /// </summary>
         public Box3d Copy()
@@ -100,8 +107,9 @@ namespace GeometRi
             return new Box3d(_center, _lx, _ly, _lz, _r);
         }
 
-#region "Properties"
+        #region "Properties"
         /// <summary>
+        /// 盒子的中心点。<br></br>
         /// Center point of the box.
         /// </summary>
         public Point3d Center
@@ -118,6 +126,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 第一维度。<br></br>
         /// First dimension.
         /// </summary>
         public double L1
@@ -133,6 +142,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 第二维度。
         /// Second dimension.
         /// </summary>
         public double L2
@@ -148,6 +158,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 第三维度。
         /// Third dimension.
         /// </summary>
         public double L3
@@ -163,6 +174,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 盒子第一维的方向。<br></br>
         /// Orientation of the first dimension of the box.
         /// </summary>
         public Vector3d V1
@@ -171,6 +183,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 盒子第二维的方向。<br></br>
         /// Orientation of the second dimension of the box.
         /// </summary>
         public Vector3d V2
@@ -179,6 +192,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 盒子第三维度的方向。
         /// Orientation of the third dimension of the box.
         /// </summary>
         public Vector3d V3
@@ -187,6 +201,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 盒子的方向，定义为从轴对齐位置（在全局 CS 中）到最终位置的旋转。<br></br>
         /// Orientation of the box, defined as rotation from axis aligned position (in global CS) to final position.
         /// </summary>
         public Rotation Orientation
@@ -203,6 +218,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 盒子的角点。<br></br>
         /// Corner point of the box.
         /// </summary>
         public Point3d P1
@@ -217,6 +233,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 盒子的角点。<br></br>
         /// Corner point of the box.
         /// </summary>
         public Point3d P2
@@ -231,6 +248,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 盒子的角点。<br></br>
         /// Corner point of the box.
         /// </summary>
         public Point3d P3
@@ -245,6 +263,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 盒子的角点。<br></br>
         /// Corner point of the box.
         /// </summary>
         public Point3d P4
@@ -259,6 +278,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 盒子的角点。<br></br>
         /// Corner point of the box.
         /// </summary>
         public Point3d P5
@@ -273,6 +293,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 盒子的角点。<br></br>
         /// Corner point of the box.
         /// </summary>
         public Point3d P6
@@ -287,6 +308,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 盒子的角点。<br></br>
         /// Corner point of the box.
         /// </summary>
         public Point3d P7
@@ -301,6 +323,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 盒子的角点。<br></br>
         /// Corner point of the box.
         /// </summary>
         public Point3d P8
@@ -315,6 +338,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 角点列表。<br></br>
         /// List of corner points.
         /// </summary>
         public List<Point3d> ListOfPoints
@@ -334,6 +358,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 构成盒子表面的三角形列表<br></br>
         /// List of triangles forming the box's surface
         /// </summary>
         public List<Triangle> ListOfTriangles
@@ -380,6 +405,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 构成盒子表面的平面列表<br></br>
         /// List of planes forming the box's surface
         /// </summary>
         public List<Plane3d> ListOfPlanes
@@ -406,6 +432,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 构成盒子的边列表<br></br>
         /// List of edges forming the box
         /// </summary>
         public List<Segment3d> ListOfEdges
@@ -438,6 +465,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 盒子的体积。<br></br>
         /// Volume of the box.
         /// </summary>
         public double Volume
@@ -446,6 +474,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 盒子的表面面积。<br></br>
         /// Surface area of the box.
         /// </summary>
         public double Area
@@ -454,6 +483,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 盒子对角线的长度。<br></br>
         /// Length of the box diagonal.
         /// </summary>
         public double Diagonal
@@ -462,6 +492,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 如果框与轴对齐则为 True
         /// True if box is axis aligned
         /// </summary>
         public bool IsAxisAligned
@@ -469,10 +500,11 @@ namespace GeometRi
             get { return _r.ToRotationMatrix.IsIdentity; }
         }
 
-#endregion
+        #endregion
 
-#region "BoundingBox"
+        #region "边界盒子　BoundingBox"
         /// <summary>
+        /// 返回最小边界框。<br></br>
         /// Return minimum bounding box.
         /// </summary>
         public Box3d MinimumBoundingBox
@@ -481,6 +513,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回轴对齐边界框（AABB）。<br></br>
         /// Return Axis Aligned Bounding Box (AABB).
         /// </summary>
         public AABB AABB
@@ -489,6 +522,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回给定坐标系中的边界框。<br></br>
         /// Return Bounding Box in given coordinate system.
         /// </summary>
         public Box3d BoundingBox(Coord3d coord = null)
@@ -511,6 +545,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回边界球。<br></br>
         /// Return bounding sphere.
         /// </summary>
         public Sphere BoundingSphere
@@ -524,6 +559,7 @@ namespace GeometRi
         #endregion
 
         /// <summary>
+        /// 返回点云的边界框。<br></br>
         /// Return Bounding Box for a cloud of points.
         /// </summary>
         public static Box3d BoundingBox(IEnumerable<Point3d> points, Coord3d coord = null)
@@ -554,7 +590,9 @@ namespace GeometRi
 
         #region "Intersection"
         /// <summary>
-        /// Get intersection of line with box.
+        /// 获取线与框的交点。<br></br>
+        /// Get intersection of line with box.<br></br>
+        /// 返回“null”（无交点）或“Point3d”或“Segment3d”类型的对象。<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Segment3d'.
         /// </summary>
         public object IntersectionWith(Line3d l)
@@ -563,7 +601,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Get intersection of ray with box.
+        /// 获取射线与盒子的交点。<br></br>
+        /// Get intersection of ray with box.<br></br>
+        /// 返回“null”（无交点）或“Point3d”或“Segment3d”类型的对象。<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Segment3d'.
         /// </summary>
         public object IntersectionWith(Ray3d r)
@@ -572,7 +612,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Get intersection of segment with box.
+        /// 获取线段与框的交点。<br></br>
+        /// Get intersection of segment with box.<br></br>
+        /// 返回“null”（无交点）或“Point3d”或“Segment3d”类型的对象。<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Segment3d'.
         /// </summary>
         public object IntersectionWith(Segment3d s)
@@ -581,6 +623,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查方框与三角形的交点<br></br>
         /// Check intersection of box with triangle
         /// </summary>
         public bool Intersects(Triangle t)
@@ -599,6 +642,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个盒子的交集（仅适用于 AABB 盒子，不检查速度）<br></br>
         /// Check intersection of two boxes (only for AABB boxes, no check is performed for speed)
         /// </summary>
         public bool Intersects(Box3d box)
@@ -612,13 +656,18 @@ namespace GeometRi
 
         private object _line_intersection(Line3d l, double t0, double t1)
         {
+            // Smith 算法：
             // Smith's algorithm:
+            // “一种高效且稳健的射线盒相交算法”
             // "An Efficient and Robust Ray–Box Intersection Algorithm"
+            // 艾米·威廉姆斯、史蒂夫·巴勒斯、R. 基思·莫利、彼得·雪莉
             // Amy Williams, Steve Barrus, R. Keith Morley, Peter Shirley
             // http://www.cs.utah.edu/~awilliam/box/box.pdf
 
+            // 修改以允许基于公差的检查
             // Modified to allow tolerance based checks
-            
+
+            // 相对公差 ================================
             // Relative tolerance ================================
             if (!GeometRi3D.UseAbsoluteTolerance)
             {
@@ -632,6 +681,7 @@ namespace GeometRi
             }
             //====================================================
 
+            // 定义与框对齐的局部 CS
             // Define local CS aligned with box
             Coord3d local_CS = this.LocalCoord();
 
@@ -691,7 +741,9 @@ namespace GeometRi
             if (GeometRi3D.Smaller(tzmax, tmax))
                 tmax = tzmax;
 
+            // 现在检查片段的重叠部分
             // Now check the overlapping portion of the segments
+            // 原始算法中缺少这一部分
             // This part is missing in the original algorithm
             if (GeometRi3D.Greater(tmin, t1))
                 return null;
@@ -712,10 +764,11 @@ namespace GeometRi
                 return new Segment3d(l._point.Translate(tmin * l._dir), l._point.Translate(tmax * l._dir));
             }
         }
-#endregion
+        #endregion
 
 
         /// <summary>
+        /// 局部坐标系，原点位于框的中心并与框对齐<br></br>
         /// Local coordinate system with origin in box's center and aligned with box
         /// </summary>
         public Coord3d LocalCoord()
@@ -724,6 +777,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 盒子上最接近目标点“p”的点（包括内部点）。<br></br>
         /// Point on box (including interior points) closest to target point "p".
         /// </summary>
         public Point3d ClosestPoint(Point3d p)
@@ -738,6 +792,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 轴对齐框（包括内部点）上最接近目标点“p”的点。<br></br>
         /// Point on axis aligned box (including interior points) closest to target point "p".
         /// </summary>
         public Point3d AABBClosestPoint(Point3d p)
@@ -751,6 +806,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 框到点的距离（对于位于框内的点将返回零）<br></br>
         /// Distance from box to point (zero will be returned for point located inside box)
         /// </summary>
         public double DistanceTo(Point3d p)
@@ -759,6 +815,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 从轴对齐框到点的距离（对于位于框内的点将返回零）<br></br>
         /// Distance from axis aligned box to point (zero will be returned for point located inside box)
         /// </summary>
         public double AABBDistanceTo(Point3d p)
@@ -767,6 +824,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 从盒子到球体的最短距离<br></br>
         /// Shortest distance from box to sphere
         /// </summary>
         public double DistanceTo(Sphere s)
@@ -777,6 +835,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 盒子到圆圈的最短距离<br></br>
         /// Shortest distance from box to circle
         /// </summary>
         public double DistanceTo(Circle3d c)
@@ -796,6 +855,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 圆与框之间的相交检查<br></br>
         /// Intersection check between circle and box
         /// </summary>
         public bool Intersects(Circle3d c)
@@ -822,14 +882,14 @@ namespace GeometRi
                 {
                     if ( (Abs(p.X) - L1 / 2) < -GeometRi3D.Tolerance && (Abs(p.Y) - L2 / 2) < -GeometRi3D.Tolerance && (Abs(p.Z) - L3 / 2) < -GeometRi3D.Tolerance)
                     {
-                        return 1; // Point is strictly inside box
+                        return 1; //点严格位于框内 Point is strictly inside box
                     } else
                     {
-                        return 0; // Point is on boundary
+                        return 0; //点位于边界上 Point is on boundary
                     }
                 } else
                 {
-                    return -1; // Point is outside
+                    return -1; //点在外面 Point is outside
                 }
             }
             else
@@ -844,8 +904,9 @@ namespace GeometRi
             }
         }
 
-#region "TranslateRotateReflect"
+        #region "平移 旋转 反射 TranslateRotateReflect"
         /// <summary>
+        /// 通过向量平移盒子<br></br>
         /// Translate box by a vector
         /// </summary>
         public Box3d Translate(Vector3d v)
@@ -854,6 +915,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 围绕点“p”作为旋转中心旋转盒子。<br></br>
         /// Rotate box around point 'p' as a rotation center.
         /// </summary>
         public Box3d Rotate(Rotation r, Point3d p)
@@ -864,6 +926,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 给定点反射盒子<br></br>
         /// Reflect box in given point
         /// <para>The order of corner points will be changed during reflection operation.</para>
         /// </summary>
@@ -874,8 +937,12 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 给定线反射盒子
         /// Reflect box in given line
-        /// <para>The order of corner points will be changed during reflection operation.</para>
+        /// <para>
+        /// 反射操作过程中角点的顺序将会改变。<br></br>
+        /// The order of corner points will be changed during reflection operation.
+        /// </para>
         /// </summary>
         public virtual Box3d ReflectIn(Line3d l)
         {
@@ -886,6 +953,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 给定平面反射盒子
         /// Reflect box in given plane
         /// <para>The order of corner points will be changed during reflection operation.</para>
         /// </summary>
@@ -900,6 +968,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 相对于给定点的缩放框<br></br>
         /// Scale box relative to given point
         /// </summary>
         public virtual Box3d Scale(double scale, Point3d scaling_center)
@@ -912,6 +981,7 @@ namespace GeometRi
 
 
         /// <summary>
+        /// 确定两个对象是否相等。<br></br>
         /// Determines whether two objects are equal.
         /// </summary>
         public override bool Equals(object obj)
@@ -943,6 +1013,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回对象的哈希码。<br></br>
         /// Returns the hashcode for the object.
         /// </summary>
         public override int GetHashCode()
@@ -952,6 +1023,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 全局坐标系中对象的字符串表示形式。<br></br>
         /// String representation of an object in global coordinate system.
         /// </summary>
         public override string ToString()
@@ -960,6 +1032,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 参考坐标系中对象的字符串表示。<br></br>
         /// String representation of an object in reference coordinate system.
         /// </summary>
         public string ToString(Coord3d coord)
@@ -976,6 +1049,7 @@ namespace GeometRi
             return str;
         }
 
+        // 运算符重载
         // Operators overloads
         //-----------------------------------------------------------------
         public static bool operator ==(Box3d b1, Box3d b2)

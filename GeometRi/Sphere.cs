@@ -4,6 +4,7 @@ using static System.Math;
 namespace GeometRi
 {
     /// <summary>
+    /// 由中心点和半径定义的球体物体。<br></br>
     /// Sphere object defined by center point and radius.
     /// </summary>
 #if NET20
@@ -16,6 +17,7 @@ namespace GeometRi
         private double _r;
 
         /// <summary>
+        /// 使用中心点和半径初始化球体。<br></br>
         /// Initializes sphere using center point and radius.
         /// </summary>
         public Sphere(Point3d P, double R)
@@ -25,6 +27,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 创建对象的副本<br></br>
         /// Creates copy of the object
         /// </summary>
         public Sphere Copy()
@@ -32,8 +35,9 @@ namespace GeometRi
             return new Sphere(_point,_r);
         }
 
-#region "Properties"
+        #region "Properties"
         /// <summary>
+        /// 球体中心<br></br>
         /// Center of the sphere
         /// </summary>
         public Point3d Center
@@ -43,6 +47,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 球体中心的 X 分量<br></br>
         /// X component of the spheres' center
         /// </summary>
         private double X
@@ -52,6 +57,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 球体中心的 Y 分量<br></br>
         /// Y component of the spheres' center
         /// </summary>
         private double Y
@@ -61,6 +67,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 球体中心的 Z 分量<br></br>
         /// Z component of the spheres' center
         /// </summary>
         private double Z
@@ -70,6 +77,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 球体的半径<br></br>
         /// Radius of the sphere
         /// </summary>
         public double R
@@ -78,19 +86,26 @@ namespace GeometRi
             set { _r = value; }
         }
 
+        /// <summary>
+        /// 表面积
+        /// </summary>
         public double Area
         {
             get { return 4.0 * PI * Math.Pow(_r, 2); }
         }
 
+        /// <summary>
+        /// 体积
+        /// </summary>
         public double Volume
         {
             get { return 4.0 / 3.0 * PI * Math.Pow(_r, 3); }
         }
-#endregion
+        #endregion
 
-#region "DistanceTo"
+        #region "DistanceTo"
         /// <summary>
+        /// 点与球体（包括内部点）之间的最短距离。<br></br>
         /// Shortest distance between point and sphere (including interior points).
         /// </summary>
         public double DistanceTo(Point3d p)
@@ -107,6 +122,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 球体和线之间的最短距离<br></br>
         /// Shortest distance between sphere and line
         /// </summary>
         public double DistanceTo(Line3d l)
@@ -123,6 +139,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 球体与射线之间的最短距离<br></br>
         /// Shortest distance between sphere and ray
         /// </summary>
         public double DistanceTo(Ray3d r)
@@ -138,6 +155,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 球体与线段之间的最短距离<br></br>
         /// Shortest distance between sphere and segment
         /// </summary>
         public double DistanceTo(Segment3d s)
@@ -153,6 +171,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 球体与平面之间的最短距离<br></br>
         /// Shortest distance between sphere and plane
         /// </summary>
         public double DistanceTo(Plane3d s)
@@ -169,6 +188,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 球与圆之间的最短距离（包括内部点）（近似解）<br></br>
         /// Shortest distance between sphere and circle (including interior points) (approximate solution)
         /// </summary>
         public double DistanceTo(Circle3d c)
@@ -177,19 +197,23 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 球体与圆之间的最短距离（包括内部点）（近似解）。<br></br>
         /// Shortest distance between sphere and circle (including interior points) (approximate solution).
+        /// <para> 如果物体相交，输出点可能不唯一。</para>
         /// <para> The output points may be not unique in case of intersecting objects.</para>
         /// </summary>
-        /// <param name="c">Target circle</param>
-        /// <param name="p1">Closest point on sphere</param>
-        /// <param name="p2">Closest point on circle</param>
+        /// <param name="c">目标圆<br></br> Target circle</param>
+        /// <param name="p1">球上最近点<br></br> Closest point on sphere</param>
+        /// <param name="p2">圆上最近点<br></br> Closest point on circle</param>
         public double DistanceTo(Circle3d c, out Point3d p1, out Point3d p2)
         {
             return c.DistanceTo(this, out p2, out p1);
         }
 
         /// <summary>
+        /// 两个球体之间的最短距离。<br></br>
         /// Shortest distance between two spheres.
+        /// <para> 如果一个球体位于另一个球体内部，则返回零距离。</para>
         /// <para> Zero distance is returned if one sphere located inside other.</para>
         /// </summary>
         public double DistanceTo(Sphere s)
@@ -206,13 +230,16 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 两个球体之间的最短距离。
         /// Shortest distance between two spheres.
+        /// <para> 如果一个球体位于另一个球体内部，则返回零距离。</para> 
+        /// <para> 如果物体接触，输出点可能不唯一。</para>
         /// <para> Zero distance is returned if one sphere is located inside the other.</para>
         /// <para> The output points may be not unique in case of touching objects.</para>
         /// </summary>
-        /// <param name="s">Target sphere</param>
-        /// <param name="p1">Closest point on source sphere</param>
-        /// <param name="p2">Closest point on target sphere</param>
+        /// <param name="s">目标球Target sphere</param>
+        /// <param name="p1">源球上最近点Closest point on source sphere</param>
+        /// <param name="p2">目标球上最近点Closest point on target sphere</param>
         public double DistanceTo(Sphere s, out Point3d p1, out Point3d p2)
         {
             double dist = this._point.DistanceTo(s._point);
@@ -239,6 +266,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 从盒子到球体的最短距离<br></br>
         /// Shortest distance from box to sphere
         /// </summary>
         public double DistanceTo(Box3d box)
@@ -250,6 +278,7 @@ namespace GeometRi
 
         #region "BoundingBox"
         /// <summary>
+        /// 返回最小边界框。<br></br>
         /// Return minimum bounding box.
         /// </summary>
         public Box3d MinimumBoundingBox
@@ -258,6 +287,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回给定坐标系中的边界框。<br></br>
         /// Return Bounding Box in given coordinate system.
         /// </summary>
         public Box3d BoundingBox(Coord3d coord = null)
@@ -267,6 +297,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回轴对齐边界框（AABB）。<br></br>
         /// Return Axis Aligned Bounding Box (AABB).
         /// </summary>
         public AABB AABB()
@@ -275,6 +306,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回边界球。<br></br>
         /// Return bounding sphere.
         /// </summary>
         public Sphere BoundingSphere
@@ -284,6 +316,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查球体是否位于由全局公差属性（Geomet Ri3D.Tolerance）定义的公差的框内。<br></br>
         /// Check if sphere is located inside box with tolerance defined by global tolerance property (GeometRi3D.Tolerance).
         /// </summary>
         public bool IsInside(Box3d box)
@@ -316,6 +349,7 @@ namespace GeometRi
         #endregion
 
         /// <summary>
+        /// 球体表面上最接近目标点“p”的点。<br></br>
         /// Point on sphere's surface closest to target point "p".
         /// </summary>
         public Point3d ClosestPoint(Point3d p)
@@ -333,7 +367,9 @@ namespace GeometRi
 
         #region "Intersections"
         /// <summary>
-        /// Get intersection of line with sphere.
+        /// 获取线与球的交点。<br></br>
+        /// 返回“null”（无交点）或“Point3d”或“Segment3d”类型的对象。<br></br>
+        /// Get intersection of line with sphere.<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Segment3d'.
         /// </summary>
         public object IntersectionWith(Line3d l)
@@ -373,7 +409,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Get intersection of segment with sphere.
+        /// 获取线段与球体的交点。<br></br>
+        /// 返回“null”（无交点）或“Point3d”或“Segment3d”类型的对象。<br></br>
+        /// Get intersection of segment with sphere.<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Segment3d'.
         /// </summary>
         public object IntersectionWith(Segment3d s)
@@ -418,7 +456,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Get intersection of ray with sphere.
+        /// 获取射线与球体的交点。<br></br>
+        /// 返回“null”（无交点）或“Point3d”或“Segment3d”类型的对象。<br></br>
+        /// Get intersection of ray with sphere.<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Segment3d'.
         /// </summary>
         public object IntersectionWith(Ray3d r)
@@ -463,7 +503,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Get intersection of plane with sphere.
+        /// 获取平面与球体的交点。<br></br>
+        /// 返回“null”（无交点）或“Point3d”或“Circle3d”类型的对象。<br></br>
+        /// Get intersection of plane with sphere.<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Circle3d'.
         /// </summary>
         public object IntersectionWith(Plane3d s)
@@ -510,7 +552,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Get intersection of two spheres.
+        /// 获取两个球体的交点。<br></br>
+        /// 返回“null”（无交点）或“Point3d”或“Circle3d”类型的对象。<br></br>
+        /// Get intersection of two spheres.<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Circle3d'.
         /// </summary>
         public object IntersectionWith(Sphere s)
@@ -571,6 +615,7 @@ namespace GeometRi
         #endregion
 
         /// <summary>
+        /// 圆与球的相交检查<br></br>
         /// Intersection check between circle and sphere
         /// </summary>
         public bool Intersects(Circle3d c)
@@ -579,6 +624,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 球体与三角形的相交检查<br></br>
         /// Intersection check between sphere and triangle
         /// </summary>
         public bool Intersects(Triangle t)
@@ -587,6 +633,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 球面到平面的正交投影<br></br>
         /// Orthogonal projection of the sphere to the plane
         /// </summary>
         public Circle3d ProjectionTo(Plane3d s)
@@ -596,6 +643,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 球面到直线的正交投影<br></br>
         /// Orthogonal projection of the sphere to the line
         /// </summary>
         public Segment3d ProjectionTo(Line3d l)
@@ -639,6 +687,7 @@ namespace GeometRi
 
         #region "TranslateRotateReflect"
         /// <summary>
+        /// 通过矢量平移球体<br></br>
         /// Translate sphere by a vector
         /// </summary>
         public Sphere Translate(Vector3d v)
@@ -647,6 +696,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 根据给定的旋转矩阵旋转球体<br></br>
         /// Rotate sphere by a given rotation matrix
         /// </summary>
         [System.Obsolete("use Rotation object and specify rotation center: this.Rotate(Rotation r, Point3d p)")]
@@ -656,6 +706,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 根据给定的旋转矩阵围绕点“p”作为旋转中心旋转球体<br></br>
         /// Rotate sphere by a given rotation matrix around point 'p' as a rotation center
         /// </summary>
         [System.Obsolete("use Rotation object: this.Rotate(Rotation r, Point3d p)")]
@@ -665,6 +716,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 以点“p”为旋转中心旋转球体<br></br>
         /// Rotate sphere around point 'p' as a rotation center
         /// </summary>
         public Sphere Rotate(Rotation r, Point3d p)
@@ -673,6 +725,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 在给定点反射球体<br></br>
         /// Reflect sphere in given point
         /// </summary>
         public Sphere ReflectIn(Point3d p)
@@ -681,6 +734,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 沿给定线反射球体<br></br>
         /// Reflect sphere in given line
         /// </summary>
         public Sphere ReflectIn(Line3d l)
@@ -689,6 +743,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 在给定平面内反射球体<br></br>
         /// Reflect sphere in given plane
         /// </summary>
         public Sphere ReflectIn(Plane3d s)
@@ -697,6 +752,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 相对于给定点的缩放球体<br></br>
         /// Scale sphere relative to given point
         /// </summary>
         public virtual Sphere Scale(double scale, Point3d scaling_center)

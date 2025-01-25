@@ -6,6 +6,7 @@ using System.Text;
 namespace GeometRi
 {
     /// <summary>
+    /// 具有逆时针方向的面的凸多面体（从外部看）。<br></br>
     /// Convex polyhedron with counterclockwise oriented faces (seen from outside).
     /// </summary>
 #if NET20
@@ -13,9 +14,29 @@ namespace GeometRi
 #endif
     public class ConvexPolyhedron : FiniteObject, IFiniteObject
     {
-        public int numVertices, numEdges, numFaces;
+        /// <summary>
+        /// 顶点数量
+        /// </summary>
+        public int numVertices;
+        /// <summary>
+        /// 边数量
+        /// </summary>
+        public int numEdges;
+        /// <summary>
+        /// 面数量
+        /// </summary>
+        public int numFaces;
+        /// <summary>
+        /// 顶点集
+        /// </summary>
         public Point3d[] vertex;
+        /// <summary>
+        /// 边集
+        /// </summary>
         public Edge[] edge;
+        /// <summary>
+        /// 面集
+        /// </summary>
         public Face[] face;
 
         private AABB _aabb = null;
@@ -23,6 +44,7 @@ namespace GeometRi
 
 
         /// <summary>
+        /// 凸多面体的边缘。<br></br>
         /// Edge of a convex polyhedron.
         /// </summary>
 #if NET20
@@ -32,6 +54,10 @@ namespace GeometRi
         {
             public int p1, p2;
             internal ConvexPolyhedron parent;
+            /// <summary>
+            /// 凸多面体的边缘。<br></br>
+            /// Edge of a convex polyhedron.
+            /// </summary>
             public Edge(int P1, int P2)
             {
                 p1 = P1;
@@ -55,20 +81,39 @@ namespace GeometRi
                 }
             }
         }
+        /// <summary>
+        /// 顶点
+        /// </summary>
         public interface IVertex
         {
             Point3d this[int index] { get; }
         }
-
+        /// <summary>
+        /// 面
+        /// </summary>
 #if NET20
     [Serializable]
 #endif
         public struct Face : IVertex
         {
+            /// <summary>
+            /// 顶点数量
+            /// </summary>
             public int numVertices;
+            /// <summary>
+            /// 顶点集
+            /// </summary>
             public int[] vertex;
+            /// <summary>
+            /// 普通
+            /// </summary>
             public Vector3d normal;
             internal ConvexPolyhedron parent;
+            /// <summary>
+            /// 面
+            /// </summary>
+            /// <param name="numVertices">顶点杉杉来了</param>
+            /// <param name="vertex">顶点</param>
             public Face(int numVertices, int[] vertex)
             {
                 this.numVertices = numVertices;
@@ -77,6 +122,9 @@ namespace GeometRi
                 normal = null;
             }
 
+            /// <summary>
+            /// 区域
+            /// </summary>
             public double Area
             {
                 get
@@ -102,6 +150,7 @@ namespace GeometRi
                 }
             }
             /// <summary>
+            /// 返回顶点 [i] 的 Point3d 对象<br></br>
             /// Returns a Point3d object for vertex [i]
             /// </summary>
             public IVertex Vertex
@@ -123,14 +172,15 @@ namespace GeometRi
         #region "Constructors"
 
         /// <summary>
+        /// 根据顶点、边和面的列表创建一般凸多面体<br></br>
         /// Creates general convex polyhedron from a lists of vertices, edges, and faces
         /// </summary>
-        /// <param name="numVertices">Number of vertices</param>
-        /// <param name="numEdges">Number of edges</param>
-        /// <param name="numFaces">Number of faces</param>
-        /// <param name="vertices">List of vertices</param>
-        /// <param name="edges">List of edges</param>
-        /// <param name="faces">List of faces</param>
+        /// <param name="numVertices">顶点数量<br></br> Number of vertices</param>
+        /// <param name="numEdges">边数量<br></br> Number of edges</param>
+        /// <param name="numFaces">面数量<br></br> Number of faces</param>
+        /// <param name="vertices">顶点集<br></br> List of vertices</param>
+        /// <param name="edges">边集<br></br> List of edges</param>
+        /// <param name="faces">面集<br></br> List of faces</param>
         /// <param name="check_face_orientation">Check and invert incorrectly oriented faces</param>
         public ConvexPolyhedron(int numVertices, int numEdges, int numFaces, Point3d[] vertices, Edge[] edges, Face[] faces, bool check_face_orientation = false)
         {
@@ -160,6 +210,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 从四面体对象创建凸多面体对象<br></br>
         /// Create ConvexPolyhedron object from a Tetrahedron object
         /// </summary>
         public static ConvexPolyhedron FromTetrahedron(Tetrahedron t)
@@ -191,6 +242,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 从 Box3d 对象创建凸多面体对象<br></br>
         /// Create ConvexPolyhedron object from a Box3d object
         /// </summary>
         public static ConvexPolyhedron FromBox(Box3d box)
@@ -233,6 +285,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 创建以原点为中心、具有顶点的正八面体：<br></br>
         /// Creates regular octahedron centered at origin with vertices:
         /// <para>(±1,  0,  0)</para>
         /// <para>( 0, ±1,  0)</para>
@@ -279,11 +332,15 @@ namespace GeometRi
 
 
         /// <summary>
+        /// 创建以原点为中心、具有顶点的正二十面体：<br></br>
         /// Creates regular icosahedron centered at origin with vertices:
         /// <para>( 0, ±f, ±1)</para>
         /// <para>(±f, ±1,  0)</para>
         /// <para>(±1,  0, ±f)</para>
-        /// <para>with 'f' equal to golden ratio (1+Sqrt(5))/2</para>
+        /// <para>
+        /// 其中 'f' 等于黄金比率 (1+Sqrt(5))/2 <br></br>
+        /// with 'f' equal to golden ratio (1+Sqrt(5))/2
+        /// </para>
         /// </summary>
         public static ConvexPolyhedron Icosahedron()
         {
@@ -375,12 +432,16 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 创建以原点为中心、具有顶点的正十二面体：<br></br>
         /// Creates regular dodecahedron centered at origin with vertices:
         /// <para>(±1, ±1, ±1)</para>
         /// <para>( 0, ±φ, ±1/φ)</para>
         /// <para>(±φ, ±1/φ,  0)</para> 
         /// <para>(±1/φ,  0, ±φ)</para>
-        /// <para>with 'φ' equal to golden ratio (1+Sqrt(5))/2</para>
+        /// <para>
+        /// 其中 'φ' 等于黄金比率 (1+Sqrt(5))/2 <br></br>
+        /// with 'φ' equal to golden ratio (1+Sqrt(5))/2
+        /// </para>
         /// </summary>
         public static ConvexPolyhedron Dodecahedron()
         {
@@ -470,6 +531,7 @@ namespace GeometRi
         #region "Properties"
 
         /// <summary>
+        /// 质心。<br></br>
         /// Center of mass.
         /// </summary>
         public Point3d Center
@@ -486,6 +548,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 多面体的体积。<br></br>
         /// Volume of the polyhedron.
         /// </summary>
         public double Volume
@@ -508,6 +571,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 多面体的表面积。<br></br>
         /// Surface area of the polyhedron.
         /// </summary>
         public double Area
@@ -524,6 +588,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 形成多面体的边列表<br></br>
         /// List of edges forming the polyhedron
         /// </summary>
         public List<Segment3d> ListOfEdges
@@ -549,6 +614,7 @@ namespace GeometRi
         #endregion
 
         /// <summary>
+        /// 创建对象的副本<br></br>
         /// Creates copy of the object
         /// </summary>
         public ConvexPolyhedron Copy()
@@ -582,6 +648,9 @@ namespace GeometRi
             return new ConvexPolyhedron(numVertices, numEdges, numFaces, vertex_copy, edge_copy, face_copy);
         }
 
+        /// <summary>
+        /// 检查朝向
+        /// </summary>
         private void CheckFaceOrientation()
         {
             for (int i = 0; i < face.Length; i++)
@@ -595,6 +664,11 @@ namespace GeometRi
             }
         }
 
+        /// <summary>
+        /// 反面
+        /// </summary>
+        /// <param name="face"></param>
+        /// <returns></returns>
         private Face ReverseFace(Face face)
         {
             int[] tmp = new int[face.numVertices];
@@ -610,6 +684,7 @@ namespace GeometRi
 
         #region "BoundingBox"
         /// <summary>
+        /// 返回最小边界框。<br></br>
         /// Return minimum bounding box.
         /// </summary>
         public Box3d MinimumBoundingBox
@@ -621,6 +696,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回给定坐标系中的边界框。<br></br>
         /// Return Bounding Box in given coordinate system.
         /// </summary>
         public Box3d BoundingBox(Coord3d coord = null)
@@ -629,6 +705,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回轴对齐边界框（AABB）。<br></br>
         /// Return Axis Aligned Bounding Box (AABB).
         /// </summary>
         public AABB AABB()
@@ -641,6 +718,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回边界球。<br></br>
         /// Return bounding sphere.
         /// </summary>
         public Sphere BoundingSphere
@@ -657,6 +735,7 @@ namespace GeometRi
         #region "Distance"
 
         /// <summary>
+        /// 多面体到点的距离（位于多面体内部的点将返回零）<br></br>
         /// Distance from polyhedron to point (zero will be returned for point located inside polyhedron)
         /// </summary>
         public double DistanceTo(Point3d p)
@@ -691,9 +770,10 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 两个多面体之间的距离<br></br>
         /// Distance between two polyhedrons
         /// </summary>
-        /// <param name="c">Target polyhedron</param>
+        /// <param name="c">T目标多面体<br></br> arget polyhedron</param>
         public double DistanceTo(ConvexPolyhedron c)
         {
             Point3d c1 = new Point3d();
@@ -703,12 +783,16 @@ namespace GeometRi
 
 
         /// <summary>
+        /// 两个多面体之间的距离<br></br>
         /// Distance between two polyhedrons
-        /// <para> The output points are valid only in case of non-intersecting objects.</para>
+        /// <para> 
+        /// 仅当物体不相交时，输出点才有效。<br></br>
+        /// The output points are valid only in case of non-intersecting objects.
+        /// </para>
         /// </summary>
-        /// <param name="c">Target polyhedron</param>
-        /// <param name="point_on_this_cp">Closest point on this convex polyhedron</param>
-        /// <param name="point_on_target_cp">Closest point on target convex polyhedron</param>
+        /// <param name="c">目标多面体<br></br> Target polyhedron</param>
+        /// <param name="point_on_this_cp">此凸多面体上的最近点<br></br> Closest point on this convex polyhedron</param>
+        /// <param name="point_on_target_cp">目标凸多面体上的最近点<br></br> Closest point on target convex polyhedron</param>
         public double DistanceTo(ConvexPolyhedron c, out Point3d point_on_this_cp, out Point3d point_on_target_cp)
         {
             // Use "Method of Separating Axes" to test intersection combined with distance calculation
@@ -895,7 +979,11 @@ namespace GeometRi
             }
         }
 
-
+        /// <summary>
+        /// 获取共同点
+        /// </summary>
+        /// <param name="cp"></param>
+        /// <returns></returns>
         internal Point3d _get_common_point(ConvexPolyhedron cp)
         {
             // test edges of this cp
@@ -944,6 +1032,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 多面体到三角形的距离<br></br>
         /// Distance from polyhedron to triangle
         /// </summary>
         public double DistanceTo(Triangle t)
@@ -977,15 +1066,25 @@ namespace GeometRi
         #region "Intersection"
 
         /// <summary>
+        /// 两个多面体之间的相交检查。<br></br>
         /// Intersection check between two polyhedrons.
         /// </summary>
         public bool Intersects(ConvexPolyhedron c)
         {
 
+            // 算法来自：
+            // 凸对象的相交：分离轴的方法
+            // David Eberly，Geometric Tools，华盛顿州雷德蒙德 98052
+            // Creative Commons Attribution 4.0 国际许可证
+
             // Algorithm from:
             // Intersection of Convex Objects: The Method of Separating Axes
             // David Eberly, Geometric Tools, Redmond WA 98052
             // Creative Commons Attribution 4.0 International License
+
+            // 测试此 CP 的面是否分离。由于逆时针排序，
+            // 此 CP 的投影间隔为 (-inf, 0]。
+            // 确定“c”是否在线的正侧
 
             // Test faces of this CP for separation. Because of the counterclockwise ordering,
             // the projection interval for this CP is (-inf, 0].
@@ -996,10 +1095,15 @@ namespace GeometRi
                 Vector3d N = this.face[i].normal;
                 if (WhichSide(c.vertex, P, N) > 0)
                 {
+                    // 'c' 完全位于 P + t * N 直线的正侧
                     // 'c' is entirely on the positive side of the line P + t * N
                     return false;
                 }
             }
+
+            // 测试面“c”是否分离。由于逆时针排序，
+            // “c”的投影间隔为 (-inf, 0)。
+            // 确定此 CP 是否在线的正侧
 
             // Test faces 'c' for separation. Because of the counterclockwise ordering,
             // the projection interval for 'c' is (-inf, 0].
@@ -1014,6 +1118,9 @@ namespace GeometRi
                     return false;
                 }
             }
+
+            // 测试边缘方向对的交叉积
+            // 每个多面体的一个边缘方向
 
             // Test cross products of pairs of edge directions
             // one edge direction from each polyhedron
@@ -1041,6 +1148,7 @@ namespace GeometRi
 
                         if (side0 * side1 < 0)
                         {
+                            // 此 CP 和“c”在线 P + t * N 上的投影位于 P 投影的相对侧。
                             // The projections of this CP and 'c' onto the line P + t * N are on opposite sides of the projection of P.
                             return false;
                         }
@@ -1085,6 +1193,7 @@ namespace GeometRi
 
 
         /// <summary>
+        /// 检查多面体是否位于盒子内部。<br></br>
         /// Check if polyhedron is located inside box.
         /// </summary>
         public bool IsInside(Box3d box)
@@ -1098,6 +1207,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查多面体是否与盒子相交。<br></br>
         /// Check if polyhedron intersects box.
         /// </summary>
         public bool Intersects(Box3d box)
@@ -1138,6 +1248,13 @@ namespace GeometRi
             }
         }
 
+        /// <summary>
+        /// 相同边
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="normal"></param>
+        /// <param name="p"></param>
+        /// <returns></returns>
         private int _SameSide(Point3d a, Vector3d normal, Point3d p)
         {
             double dot_p = normal * new Vector3d(p, a);
@@ -1159,6 +1276,7 @@ namespace GeometRi
         #region "TranslateRotateReflect"
 
         /// <summary>
+        /// 通过向量平移多面体<br></br>
         /// Translate polyhedron by a vector
         /// </summary>
         public ConvexPolyhedron Translate(Vector3d v)
@@ -1174,6 +1292,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 围绕点“p”作为旋转中心旋转多面体。<br></br>
         /// Rotate polyhedron around point 'p' as a rotation center.
         /// </summary>
         public ConvexPolyhedron Rotate(Rotation r, Point3d p)
@@ -1195,6 +1314,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 相对于中心点缩放多面体<br></br>
         /// Scale polyhedron relative to center point
         /// </summary>
         public ConvexPolyhedron Scale(double scale)
@@ -1203,6 +1323,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 相对于给定点缩放多面体<br></br>
         /// Scale polyhedron relative to given point
         /// </summary>
         public ConvexPolyhedron Scale(double scale, Point3d scaling_center)
@@ -1218,6 +1339,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 多面体相对于给定点的非均匀缩放<br></br>
         /// Non-uniform scaling of polyhedron relative to given point
         /// </summary>
         public virtual ConvexPolyhedron Scale(double scale_x, double scale_y, double scale_z, Point3d scaling_center)
@@ -1241,6 +1363,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 多面体相对于中心点的非均匀缩放<br></br>
         /// Non-uniform scaling of polyhedron relative to center point
         /// </summary>
         public virtual ConvexPolyhedron Scale(double scale_x, double scale_y, double scale_z)

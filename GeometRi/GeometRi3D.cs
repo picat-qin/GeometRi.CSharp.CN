@@ -4,6 +4,7 @@ using static System.Math;
 namespace GeometRi
 {
     /// <summary>
+    /// 静态类。实现全局公差属性和基于公差的相等方法。<br></br>
     /// Static class. Implements global tolerance property and tolerance based equality methods.
     /// </summary>
     public static class GeometRi3D
@@ -15,6 +16,7 @@ namespace GeometRi
         internal static Random rnd;
 
         /// <summary>
+        /// 用于比较操作的容差（默认 1e-12）<br></br>
         /// Tolerance used for comparison operations (default 1e-12)
         /// </summary>
         public static double Tolerance
@@ -24,6 +26,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 用于比较运算的默认容差<br></br>
         /// Default tolerance used for comparison operations
         /// </summary>
         public static double DefaultTolerance
@@ -33,6 +36,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 用于切换绝对（TRUE）至相对（FALSE）公差比较的标志。<br></br>
         /// Flag for switching absolute (TRUE) to relative (FALSE) tolerance comparison.
         /// </summary>
         public static bool UseAbsoluteTolerance
@@ -42,6 +46,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 基于容差的平等检查<br></br>
         /// Tolerance based equality check
         /// </summary>
         public static bool AlmostEqual(double a, double b)
@@ -57,6 +62,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 基于容差的平等检查<br></br>
         /// Tolerance based equality check
         /// </summary>
         public static bool AlmostEqual(double a, double b, double tolerance)
@@ -72,6 +78,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 基于公差的不平等检查<br></br>
         /// Tolerance based unequality check
         /// </summary>
         public static bool NotEqual(double a, double b)
@@ -87,6 +94,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 基于公差的不平等检查<br></br>
         /// Tolerance based unequality check
         /// </summary>
         public static bool NotEqual(double a, double b, double tolerance)
@@ -102,6 +110,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 基于公差的比较<br></br>
         /// Tolerance based comparison
         /// </summary>
         public static bool Greater(double a, double b)
@@ -117,6 +126,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 基于公差的比较<br></br>
         /// Tolerance based comparison
         /// </summary>
         public static bool Greater(double a, double b, double tolerance)
@@ -132,6 +142,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 基于公差的比较<br></br>
         /// Tolerance based comparison
         /// </summary>
         public static bool Smaller(double a, double b)
@@ -147,6 +158,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 基于公差的比较<br></br>
         /// Tolerance based comparison
         /// </summary>
         public static bool Smaller(double a, double b, double tolerance)
@@ -180,6 +192,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 将“值”限制在范围[最小值，最大值]内。<br></br>
         /// Restrict 'value' to a range [min, max].
         /// </summary>
         public static T Clamp<T>(T value, T min, T max) where T : IComparable<T>

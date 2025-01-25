@@ -4,6 +4,7 @@ using static System.Math;
 namespace GeometRi
 {
     /// <summary>
+    /// 在全局或局部参考系中定义的 3D 空间中的矢量。<br></br>
     /// Vector in 3D space defined in global or local reference frame.
     /// </summary>
 #if NET20
@@ -17,6 +18,7 @@ namespace GeometRi
 
         #region "Constructors"
         /// <summary>
+        /// 默认构造函数，初始化零向量。<br></br>
         /// Default constructor, initializes zero vector.
         /// </summary>
         /// <param name="coord">Reference coordinate system (default - Coord3d.GlobalCS).</param>
@@ -30,6 +32,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 使用参考坐标系中的组件初始化矢量对象。
         /// Initializes vector object using components in reference coordinate system.
         /// </summary>
         /// <param name="coord">Reference coordinate system (default - Coord3d.GlobalCS).</param>
@@ -43,6 +46,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 将矢量对象初始化为参考坐标系中某点的半径矢量。<br></br>
         /// Initializes vector object as radius vector of a point in reference coordinate system.
         /// </summary>
         public Vector3d(Point3d p, Coord3d coord = null)
@@ -56,6 +60,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 使用第一个点的参考坐标系中的两个点初始化矢量对象。<br></br>
         /// Initializes vector object using two points in reference coordinate system of the first point.
         /// </summary>
         /// <param name="p1">Start point.</param>
@@ -72,6 +77,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 使用双精度数组初始化向量。<br></br>
         /// Initializes vector using double array.
         /// </summary>
         /// <param name="coord">Reference coordinate system (default - Coord3d.GlobalCS).</param>
@@ -88,6 +94,7 @@ namespace GeometRi
         #endregion
 
         /// <summary>
+        /// 单位长度的均匀分布随机向量<br></br>
         /// Uniformly distrbuted random vector of unit length
         /// </summary>
         public static Vector3d Random()
@@ -123,6 +130,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 参考坐标系中的 X 分量<br></br>
         /// X component in reference coordinate system
         /// </summary>
         public double X
@@ -132,6 +140,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 参考坐标系中的 Y 分量<br></br>
         /// Y component in reference coordinate system
         /// </summary>
         public double Y
@@ -141,6 +150,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 参考坐标系中的 Z 分量<br></br>
         /// Z component in reference coordinate system
         /// </summary>
         public double Z
@@ -150,6 +160,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 向量范数<br></br>
         /// Norm of a vector
         /// </summary>
         public double Norm
@@ -158,6 +169,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 向量的最小元素 
         /// Minimal element of a vector
         /// </summary>
         public double MinElement
@@ -166,6 +178,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 向量的最大元素<br></br>
         /// Maximal element of a vector
         /// </summary>
         public double MaxElement
@@ -174,6 +187,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        ///  参考坐标系<br></br>
         ///  Reference coordinate system
         /// </summary>
         public Coord3d Coord
@@ -181,18 +195,20 @@ namespace GeometRi
             get { return _coord; }
         }
 
-        // ILinearObject interface implementation
+        /// <inheritdoc/>
         public Vector3d Direction
         {
             get { return this.Normalized;  }
         }
 
+        /// <inheritdoc/>
         public bool IsOriented
         {
             get {  return true;  }
         }
 
         /// <summary>
+        /// 返回沿矢量方向通过原点的线<br></br>
         /// Returns line passing through origin in the direction of vector
         /// </summary>
         public Line3d ToLine
@@ -203,6 +219,7 @@ namespace GeometRi
 
         #region "ParallelMethods"
         /// <summary>
+        /// 检查两个物体是否平行<br></br>
         /// Check if two objects are parallel
         /// </summary>
         public bool IsParallelTo(ILinearObject obj)
@@ -215,6 +232,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否不平行<br></br>
         /// Check if two objects are NOT parallel
         /// </summary>
         public bool IsNotParallelTo(ILinearObject obj)
@@ -223,6 +241,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否正交
         /// Check if two objects are orthogonal
         /// </summary>
         public bool IsOrthogonalTo(ILinearObject obj)
@@ -238,6 +257,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否平行
         /// Check if two objects are parallel
         /// </summary>
         public bool IsParallelTo(IPlanarObject obj)
@@ -246,6 +266,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否不平行<br></br>
         /// Check if two objects are NOT parallel
         /// </summary>
         public bool IsNotParallelTo(IPlanarObject obj)
@@ -254,6 +275,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否正交<br></br>
         /// Check if two objects are orthogonal
         /// </summary>
         public bool IsOrthogonalTo(IPlanarObject obj)
@@ -264,6 +286,7 @@ namespace GeometRi
 
 
         /// <summary>
+        /// 点，由从原点开始的矢量表示<br></br>
         /// Point, represented by vector starting in origin
         /// </summary>
         public Point3d ToPoint
@@ -272,6 +295,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回标准化向量<br></br>
         /// Return normalized vector
         /// </summary>
         public Vector3d Normalized
@@ -288,6 +312,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 规范化当前向量<br></br>
         /// Normalize the current vector
         /// </summary>
         public void Normalize()
@@ -298,6 +323,11 @@ namespace GeometRi
             val[2] = val[2] * tmp;
         }
 
+        /// <summary>
+        /// 加法
+        /// </summary>
+        /// <param name="a"></param>
+        /// <returns></returns>
         public Vector3d Add(double a)
         {
             Vector3d tmp = this.Copy();
@@ -306,6 +336,12 @@ namespace GeometRi
             tmp[2] += a;
             return tmp;
         }
+
+        /// <summary>
+        /// 加法
+        /// </summary>
+        /// <param name="v"></param>
+        /// <returns></returns>
         public Vector3d Add(Vector3d v)
         {
             if ((this._coord != v._coord))
@@ -316,6 +352,12 @@ namespace GeometRi
             tmp[2] += v.Z;
             return tmp;
         }
+
+        /// <summary>
+        /// 减法
+        /// </summary>
+        /// <param name="a"></param>
+        /// <returns></returns>
         public Vector3d Subtract(double a)
         {
             Vector3d tmp = this.Copy();
@@ -324,6 +366,12 @@ namespace GeometRi
             tmp[2] -= a;
             return tmp;
         }
+
+        /// <summary>
+        /// 减法
+        /// </summary>
+        /// <param name="v"></param>
+        /// <returns></returns>
         public Vector3d Subtract(Vector3d v)
         {
             if ((this._coord != v._coord))
@@ -334,6 +382,12 @@ namespace GeometRi
             tmp[2] -= v.Z;
             return tmp;
         }
+
+        /// <summary>
+        /// 乘法
+        /// </summary>
+        /// <param name="a"></param>
+        /// <returns></returns>
         public Vector3d Mult(double a)
         {
             Vector3d tmp = this.Copy();
@@ -344,6 +398,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 两个向量的点积<br></br>
         /// Dot product of two vectors
         /// </summary>
         public double Dot(Vector3d v)
@@ -354,6 +409,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 两个向量的叉积<br></br>
         /// Cross product of two vectors
         /// </summary>
         public Vector3d Cross(Vector3d v)
@@ -367,6 +423,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 将矢量转换为参考坐标系。<br></br>
         /// Convert vector to reference coordinate system.
         /// </summary>
         public Vector3d ConvertTo(Coord3d coord)
@@ -382,6 +439,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 将矢量转换为全局坐标系<br></br>
         /// Convert vector to global coordinate system
         /// </summary>
         public Vector3d ConvertToGlobal()
@@ -401,6 +459,7 @@ namespace GeometRi
 
         #region "AngleTo"
         /// <summary>
+        /// 两个物体之间的角度（以弧度为单位） (0 &lt; angle &lt; Pi)<br></br>
         /// Angle between two objects in radians (0 &lt; angle &lt; Pi)
         /// </summary>
         public double AngleTo(ILinearObject obj)
@@ -408,6 +467,7 @@ namespace GeometRi
             return GeometRi3D.GetAngle(this, obj);
         }
         /// <summary>
+        /// 两个物体之间的角度（以度为单位） (0 &lt; angle &lt; 180)<br></br>
         /// Angle between two objects in degrees (0 &lt; angle &lt; 180)
         /// </summary>
         public double AngleToDeg(ILinearObject obj)
@@ -416,6 +476,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 两个物体之间的角度（以弧度为单位） (0 &lt; angle &lt; Pi)<br></br>
         /// Angle between two objects in radians (0 &lt; angle &lt; Pi)
         /// </summary>
         public double AngleTo(IPlanarObject obj)
@@ -423,6 +484,7 @@ namespace GeometRi
             return GeometRi3D.GetAngle(this, obj);
         }
         /// <summary>
+        /// 两个物体之间的角度（以度为单位）(0 &lt; angle &lt; 180)<br></br>
         /// Angle between two objects in degrees (0 &lt; angle &lt; 180)
         /// </summary>
         public double AngleToDeg(IPlanarObject obj)
@@ -432,6 +494,7 @@ namespace GeometRi
         #endregion
 
         /// <summary>
+        ///将当前向量的投影返回到第二个向量<br></br>
         /// Return projection of the current vector to the second vector
         /// </summary>
         public Vector3d ProjectionTo(Vector3d v)
@@ -442,6 +505,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回与当前向量正交的任意向量<br></br>
         /// Return arbitrary vector, orthogonal to the current vector
         /// </summary>
         public Vector3d OrthogonalVector
@@ -474,6 +538,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 旋转向量<br></br>
         /// Rotate vector
         /// </summary>
         public Vector3d Rotate(Rotation r)
@@ -483,6 +548,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 在给定点反射向量<br></br>
         /// Reflect vector in given point
         /// </summary>
         public Vector3d ReflectIn(Point3d p)
@@ -491,6 +557,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 在给定的线中反映矢量<br></br>
         /// Reflect vector in given line
         /// </summary>
         public Vector3d ReflectIn(Line3d l)
@@ -501,6 +568,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 在给定平面内反射向量<br></br>
         /// Reflect vector in given plane
         /// </summary>
         public Vector3d ReflectIn(Plane3d s)
@@ -512,6 +580,7 @@ namespace GeometRi
         #endregion
 
         /// <summary>
+        /// Determines whether two objects are equal.
         /// Determines whether two objects are equal.
         /// </summary>
         public override bool Equals(object obj)
@@ -536,6 +605,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回对象的哈希码。<br></br>
         /// Returns the hashcode for the object.
         /// </summary>
         public override int GetHashCode()
@@ -544,6 +614,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 全局坐标系中对象的字符串表示。<br></br>
         /// String representation of an object in global coordinate system.
         /// </summary>
         public override String ToString()
@@ -552,6 +623,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 参考坐标系中对象的字符串表示。<br></br>
         /// String representation of an object in reference coordinate system.
         /// </summary>
         public String ToString(Coord3d coord)

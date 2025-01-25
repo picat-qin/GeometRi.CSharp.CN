@@ -6,6 +6,7 @@ using static System.Math;
 namespace GeometRi
 {
     /// <summary>
+    /// 由四个点定义的三维空间中的四面体。<br></br>
     /// Tetrahedron in 3D space defined by four points.
     /// </summary>
 #if NET20
@@ -24,6 +25,7 @@ namespace GeometRi
 
         #region "Constructors"
         /// <summary>
+        /// 正四面体，顶点为 (0, 0, 0), (0, 1, 1), (1, 0, 1), (1, 1, 0)<br></br>
         /// Regular tetrahedron with vertices (0, 0, 0), (0, 1, 1), (1, 0, 1), (1, 1, 0)
         /// </summary>
         public Tetrahedron()
@@ -36,6 +38,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 由四个点定义的一般四面体<br></br>
         /// General tetrahedron defined by four points
         /// </summary>
         public Tetrahedron(Point3d v1, Point3d v2, Point3d v3, Point3d v4)
@@ -48,6 +51,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 单位立方体中的随机四面体。<br></br>
         /// Random tetrahedron in unit cube.
         /// </summary>
         static public Tetrahedron Random()
@@ -61,6 +65,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 将凸多面体转换为四面体<br></br>
         /// Convert ConvexPolyhedron to Tetrahedron
         /// </summary>
         static public Tetrahedron FromConvexPolyhedron(ConvexPolyhedron cp)
@@ -88,11 +93,12 @@ namespace GeometRi
         #region "Properties"
 
         /// <summary>
+        /// 四面体中心<br></br>
         /// Center of tetrahedron
         /// </summary>
         public Point3d Center
         {
-            get 
+            get
             {
                 return 0.25 * (vertices[0] + vertices[1] + vertices[2] + vertices[3]);
             }
@@ -100,6 +106,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 四面体的顶点<br></br>
         /// Vertex of tetrahedron
         /// </summary>
         public Point3d A
@@ -111,6 +118,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 四面体的顶点<br></br>
         /// Vertex of tetrahedron
         /// </summary>
         public Point3d B
@@ -122,6 +130,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 四面体的顶点<br></br>
         /// Vertex of tetrahedron
         /// </summary>
         public Point3d C
@@ -133,6 +142,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 四面体的顶点<br></br>
         /// Vertex of tetrahedron
         /// </summary>
         public Point3d D
@@ -144,6 +154,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 构成四面体的面列表<br></br>
         /// List of faces forming the tetrahedron
         /// </summary>
         public List<Triangle> ListOfFaces
@@ -169,6 +180,7 @@ namespace GeometRi
 
 
         /// <summary>
+        /// 形成四面体的边列表<br></br>
         /// List of edges forming the tetragedron
         /// </summary>
         public List<Segment3d> ListOfEdges
@@ -194,20 +206,22 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 四面体的体积。<br></br>
         /// Volume of the tetrahedron.
         /// </summary>
         public double Volume
         {
-            get 
+            get
             {
                 Vector3d a = new Vector3d(vertices[3], vertices[0]);
                 Vector3d b = new Vector3d(vertices[3], vertices[1]);
                 Vector3d c = new Vector3d(vertices[3], vertices[2]);
-                return Abs(a*(b.Cross(c))) / 6;
+                return Abs(a * (b.Cross(c))) / 6;
             }
         }
 
         /// <summary>
+        /// 四面体的表面积。<br></br>
         /// Surface area of the tetrahedron.
         /// </summary>
         public double Area
@@ -227,6 +241,7 @@ namespace GeometRi
 
         #region "BoundingBox"
         /// <summary>
+        /// 返回最小边界框。
         /// Return minimum bounding box.
         /// </summary>
         public Box3d MinimumBoundingBox
@@ -238,6 +253,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回给定坐标系中的边界框。<br></br>
         /// Return Bounding Box in given coordinate system.
         /// </summary>
         public Box3d BoundingBox(Coord3d coord = null)
@@ -246,6 +262,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回轴对齐边界框（AABB）。<br></br>
         /// Return Axis Aligned Bounding Box (AABB).
         /// </summary>
         public AABB AABB()
@@ -258,12 +275,13 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回边界球。<br></br>
         /// Return bounding sphere.
         /// </summary>
         public Sphere BoundingSphere
         {
-            get 
-            { 
+            get
+            {
                 throw new NotImplementedException();
             }
 
@@ -273,6 +291,7 @@ namespace GeometRi
         #region "Distance"
 
         /// <summary>
+        /// 四面体到点的距离（位于框内的点将返回零）<br></br>
         /// Distance from tetrahedron to point (zero will be returned for point located inside box)
         /// </summary>
         public double DistanceTo(Point3d p)
@@ -281,6 +300,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 四面体上最接近目标点“p”的点（包括内部点）。<br></br>
         /// Point on tetrahedron (including interior points) closest to target point "p".
         /// </summary>
         public Point3d ClosestPoint(Point3d p)
@@ -306,6 +326,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 两个四面体之间的距离<br></br>
         /// Distance between two tetrahedrones
         /// </summary>
         public double DistanceTo(Tetrahedron t)
@@ -327,7 +348,8 @@ namespace GeometRi
                     if (temp_dist == 0.0)
                     {
                         return 0;
-                    } else if (temp_dist < dist)
+                    }
+                    else if (temp_dist < dist)
                     {
                         dist = temp_dist;
                     }
@@ -356,6 +378,7 @@ namespace GeometRi
         #region "Intersection"
 
         /// <summary>
+        /// 检查两个四面体的交点<br></br>
         /// Check intersection of two tetrahedrons
         /// </summary>
         public bool Intersects(Tetrahedron t)
@@ -379,6 +402,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个四面体的交点<br></br>
         /// Check intersection of two tetrahedrons
         /// </summary>
         public bool IntersectsFast(Tetrahedron t)
@@ -392,6 +416,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查四面体与三角形的交点<br></br>
         /// Check intersection of tetrahedron with triangle
         /// </summary>
         public bool Intersects(Triangle t)
@@ -410,6 +435,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查四面体与线的交点<br></br>
         /// Check intersection of tetrahedron with line
         /// </summary>
         public bool Intersects(Line3d l)
@@ -422,6 +448,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查四面体与射线的交点<br></br>
         /// Check intersection of tetrahedron with ray
         /// </summary>
         public bool Intersects(Ray3d r)
@@ -434,6 +461,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查四面体与线段的交点<br></br>
         /// Check intersection of tetrahedron with segment
         /// </summary>
         public bool Intersects(Segment3d s)
@@ -450,6 +478,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查四面体与盒子的交点<br></br>
         /// Check intersection of tetrahedron with box
         /// </summary>
         public bool Intersects(Box3d box)
@@ -466,6 +495,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查四面体与球体的交点<br></br>
         /// Check intersection of tetrahedron with sphere
         /// </summary>
         public bool Intersects(Sphere s)
@@ -482,7 +512,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Get intersection of line with tetrahedron.
+        /// 获取线与四面体的交点。<br></br>
+        /// 返回“null”（无交点）或“Point3d”或“Segment3d”类型的对象。<br></br>
+        /// Get intersection of line with tetrahedron.<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Segment3d'.
         /// </summary>
         public object IntersectionWith(Line3d l)
@@ -522,14 +554,15 @@ namespace GeometRi
             Vector3d normal = (b - a).ToVector.Cross((c - a).ToVector);
             double dot_d = normal * (d - a).ToVector;
             double dot_p = normal * (p - a).ToVector;
-            if (GeometRi3D.AlmostEqual(dot_p,0.0))
+            if (GeometRi3D.AlmostEqual(dot_p, 0.0))
             {
                 return 0; // Point is on face
             }
             else if (Sign(dot_d) == Sign(dot_p))
             {
                 return 1; // points are on the same side
-            } else
+            }
+            else
             {
                 return 999;
             }
@@ -548,18 +581,18 @@ namespace GeometRi
             for (int i = 0; i <= 3; i++)
             {
                 double t = d * (tetra.vertices[i] - p).ToVector;
-                if (t>0)
+                if (t > 0)
                 {
                     positive++;
                 }
-                if (t<0)
+                if (t < 0)
                 {
                     negative++;
                 }
-                if (positive > 0 && negative >0)
+                if (positive > 0 && negative > 0)
                 {
                     // this is not separating axis
-                    return 0; 
+                    return 0;
                 }
             }
 
@@ -568,6 +601,7 @@ namespace GeometRi
 
 
         /// <summary>
+        /// 检查四面体是否位于由全局公差属性（Geomet Ri3D.Tolerance）定义的公差的盒子内。<br></br>
         /// Check if tetrahedron is located inside box with tolerance defined by global tolerance property (GeometRi3D.Tolerance).
         /// </summary>
         public bool IsInside(Box3d box)
@@ -576,7 +610,7 @@ namespace GeometRi
             if (!GeometRi3D.UseAbsoluteTolerance)
             {
                 double tol = GeometRi3D.Tolerance;
-                GeometRi3D.Tolerance = tol * Sqrt(Max(this.A.DistanceSquared(this.D),Max(this.A.DistanceSquared(this.B), this.A.DistanceSquared(this.C))));
+                GeometRi3D.Tolerance = tol * Sqrt(Max(this.A.DistanceSquared(this.D), Max(this.A.DistanceSquared(this.B), this.A.DistanceSquared(this.C))));
                 GeometRi3D.UseAbsoluteTolerance = true;
                 bool result = this.IsInside(box);
                 GeometRi3D.UseAbsoluteTolerance = false;
@@ -596,6 +630,7 @@ namespace GeometRi
 
         #region "TranslateRotateReflect"
         /// <summary>
+        /// 通过矢量平移四面体<br></br>
         /// Translate tetrahedron by a vector
         /// </summary>
         public Tetrahedron Translate(Vector3d v)
@@ -604,6 +639,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 围绕点“p”作为旋转中心旋转四面体。<br></br>
         /// Rotate tetrahedron around point 'p' as a rotation center.
         /// </summary>
         public Tetrahedron Rotate(Rotation r, Point3d p)
@@ -616,6 +652,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 在给定点反射四面体<br></br>
         /// Reflect tetrahedron in given point
         /// </summary>
         public virtual Tetrahedron ReflectIn(Point3d p)
@@ -628,6 +665,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 沿给定线反射四面体<br></br>
         /// Reflect tetrahedron in given line
         /// </summary>
         public virtual Tetrahedron ReflectIn(Line3d l)
@@ -640,6 +678,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 在给定平面上反射四面体<br></br>
         /// Reflect tetrahedron in given plane
         /// </summary>
         public virtual Tetrahedron ReflectIn(Plane3d s)
@@ -652,6 +691,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 相对于中心点缩放四面体 <br></br>       
         /// Scale tetrahedron relative to center point
         /// </summary>
         public virtual Tetrahedron Scale(double scale)
@@ -665,6 +705,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 相对于给定点缩放四面体  <br></br>      
         /// Scale tetrahedron relative to given point
         /// </summary>
         public virtual Tetrahedron Scale(double scale, Point3d scaling_center)
@@ -677,6 +718,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 尺度四面体<br></br>
         /// Scale tetrahedron
         /// </summary>
         public virtual Tetrahedron Scale(double scale_x, double scale_y, double scale_z)

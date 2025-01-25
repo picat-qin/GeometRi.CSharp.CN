@@ -5,6 +5,7 @@ using static System.Math;
 namespace GeometRi
 {
     /// <summary>
+    /// 在全局或局部参考系中定义的 3D 空间中的旋转（内部由旋转矩阵表示）。<br></br>
     /// Rotation in 3D space defined in global or local reference frame (internally represented by rotation matrix).
     /// </summary>
 #if NET20
@@ -20,6 +21,7 @@ namespace GeometRi
 
         #region "Constructors"
         /// <summary>
+        /// 默认构造函数，初始化单位矩阵（零旋转）。<br></br>
         /// Default constructor, initializes identity matrix (zero rotation).
         /// </summary>
         public Rotation()
@@ -29,6 +31,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 初始化旋转，等于从全局 CS 到“坐标”的旋转。<br></br>
         /// Initializes rotation, equal to the rotation from global CS to 'coord'.
         /// </summary>
         public Rotation(Coord3d coord)
@@ -45,10 +48,14 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 使用旋转矩阵初始化旋转。<br></br>
         /// Initializes rotation using rotation matrix.
         /// </summary>
-        /// <param name="m">Rotation matrix.</param>
-        /// <param name="coord">Reference coordinate system (default - Coord3d.GlobalCS).</param>
+        /// <param name="m">旋转矩阵。<br></br>Rotation matrix.</param>
+        /// <param name="coord">
+        /// 参考坐标系（默认 - Coord3d.GlobalCS）。<br></br>
+        /// Reference coordinate system (default - Coord3d.GlobalCS).
+        /// </param>
         public Rotation(Matrix3d m, Coord3d coord = null)
         {
             _r = m.Copy();
@@ -56,6 +63,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 使用四元数初始化旋转。<br></br>
         /// Initializes rotation using quaternion.
         /// </summary>
         /// <param name="q"></param>
@@ -66,10 +74,14 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 使用轴和旋转角度初始化旋转。<br></br>
         /// Initializes rotation using axis and angle of rotation.
         /// </summary>
-        /// <param name="axis">Rotation axis</param>
-        /// <param name="alpha">Angle of rotation (counterclockwise, radians)</param>
+        /// <param name="axis">旋转轴。<br></br>Rotation axis</param>
+        /// <param name="alpha">
+        /// 旋转角度（逆时针，弧度）<br></br>
+        /// Angle of rotation (counterclockwise, radians)
+        /// </param>
         public Rotation(Vector3d axis, double alpha)
         {
             Vector3d v = axis.Normalized;
@@ -91,21 +103,6 @@ namespace GeometRi
 
             _coord = axis.Coord;
         }
-
-        //public Rotation(Vector3d axis, double alpha)
-        //{
-        //    Vector3d v = axis.Normalized;
-        //    Matrix3d S = new Matrix3d();
-        //    S[0, 1] = -v.Z;
-        //    S[0, 2] = v.Y;
-        //    S[1, 0] = v.Z;
-        //    S[1, 2] = -v.X;
-        //    S[2, 0] = -v.Y;
-        //    S[2, 1] = v.X;
-
-        //    _rot = Matrix3d.Identity() + Sin(alpha) * S + (1.0 - Cos(alpha)) * S * S;
-        //    _coord = axis.Coord;
-        //}
         #endregion
 
         private double this[int i, int j]
@@ -115,6 +112,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 随机旋转<br></br>
         /// Random rotation
         /// </summary>
         public static Rotation Random()
@@ -130,16 +128,18 @@ namespace GeometRi
             return new Rotation(_r, _coord);
         }
 
+        #region "Properties"
         /// <summary>
+        /// 返回与当前旋转等效的旋转矩阵。<br></br>
         /// Returns rotation matrix equivalent to the current rotation.
         /// </summary>
-        #region "Properties"
         public Matrix3d ToRotationMatrix
         {
             get { return this._r; }
         }
 
         /// <summary>
+        /// 返回反向旋转。<br></br>
         /// Returns inverse rotation.
         /// </summary>
         public Rotation Inverse
@@ -148,6 +148,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回与当前旋转等价的四元数。<br></br>
         /// Returns quaternion equivalent to the current rotation.
         /// </summary>
         public Quaternion ToQuaternion
@@ -156,6 +157,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回旋转轴（使用“ToAngle”属性获取旋转的角度）。<br></br>
         /// Returns axis of the rotation (use 'ToAngle' property to get angle of the rotation).
         /// </summary>
         public Vector3d ToAxis
@@ -177,6 +179,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回旋转的角度（使用‘ToAxis’属性来获取旋转的轴）。<br></br>
         /// Returns angle of the rotation (use 'ToAxis' property to get axis of the rotation).
         /// </summary>
         public double ToAngle
@@ -199,6 +202,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        ///  参考坐标系<br></br>
         ///  Reference coordinate system
         /// </summary>
         public Coord3d Coord
@@ -208,16 +212,26 @@ namespace GeometRi
         #endregion
 
         /// <summary>
+        /// 通过组合三个基本旋转（即绕坐标系轴的旋转）来创建旋转对象。<br></br>
         /// Creates rotation object by composing three elemental rotations, i.e. rotations about the axes of a coordinate system.
+        /// <para>允许使用适当的欧拉角 ("xyx"、"zxz" 等) 或 Tait–Bryan 角 ("xyz"、"yzx")。</para>
+        /// 外部旋转（固定框架内的旋转）应以小写形式书写（“xyz”、“zxz”等）。
+        /// <para>固有旋转（移动框架中的旋转）应该用大写字母书写（“XYZ”、“ZXZ”等）。</para>
         /// <para>Both proper Euler angles ("xyx", "zxz", etc.) or Tait–Bryan angles ("xyz", "yzx") are allowed.</para>
         /// Extrinsic rotations (rotations in fixed frame) should be written in lower case ("xyz", zxz", etc.).
         /// <para>Intrinsic rotations (rotations in moving frame) should be written in upper case ("XYZ", "ZXZ", etc.).</para>
         /// </summary>
-        /// <param name="alpha">First rotation angle.</param>
-        /// <param name="beta">Second rotation angle.</param>
-        /// <param name="gamma">Third rotation angle.</param>
-        /// <param name="RotationOrder">String, representing rotation axes in the form "xyz" (extrinsic rotations, fixed frame) or "XYZ" (intrinsic rotations, moving frame).</param>
-        /// <param name="coord">Reference coordinate system, default - Coord3d.GlobalCS.</param>
+        /// <param name="alpha">第一个旋转角度。<br></br> First rotation angle.</param>
+        /// <param name="beta">第二个旋转角度。<br></br> Second rotation angle.</param>
+        /// <param name="gamma">第三个旋转角度。<br></br> Third rotation angle.</param>
+        /// <param name="RotationOrder">
+        /// 字符串，表示以“xyz”（外部旋转，固定框架）或“XYZ”（内部旋转，移动框架）形式表示的旋转轴。<br></br>
+        /// String, representing rotation axes in the form "xyz" (extrinsic rotations, fixed frame) or "XYZ" (intrinsic rotations, moving frame).
+        /// </param>
+        /// <param name="coord">
+        /// 参考坐标系，默认-Coord3d.GlobalCS。<br></br>
+        /// Reference coordinate system, default - Coord3d.GlobalCS.
+        /// </param>
         /// <returns></returns>
         public static Rotation FromEulerAngles(double alpha, double beta, double gamma, string RotationOrder, Coord3d coord = null)
         {
@@ -256,15 +270,29 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 将旋转矩阵分解为三个元素旋转的乘积，即绕坐标系轴的旋转。
+        /// <para>允许使用适当的欧拉角（“xyx”、“zxz”等）或 Tait-Bryan 角（“xyz”、“yzx”等）。</para> 
+        /// 外部旋转（固定框架中的旋转）应以小写形式书写（“xyz”、“zxz”等）。
+        /// <para>内部旋转（移动框架中的旋转）应以大写形式书写（“XYZ”、“ZXZ”等）。</para> 
+        /// 请注意，这种分解通常不是唯一的！<br></br>
         /// Factor a rotation matrix as product of three elemental rotations, i.e. rotations about the axes of a coordinate system.
         /// <para>Both proper Euler angles ("xyx", "zxz", etc.) or Tait–Bryan angles ("xyz", "yzx") are allowed.</para>
         /// Extrinsic rotations (rotations in fixed frame) should be written in lower case ("xyz", zxz", etc.).
         /// <para>Intrinsic rotations (rotations in moving frame) should be written in upper case ("XYZ", "ZXZ", etc.).</para>
         /// Note that such factorization generally is not unique!
         /// </summary>
-        /// <param name="RotationOrder">String, representing rotation axes in the form "xyz" (extrinsic rotations, fixed frame) or "XYZ" (intrinsic rotations, moving frame).</param>
-        /// <param name="coord">Reference coordinate system, default - Coord3d.GlobalCS.</param>
-        /// <returns>Double array with first, second and third rotation angles</returns>
+        /// <param name="RotationOrder">
+        /// 字符串，表示以“xyz”（外部旋转，固定框架）或“XYZ”（内部旋转，移动框架）形式表示的旋转轴。<br></br>
+        /// String, representing rotation axes in the form "xyz" (extrinsic rotations, fixed frame) or "XYZ" (intrinsic rotations, moving frame).
+        /// </param>
+        /// <param name="coord">
+        /// 参考坐标系，默认-Coord3d.GlobalCS。<br></br>
+        /// Reference coordinate system, default - Coord3d.GlobalCS.
+        /// </param>
+        /// <returns>
+        /// 具有第一、第二和第三旋转角度的双阵列<br></br>
+        /// Double array with first, second and third rotation angles
+        /// </returns>
         public double[] ToEulerAngles(string RotationOrder, Coord3d coord = null)
         {
             if (string.IsNullOrEmpty(RotationOrder) || RotationOrder.Length < 3)
@@ -707,17 +735,22 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 两个旋转的球面线性插值。<br></br>
         /// Spherical linear interpolation of two rotations.
         /// </summary>
-        /// <param name="r1">Initial rotation</param>
-        /// <param name="r2">Final rotation</param>
-        /// <param name="t">Interpolation parameter within range [0, 1]</param>
+        /// <param name="r1">初始旋转<br></br> Initial rotation</param>
+        /// <param name="r2">最后旋转<br></br> Final rotation</param>
+        /// <param name="t">
+        /// 插值参数在范围 [0, 1] 内<br></br>
+        /// Interpolation parameter within range [0, 1]
+        /// </param>
         public static Rotation SLERP(Rotation r1, Rotation r2, double t)
         {
             return new Rotation(Quaternion.SLERP(r1.ToQuaternion, r2.ToQuaternion, t));
         }
 
         /// <summary>
+        /// 合并两次旋转。<br></br>
         /// Combine two rotations.
         /// </summary>
         public Rotation Mult(Rotation r)
@@ -727,8 +760,12 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 将旋转矩阵乘以向量。<br></br>
         /// Multiply rotation matrix by vector.
-        /// <para>The rotation matrix is first transformed into reference coordinate system of vector.</para>
+        /// <para>
+        /// 首先将旋转矩阵变换到矢量的参考坐标系中。<br></br>
+        /// The rotation matrix is first transformed into reference coordinate system of vector.
+        /// </para>
         /// </summary>
         public Vector3d Mult(Vector3d v)
         {
@@ -736,8 +773,12 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 将旋转矩阵与点相乘。<br></br>
         /// Multiply rotation matrix by point.
-        /// <para>The rotation matrix is first transformed into reference coordinate system of point.</para>
+        /// <para>
+        /// 首先将旋转矩阵变换到点的参考坐标系中。<br></br>
+        /// The rotation matrix is first transformed into reference coordinate system of point.
+        /// </para>
         /// </summary>
         public Point3d Mult(Point3d p)
         {
@@ -745,6 +786,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 将旋转对象转换至全局坐标系。<br></br>
         /// Convert rotation object to global coordinate system.
         /// </summary>
         public Rotation ConvertToGlobal()
@@ -763,6 +805,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 将旋转对象转换为参考坐标系。<br></br>
         /// Convert rotation object to reference coordinate system.
         /// </summary>
         public Rotation ConvertTo(Coord3d coord)
@@ -781,6 +824,7 @@ namespace GeometRi
 
 
         /// <summary>
+        /// 确定两个对象是否相等。<br></br>
         /// Determines whether two objects are equal.
         /// </summary>
         public override bool Equals(object obj)
@@ -802,6 +846,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回对象的哈希码。<br></br>
         /// Returns the hashcode for the object.
         /// </summary>
         public override int GetHashCode()
@@ -812,6 +857,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 全局坐标系中对象的字符串表示。<br></br>
         /// String representation of an object in global coordinate system.
         /// </summary>
         public override string ToString()
@@ -820,6 +866,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 参考坐标系中对象的字符串表示。<br></br>
         /// String representation of an object in reference coordinate system.
         /// </summary>
         public string ToString(Coord3d coord)

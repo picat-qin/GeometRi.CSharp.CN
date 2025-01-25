@@ -4,6 +4,7 @@ using static System.Math;
 namespace GeometRi
 {
     /// <summary>
+    /// 三维空间中的无限线，由线上的任意点和方向向量定义。<br></br>
     /// Infinite line  in 3D space and defined by any point lying on the line and a direction vector.
     /// </summary>
 #if NET20
@@ -17,6 +18,7 @@ namespace GeometRi
 
         #region "Constructors"
         /// <summary>
+        /// 默认构造函数，初始化与全局坐标系中的 X 轴对齐的线。<br></br>
         /// Default constructor, initializes line aligned with X-axis in global coordinate system.
         /// </summary>
         public Line3d()
@@ -26,10 +28,11 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 使用点和方向初始化线。<br></br>
         /// Initializes line using point and direction.
         /// </summary>
-        /// <param name="p">Point on the line.</param>
-        /// <param name="v">Direction vector.</param>
+        /// <param name="p">线上的点<br></br> Point on the line.</param>
+        /// <param name="v">方向向量<br></br> Direction vector.</param>
         public Line3d(Point3d p, Vector3d v)
         {
             _point = p.Copy();
@@ -37,10 +40,11 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 使用两点初始化线。<br></br>
         /// Initializes line using two points.
         /// </summary>
-        /// <param name="p1">First point.</param>
-        /// <param name="p2">Second point.</param>
+        /// <param name="p1">第一点<br></br>First point.</param>
+        /// <param name="p2">第二点<br></br>Second point.</param>
         public Line3d(Point3d p1, Point3d p2)
         {
             _point = p1.Copy();
@@ -49,6 +53,7 @@ namespace GeometRi
         #endregion
 
         /// <summary>
+        /// 创建对象的副本<br></br>
         /// Creates copy of the object
         /// </summary>
         public Line3d Copy()
@@ -57,6 +62,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 线的基点<br></br>
         /// Base point of the line
         /// </summary>
         public Point3d Point
@@ -66,6 +72,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 线的方向向量<br></br>
         /// Direction vector of the line
         /// </summary>
         public Vector3d Direction
@@ -80,6 +87,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回对象的副本<br></br>
         /// Returns copy the object
         /// </summary>
         public Line3d ToLine
@@ -89,6 +97,7 @@ namespace GeometRi
 
         #region "ParallelMethods"
         /// <summary>
+        /// 检查两个物体是否平行<br></br>
         /// Check if two objects are parallel
         /// </summary>
         public bool IsParallelTo(ILinearObject obj)
@@ -97,6 +106,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否不平行<br></br>
         /// Check if two objects are NOT parallel
         /// </summary>
         public bool IsNotParallelTo(ILinearObject obj)
@@ -105,6 +115,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否正交<br></br>
         /// Check if two objects are orthogonal
         /// </summary>
         public bool IsOrthogonalTo(ILinearObject obj)
@@ -113,6 +124,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否平行<br></br>
         /// Check if two objects are parallel
         /// </summary>
         public bool IsParallelTo(IPlanarObject obj)
@@ -121,6 +133,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否不平行<br></br>
         /// Check if two objects are NOT parallel
         /// </summary>
         public bool IsNotParallelTo(IPlanarObject obj)
@@ -129,6 +142,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否正交<br></br>
         /// Check if two objects are orthogonal
         /// </summary>
         public bool IsOrthogonalTo(IPlanarObject obj)
@@ -137,6 +151,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否共面<br></br>
         /// Check if two objects are coplanar
         /// </summary>
         public bool IsCoplanarTo(IPlanarObject obj)
@@ -145,6 +160,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否共面<br></br>
         /// Check if two objects are coplanar
         /// </summary>
         public bool IsCoplanarTo(ILinearObject obj)
@@ -155,6 +171,7 @@ namespace GeometRi
 
         #region "DistanceTo"
         /// <summary>
+        /// 线与点之间的最短距离<br></br>
         /// Shortest distance between line and point
         /// </summary>
         public double DistanceTo(Point3d p)
@@ -163,6 +180,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 线与射线之间的最短距离<br></br>
         /// Shortest distance between line and ray
         /// </summary>
         public double DistanceTo(Ray3d r)
@@ -171,6 +189,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 线与线段之间的最短距离<br></br>
         /// Shortest distance between line and segment
         /// </summary>
         public double DistanceTo(Segment3d s)
@@ -179,6 +198,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 两条线之间的最短距离<br></br>
         /// Shortest distance between two lines
         /// </summary>
         public virtual double DistanceTo(Line3d l)
@@ -200,6 +220,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 线与圆之间的最短距离（包括内部点）<br></br>
         /// Shortest distance between line and circle (including interior points)
         /// </summary>
         public double DistanceTo(Circle3d c)
@@ -208,11 +229,12 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 线与圆之间的最短距离（包括内部点）<br></br>
         /// Shortest distance between line and circle (including interior points)
         /// </summary>
-        /// <param name="c">Target circle</param>
-        /// <param name="point_on_line">Closest point on line</param>
-        /// <param name="point_on_circle">Closest point on circle</param>
+        /// <param name="c">目标圆<br></br> Target circle</param>
+        /// <param name="point_on_line">线上最近的点<br></br> Closest point on line</param>
+        /// <param name="point_on_circle">圆上最近的点<br></br> Closest point on circle</param>
         public double DistanceTo(Circle3d c, out Point3d point_on_line, out Point3d point_on_circle)
         {
             return c.DistanceTo(this, out point_on_circle, out point_on_line);
@@ -221,6 +243,7 @@ namespace GeometRi
 
 
         /// <summary>
+        /// 垂直于第二条线的点（平行线为空）<br></br>
         /// Point on the perpendicular to the second line (null for parallel lines)
         /// </summary>
         public virtual Point3d PerpendicularTo(Line3d l)
@@ -244,7 +267,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Get intersection of line with other line.
+        /// 获取线与其他线的交点。<br></br>
+        /// Get intersection of line with other line.<br></br>
+        /// 返回“null”（无交点）或“Point3d”或“Line3d”类型的对象。<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Line3d'.
         /// </summary>
         public object IntersectionWith(Line3d l)
@@ -271,7 +296,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Get intersection of line with plane.
+        /// 得到线与平面的交点。<br></br>
+        /// Get intersection of line with plane.<br></br>
+        /// 返回“null”（无交点）或“Point3d”或“Line3d”类型的对象。<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Line3d'.
         /// </summary>
         public virtual object IntersectionWith(Plane3d s)
@@ -280,7 +307,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Get intersection of line with sphere.
+        /// 获取线与球的交点。<br></br>
+        /// Get intersection of line with sphere.<br></br>
+        /// 返回“null”（无交点）或“Point3d”或“Segment3d”类型的对象。<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Segment3d'.
         /// </summary>
         public object IntersectionWith(Sphere s)
@@ -289,7 +318,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Get intersection of line with ellipsoid.
+        /// 获取线与椭圆体的交点。<br></br>
+        /// Get intersection of line with ellipsoid.<br></br>
+        /// 返回“null”（无交点）或“Point3d”或“Segment3d”类型的对象。<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Segment3d'.
         /// </summary>
         public object IntersectionWith(Ellipsoid e)
@@ -298,7 +329,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Get intersection of line with ellipse.
+        /// 获取线与椭圆的交点。<br></br>
+        /// Get intersection of line with ellipse.<br></br>
+        /// 返回“null”（无交点）或“Point3d”或“Segment3d”类型的对象。<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Segment3d'.
         /// </summary>
         public object IntersectionWith(Ellipse e)
@@ -307,7 +340,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Get intersection of line with circle.
+        /// 获取线与圆的交点。<br></br>
+        /// Get intersection of line with circle.<br></br>
+        /// 返回“null”（无交点）或“Point3d”或“Segment3d”类型的对象。<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Segment3d'.
         /// </summary>
         public object IntersectionWith(Circle3d c)
@@ -316,7 +351,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Get intersection of line with segment.
+        /// 获取线与线段的交点。<br></br>
+        /// Get intersection of line with segment.<br></br>
+        /// 返回“null”（无交点）或“Point3d”或“Segment3d”类型的对象。<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Segment3d'.
         /// </summary>
         public object IntersectionWith(Segment3d s)
@@ -325,7 +362,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Get intersection of line with triangle.
+        /// 获取线与三角形的交点。<br></br>
+        /// Get intersection of line with triangle.<br></br>
+        /// 返回“null”（无交点）或“Point3d”或“Segment3d”类型的对象。<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Segment3d'.
         /// </summary>
         public object IntersectionWith(Triangle  t)
@@ -334,7 +373,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Get intersection of line with box.
+        /// 获取线与框的交点。<br></br>
+        /// Get intersection of line with box.<br></br>
+        /// 返回“null”（无交点）或“Point3d”或“Segment3d”类型的对象。<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Segment3d'.
         /// </summary>
         public object IntersectionWith(Box3d b)
@@ -343,7 +384,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Get the orthogonal projection of a line to the plane.
+        /// 获取直线到平面的正交投影。<br></br>
+        /// 返回“Line3d”或“Point3d”类型的对象<br></br>
+        /// Get the orthogonal projection of a line to the plane.<br></br>
         /// Return object of type 'Line3d' or 'Point3d'
         /// </summary>
         public virtual object ProjectionTo(Plane3d s)
@@ -363,6 +406,7 @@ namespace GeometRi
 
         #region "AngleTo"
         /// <summary>
+        /// 两个物体之间的角度（以弧度表示）(0 &lt; angle &lt; Pi)<br></br>
         /// Angle between two objects in radians (0 &lt; angle &lt; Pi)
         /// </summary>
         public double AngleTo(ILinearObject obj)
@@ -370,6 +414,7 @@ namespace GeometRi
             return GeometRi3D.GetAngle(this, obj);
         }
         /// <summary>
+        /// 两个物体之间的角度（以度为单位）(0 &lt; angle &lt; 180)<br></br>
         /// Angle between two objects in degrees (0 &lt; angle &lt; 180)
         /// </summary>
         public double AngleToDeg(ILinearObject obj)
@@ -378,6 +423,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 两个物体之间的角度（以弧度表示）(0 &lt; angle &lt; Pi)<br></br>
         /// Angle between two objects in radians (0 &lt; angle &lt; Pi)
         /// </summary>
         public double AngleTo(IPlanarObject obj)
@@ -385,6 +431,7 @@ namespace GeometRi
             return GeometRi3D.GetAngle(this, obj);
         }
         /// <summary>
+        /// 两个物体之间的角度（以度为单位）(0 &lt; angle &lt; 180)<br></br>
         /// Angle between two objects in degrees (0 &lt; angle &lt; 180)
         /// </summary>
         public double AngleToDeg(IPlanarObject obj)
@@ -396,6 +443,7 @@ namespace GeometRi
 
         #region "TranslateRotateReflect"
         /// <summary>
+        /// 通过向量平移线<br></br>
         /// Translate line by a vector
         /// </summary>
         public virtual Line3d Translate(Vector3d v)
@@ -406,6 +454,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 根据给定的旋转矩阵旋转线<br></br>
         /// Rotate line by a given rotation matrix
         /// </summary>
         [System.Obsolete("use Rotation object and specify rotation center: this.Rotate(Rotation r, Point3d p)")]
@@ -418,6 +467,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 以点“p”为旋转中心，按照给定的旋转矩阵旋转直线<br></br>
         /// Rotate line by a given rotation matrix around point 'p' as a rotation center
         /// </summary>
         [System.Obsolete("use Rotation object: this.Rotate(Rotation r, Point3d p)")]
@@ -430,6 +480,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 以点“p”为旋转中心旋转线。<br></br>
         /// Rotate line around point 'p' as a rotation center.
         /// </summary>
         public virtual Line3d Rotate(Rotation r, Point3d p)
@@ -438,6 +489,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 在给定点处反射线<br></br>
         /// Reflect line in given point
         /// </summary>
         public virtual Line3d ReflectIn(Point3d p)
@@ -446,6 +498,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 在给定的线中反射线<br></br>
         /// Reflect line in given line
         /// </summary>
         public virtual Line3d ReflectIn(Line3d l)
@@ -454,6 +507,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 在给定平面上反射线<br></br>
         /// Reflect line in given plane
         /// </summary>
         public virtual Line3d ReflectIn(Plane3d s)
@@ -463,6 +517,7 @@ namespace GeometRi
         #endregion
 
         /// <summary>
+        /// 确定两个对象是否相等。<br></br>
         /// Determines whether two objects are equal.
         /// </summary>
         public override bool Equals(object obj)
@@ -500,6 +555,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回对象的哈希码。<br></br>
         /// Returns the hashcode for the object.
         /// </summary>
         public override int GetHashCode()
@@ -508,6 +564,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 全局坐标系中对象的字符串表示形式。<br></br>
         /// String representation of an object in global coordinate system.
         /// </summary>
         public override String ToString()
@@ -516,6 +573,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 参考坐标系中对象的字符串表示。<br></br>
         /// String representation of an object in reference coordinate system.
         /// </summary>
         public String ToString(Coord3d coord)

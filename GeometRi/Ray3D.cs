@@ -4,6 +4,7 @@ using static System.Math;
 namespace GeometRi
 {
     /// <summary>
+    /// 由点和方向向量定义的三维空间中的射线。<br></br>
     /// Ray in 3D space defined by point and direction vector.
     /// </summary>
 #if NET20
@@ -16,6 +17,7 @@ namespace GeometRi
         private Vector3d _dir;
 
         /// <summary>
+        /// 默认构造函数，从原点开始初始化射线并与 X 轴对齐（在全局坐标系中）。<br></br>
         /// Default constructor, initializes ray starting from origin and aligned with X-axis (in global coordinate system).
         /// </summary>
         public Ray3d()
@@ -25,6 +27,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 使用起点和方向初始化射线。<br></br>
         /// Initializes ray using starting point and direction.
         /// </summary>
         public Ray3d(Point3d p, Vector3d v)
@@ -42,9 +45,9 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 射线基点<br></br>
         /// Base point of the ray
         /// </summary>
-        /// <returns></returns>
         public Point3d Point
         {
             get { return _point.Copy(); }
@@ -52,15 +55,16 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 射线的方向向量<br></br>
         /// Direction vector of the ray
         /// </summary>
-        /// <returns></returns>
         public Vector3d Direction
         {
             get { return _dir.Copy(); }
             set { _dir = value.Copy(); }
         }
 
+        /// <inheritdoc/>
         public bool IsOriented
         {
             get { return false; }
@@ -68,6 +72,7 @@ namespace GeometRi
 
         #region "ParallelMethods"
         /// <summary>
+        /// 检查两个物体是否平行<br></br>
         /// Check if two objects are parallel
         /// </summary>
         public bool IsParallelTo(ILinearObject obj)
@@ -76,6 +81,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否不平行<br></br>
         /// Check if two objects are NOT parallel
         /// </summary>
         public bool IsNotParallelTo(ILinearObject obj)
@@ -84,6 +90,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否正交<br></br>
         /// Check if two objects are orthogonal
         /// </summary>
         public bool IsOrthogonalTo(ILinearObject obj)
@@ -92,6 +99,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否平行<br></br>
         /// Check if two objects are parallel
         /// </summary>
         public bool IsParallelTo(IPlanarObject obj)
@@ -100,6 +108,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否不平行<br></br>
         /// Check if two objects are NOT parallel
         /// </summary>
         public bool IsNotParallelTo(IPlanarObject obj)
@@ -108,6 +117,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否正交<br></br>
         /// Check if two objects are orthogonal
         /// </summary>
         public bool IsOrthogonalTo(IPlanarObject obj)
@@ -116,6 +126,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否共面<br></br>
         /// Check if two objects are coplanar
         /// </summary>
         public bool IsCoplanarTo(IPlanarObject obj)
@@ -124,6 +135,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否共面<br></br>
         /// Check if two objects are coplanar
         /// </summary>
         public bool IsCoplanarTo(ILinearObject obj)
@@ -133,6 +145,7 @@ namespace GeometRi
         #endregion
 
         /// <summary>
+        /// 将射线转换为线<br></br>
         /// Convert ray to line
         /// </summary>
         public Line3d ToLine
@@ -142,6 +155,7 @@ namespace GeometRi
 
         #region "DistanceTo"
         /// <summary>
+        /// 射线到点的距离<br></br>
         /// Distance from ray to point
         /// </summary>
         public double DistanceTo(Point3d p)
@@ -150,6 +164,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 到某条线的最短距离<br></br>
         /// Shortest distance to a line
         /// </summary>
         public double DistanceTo(Line3d l)
@@ -179,6 +194,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 到线段的距离<br></br>
         /// Distance to a segment
         /// </summary>
         public double DistanceTo(Segment3d s)
@@ -187,6 +203,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 两条射线之间的距离<br></br>
         /// Distance between two rays
         /// </summary>
         public double DistanceTo(Ray3d r)
@@ -227,6 +244,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 射线与圆之间的最短距离（包括内部点）<br></br>
         /// Shortest distance between ray and circle (including interior points)
         /// </summary>
         public double DistanceTo(Circle3d c)
@@ -235,11 +253,12 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 射线与圆之间的最短距离（包括内部点）<br></br>
         /// Shortest distance between ray and circle (including interior points)
         /// </summary>
-        /// <param name="c">Target circle</param>
-        /// <param name="point_on_ray">Closest point on ray</param>
-        /// <param name="point_on_circle">Closest point on circle</param>
+        /// <param name="c">目标圆<br></br> Target circle</param>
+        /// <param name="point_on_ray">射线上最近的点<br></br> Closest point on ray</param>
+        /// <param name="point_on_circle">圆上最近的点<br></br> Closest point on circle</param>
         public double DistanceTo(Circle3d c, out Point3d point_on_ray, out Point3d point_on_circle)
         {
             return c.DistanceTo(this, out point_on_circle, out point_on_ray);
@@ -248,6 +267,7 @@ namespace GeometRi
 
 
         /// <summary>
+        /// 垂直于线的点<br></br>
         /// Point on the perpendicular to the line
         /// </summary>
         public Point3d PerpendicularTo(Line3d l)
@@ -276,7 +296,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Get intersection of ray with plane.
+        /// 获取射线与平面的交点。<br></br>
+        /// Get intersection of ray with plane.<br></br>
+        /// 返回“null”（无交集）或“Point3d”或“Ray3d”类型的对象。<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Ray3d'.
         /// </summary>
         public object IntersectionWith(Plane3d s)
@@ -315,7 +337,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Get intersection of ray with line.
+        /// 获取射线与线的交点。<br></br>
+        /// 返回“null”（无交点）或“Point3d”或“Ray3d”类型的对象。<br></br>
+        /// Get intersection of ray with line.<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Ray3d'.
         /// </summary>
         public object IntersectionWith(Line3d l)
@@ -346,7 +370,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Get intersection of ray with other ray.
+        /// 获取射线与其他射线的交点。<br></br>
+        /// 返回“null”（无交点）或“Point3d”、“Segment3d”或“Ray3d”类型的对象。<br></br>
+        /// Get intersection of ray with other ray.<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d', 'Segment3d' or 'Ray3d'.
         /// </summary>
         public object IntersectionWith(Ray3d r)
@@ -402,7 +428,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Get intersection of ray with segment.
+        /// 获取射线与线段的交点。<br></br>
+        /// 返回“null”（无交点）或“Point3d”或“Segment3d”类型的对象。<br></br>
+        /// Get intersection of ray with segment.<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Segment3d'.
         /// </summary>
         public object IntersectionWith(Segment3d s)
@@ -476,7 +504,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Get intersection of ray with sphere.
+        /// 获取射线与球体的交点。<br></br>
+        /// 返回“null”（无交点）或“Point3d”或“Segment3d”类型的对象。<br></br>
+        /// Get intersection of ray with sphere.<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Segment3d'.
         /// </summary>
         public object IntersectionWith(Sphere s)
@@ -485,7 +515,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Get intersection of ray with ellipse.
+        /// 获取射线与椭圆的交点。<br></br>
+        /// 返回“null”（无交点）或“Point3d”或“Segment3d”类型的对象。<br></br>
+        /// Get intersection of ray with ellipse.<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Segment3d'.
         /// </summary>
         public object IntersectionWith(Ellipse e)
@@ -494,7 +526,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Get intersection of ray with ellipsoid.
+        /// 获取射线与椭圆体的交点。<br></br>
+        /// 返回“null”（无交点）或“Point3d”或“Segment3d”类型的对象。<br></br>
+        /// Get intersection of ray with ellipsoid.<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Segment3d'.
         /// </summary>
         public object IntersectionWith(Ellipsoid e)
@@ -503,7 +537,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Get intersection of ray with circle.
+        /// 获取射线与圆的交点。<br></br>
+        /// 返回“null”（无交点）或“Point3d”或“Segment3d”类型的对象。<br></br>
+        /// Get intersection of ray with circle.<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Segment3d'.
         /// </summary>
         public object IntersectionWith(Circle3d c)
@@ -512,7 +548,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Get intersection of ray with triangle.
+        /// 获取射线与三角形的交点。<br></br>
+        /// 返回“null”（无交点）或“Point3d”或“Segment3d”类型的对象。<br></br>
+        /// Get intersection of ray with triangle.<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Segment3d'.
         /// </summary>
         public object IntersectionWith(Triangle t)
@@ -521,7 +559,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Get intersection of ray with box.
+        /// 获取射线与盒子的交点。<br></br>
+        /// 返回“null”（无交点）或“Point3d”或“Segment3d”类型的对象。<br></br>
+        /// Get intersection of ray with box.<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Segment3d'.
         /// </summary>
         public object IntersectionWith(Box3d b)
@@ -530,7 +570,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Get the orthogonal projection of a ray to the plane.
+        /// 获取射线到平面的正交投影。<br></br>
+        /// 返回“Ray3d”或“Point3d”类型的对象<br></br>
+        /// Get the orthogonal projection of a ray to the plane.<br></br>
         /// Return object of type 'Ray3d' or 'Point3d'
         /// </summary>
         public object ProjectionTo(Plane3d s)
@@ -550,6 +592,7 @@ namespace GeometRi
 
         #region "AngleTo"
         /// <summary>
+        /// 两个物体之间的角度（以弧度表示）(0 &lt; angle &lt; Pi)<br></br>
         /// Angle between two objects in radians (0 &lt; angle &lt; Pi)
         /// </summary>
         public double AngleTo(ILinearObject obj)
@@ -557,6 +600,7 @@ namespace GeometRi
             return GeometRi3D.GetAngle(this, obj);
         }
         /// <summary>
+        /// 两个物体之间的角度（以度为单位）(0 &lt; angle &lt; 180)<br></br>
         /// Angle between two objects in degrees (0 &lt; angle &lt; 180)
         /// </summary>
         public double AngleToDeg(ILinearObject obj)
@@ -565,6 +609,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 两个物体之间的角度（以弧度表示）(0 &lt; angle &lt; Pi)<br></br>
         /// Angle between two objects in radians (0 &lt; angle &lt; Pi)
         /// </summary>
         public double AngleTo(IPlanarObject obj)
@@ -572,6 +617,7 @@ namespace GeometRi
             return GeometRi3D.GetAngle(this, obj);
         }
         /// <summary>
+        /// 两个物体之间的角度（以度为单位）(0 &lt; angle &lt; 180)<br></br>
         /// Angle between two objects in degrees (0 &lt; angle &lt; 180)
         /// </summary>
         public double AngleToDeg(IPlanarObject obj)
@@ -582,6 +628,7 @@ namespace GeometRi
 
         #region "TranslateRotateReflect"
         /// <summary>
+        /// 将射线平移为矢量<br></br>
         /// Translate ray by a vector
         /// </summary>
         public Ray3d Translate(Vector3d v)
@@ -592,6 +639,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 根据给定的旋转矩阵旋转射线<br></br>
         /// Rotate ray by a given rotation matrix
         /// </summary>
         [System.Obsolete("use Rotation object and specify rotation center: this.Rotate(Rotation r, Point3d p)")]
@@ -601,6 +649,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 根据给定的旋转矩阵围绕点“p”作为旋转中心旋转射线<br></br>
         /// Rotate ray by a given rotation matrix around point 'p' as a rotation center
         /// </summary>
         [System.Obsolete("use Rotation object: this.Rotate(Rotation r, Point3d p)")]
@@ -610,6 +659,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 以点 'p' 为旋转中心旋转射线<br></br>
         /// Rotate ray around point 'p' as a rotation center
         /// </summary>
         public Ray3d Rotate(Rotation r, Point3d p)
@@ -618,6 +668,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 在给定点反射光线<br></br>
         /// Reflect ray in given point
         /// </summary>
         public Ray3d ReflectIn(Point3d p)
@@ -626,6 +677,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 沿给定线反射光线<br></br>
         /// Reflect ray in given line
         /// </summary>
         public Ray3d ReflectIn(Line3d l)
@@ -634,6 +686,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 在给定平面内反射光线<br></br>
         /// Reflect ray in given plane
         /// </summary>
         public Ray3d ReflectIn(Plane3d s)

@@ -4,6 +4,7 @@ using static System.Math;
 namespace GeometRi
 {
     /// <summary>
+    /// 三维空间中由两个端点定义的线段。<br></br>
     /// Line segment in 3D space defined by two end points.
     /// </summary>
 #if NET20
@@ -16,6 +17,7 @@ namespace GeometRi
         private Point3d _p2;
 
         /// <summary>
+        /// 使用两点初始化线段。<br></br>
         /// Initializes line segment using two points.
         /// </summary>
         public Segment3d(Point3d p1, Point3d p2)
@@ -25,6 +27,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 创建对象的副本<br></br>
         /// Creates copy of the object
         /// </summary>
         public Segment3d Copy()
@@ -32,44 +35,66 @@ namespace GeometRi
             return new Segment3d(_p1,_p2);
         }
 
+        /// <summary>
+        /// 点1
+        /// </summary>
         public Point3d P1
         {
             get { return _p1.Copy(); }
             set { _p1 = value.Copy(); }
         }
 
+        /// <summary>
+        /// 点2
+        /// </summary>
         public Point3d P2
         {
             get { return _p2.Copy(); }
             set { _p2 = value.Copy(); }
         }
 
+        /// <summary>
+        /// 中心点
+        /// </summary>
         public Point3d Center
         {
             get { return (_p1 + _p2) / 2; }
         }
 
+        /// <summary>
+        /// 长度
+        /// </summary>
         public double Length
         {
             get { return _p1.DistanceTo(_p2); }
         }
 
+        /// <summary>
+        /// 转换为矢量
+        /// </summary>
         public Vector3d ToVector
         {
             get { return new Vector3d(_p1, _p2); }
         }
 
+        /// <summary>
+        /// 转换为射线
+        /// </summary>
         public Ray3d ToRay
         {
             get { return new Ray3d(_p1, new Vector3d(_p1, _p2)); }
         }
 
+        /// <summary>
+        /// 转换为无限线
+        /// </summary>
         public Line3d ToLine
         {
             get { return new Line3d(_p1, _p2); }
         }
 
         /// <summary>
+        /// 线段的方向向量<br></br>
         /// Direction vector of the segment
         /// </summary>
         /// <returns></returns>
@@ -78,6 +103,7 @@ namespace GeometRi
             get { return this.ToVector.Normalized; }
         }
 
+        /// <inheritdoc/>
         public bool IsOriented
         {
             get { return false; }
@@ -85,6 +111,7 @@ namespace GeometRi
 
         #region "ParallelMethods"
         /// <summary>
+        /// 检查两个物体是否平行<br></br>
         /// Check if two objects are parallel
         /// </summary>
         public bool IsParallelTo(ILinearObject obj)
@@ -93,6 +120,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否不平行<br></br>
         /// Check if two objects are NOT parallel
         /// </summary>
         public bool IsNotParallelTo(ILinearObject obj)
@@ -101,6 +129,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否正交<br></br>
         /// Check if two objects are orthogonal
         /// </summary>
         public bool IsOrthogonalTo(ILinearObject obj)
@@ -109,6 +138,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否平行<br></br>
         /// Check if two objects are parallel
         /// </summary>
         public bool IsParallelTo(IPlanarObject obj)
@@ -117,6 +147,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否不平行<br></br>
         /// Check if two objects are NOT parallel
         /// </summary>
         public bool IsNotParallelTo(IPlanarObject obj)
@@ -125,6 +156,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否正交<br></br>
         /// Check if two objects are orthogonal
         /// </summary>
         public bool IsOrthogonalTo(IPlanarObject obj)
@@ -133,6 +165,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否共面<br></br>
         /// Check if two objects are coplanar
         /// </summary>
         public bool IsCoplanarTo(IPlanarObject obj)
@@ -141,6 +174,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否共面<br></br>
         /// Check if two objects are coplanar
         /// </summary>
         public bool IsCoplanarTo(ILinearObject obj)
@@ -151,6 +185,7 @@ namespace GeometRi
 
         #region "DistanceTo"
         /// <summary>
+        /// 返回从线段到点的最短距离<br></br>
         /// Returns shortest distance from segment to the point
         /// </summary>
         public double DistanceTo(Point3d p)
@@ -159,6 +194,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 线段上最接近目标点“p”的点。<br></br>
         /// Point on segment closest to target point "p".
         /// </summary>
         public Point3d ClosestPoint(Point3d p)
@@ -185,6 +221,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回从线段到平面的最短距离<br></br>
         /// Returns shortest distance from segment to the plane
         /// </summary>
         public double DistanceTo(Plane3d s)
@@ -203,6 +240,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回从线段到线的最短距离<br></br>
         /// Returns shortest distance from segment to the line
         /// </summary>
         public double DistanceTo(Line3d l)
@@ -219,6 +257,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回两个线段之间的最短距离<br></br>
         /// Returns shortest distance between two segments
         /// </summary>
         public double DistanceTo(Segment3d s)
@@ -227,6 +266,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回两个线段之间的最短距离（包含最近点）<br></br>
         /// Returns shortest distance between two segments (with closest points)
         /// </summary>
         public double DistanceTo(Segment3d s, out Point3d point_on_this_segment, out Point3d point_on_target_segment)
@@ -350,6 +390,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回从线段到射线的最短距离<br></br>
         /// Returns shortest distance from segment to ray
         /// </summary>
         public double DistanceTo(Ray3d r)
@@ -393,6 +434,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 线段与圆之间的最短距离（包括内部点）<br></br>
         /// Shortest distance between segment and circle (including interior points)
         /// </summary>
         public double DistanceTo(Circle3d c)
@@ -401,6 +443,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 线段与球体之间的最短距离<br></br>
         /// Shortest distance between segment and sphere
         /// </summary>
         public double DistanceTo(Sphere s)
@@ -409,17 +452,19 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 线段与圆之间的最短距离（包括内部点）<br></br>
         /// Shortest distance between segment and circle (including interior points)
         /// </summary>
-        /// <param name="c">Target circle</param>
-        /// <param name="point_on_segment">Closest point on segment</param>
-        /// <param name="point_on_circle">Closest point on circle</param>
+        /// <param name="c">目标圆<br></br> Target circle</param>
+        /// <param name="point_on_segment">线段上最近的点Closest point on segment</param>
+        /// <param name="point_on_circle">圆上最近的点Closest point on circle</param>
         public double DistanceTo(Circle3d c, out Point3d point_on_segment, out Point3d point_on_circle)
         {
             return c.DistanceTo(this, out point_on_circle, out point_on_segment);
         }
 
         /// <summary>
+        /// 线段与三角形之间的最短距离<br></br>
         /// Shortest distance between segment and triangle
         /// </summary>
         public double DistanceTo(Triangle t)
@@ -428,6 +473,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 线段和三角形之间的最短距离（包含最近点）<br></br>
         /// Shortest distance between segment and triangle (with closest points)
         /// </summary>
         public double DistanceTo(Triangle t, out Point3d point_on_segment, out Point3d point_on_triangle)
@@ -437,6 +483,9 @@ namespace GeometRi
         #endregion
 
         /// <summary>
+        /// <para>测试线段是否位于线的 epsilon 邻域内。</para> 
+        /// <para>Epsilon 邻域由 Geomet Ri3D.Tolerance 属性定义。</para> 
+        /// <para>对于相对公差测试，线段长度的一小部分用于定义 epsilon 邻域。</para>
         /// <para>Test if segment is located in the epsilon neighborhood of the line.</para>
         /// <para>Epsilon neighborhood is defined by a GeometRi3D.Tolerance property.</para>
         /// <para>For relative tolerance tests a fraction of the segment's length is used to define epsilon neighborhood.</para>
@@ -461,6 +510,7 @@ namespace GeometRi
 
         #region "BoundingBox"
         /// <summary>
+        /// 返回最小边界框。<br></br>
         /// Return minimum bounding box.
         /// </summary>
         public Box3d MinimumBoundingBox
@@ -477,6 +527,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回给定坐标系中的轴对齐边界框（AABB）。<br></br>
         /// Return Axis Aligned Bounding Box (AABB) in given coordinate system.
         /// </summary>
         public Box3d BoundingBox(Coord3d coord = null)
@@ -496,6 +547,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回边界球。<br></br>
         /// Return bounding sphere.
         /// </summary>
         public Sphere BoundingSphere
@@ -506,7 +558,9 @@ namespace GeometRi
         #endregion
 
         /// <summary>
-        /// Get intersection of segment with plane.
+        /// 得到线段与平面的交点。<br></br>
+        /// Get intersection of segment with plane.<br></br>
+        /// 返回“null”（无交点）或“Point3d”或“Segment3d”类型的对象。<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Segment3d'.
         /// </summary>
         public object IntersectionWith(Plane3d s)
@@ -541,7 +595,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Get intersection of segment with line.
+        /// 获得线段与线的交点。<br></br>
+        /// Get intersection of segment with line.<br></br>
+        /// 返回“null”（无交点）或“Point3d”或“Segment3d”类型的对象。<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Segment3d'.
         /// </summary>
         public object IntersectionWith(Line3d l)
@@ -562,7 +618,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Get intersection of segment with other segment.
+        /// 获取某段与其他段的交点。<br></br>
+        /// Get intersection of segment with other segment.<br></br>
+        /// 返回“null”（无交点）或“Point3d”或“Segment3d”类型的对象。<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Segment3d'.
         /// </summary>
         public object IntersectionWith(Segment3d s)
@@ -623,7 +681,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Get intersection of segment with sphere.
+        /// 获取线段与球体的交点。<br></br>
+        /// 返回“null”（无交点）或“Point3d”或“Segment3d”类型的对象。<br></br>
+        /// Get intersection of segment with sphere.<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Segment3d'.
         /// </summary>
         public object IntersectionWith(Sphere s)
@@ -632,7 +692,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Get intersection of segment with ellipsoid.
+        /// 获取线段与椭圆体的交点。<br></br>
+        /// 返回“null”（无交点）或“Point3d”或“Segment3d”类型的对象。<br></br>
+        /// Get intersection of segment with ellipsoid.<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Segment3d'.
         /// </summary>
         public object IntersectionWith(Ellipsoid e)
@@ -641,7 +703,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Get intersection of segment with ellipse.
+        /// 获取线段与椭圆的交点。<br></br>
+        /// 返回“null”（无交点）或“Point3d”或“Segment3d”类型的对象。<br></br>
+        /// Get intersection of segment with ellipse.<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Segment3d'.
         /// </summary>
         public object IntersectionWith(Ellipse e)
@@ -650,7 +714,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Get intersection of segment with circle.
+        /// 获取线段与圆的交点。<br></br>
+        /// 返回“null”（无交点）或“Point3d”或“Segment3d”类型的对象。<br></br>
+        /// Get intersection of segment with circle.<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Segment3d'.
         /// </summary>
         public object IntersectionWith(Circle3d c)
@@ -659,7 +725,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Get intersection of segment with ray.
+        /// 获取线段与射线的交点。<br></br>
+        /// 返回“null”（无交点）或“Point3d”或“Segment3d”类型的对象。<br></br>
+        /// Get intersection of segment with ray.<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Segment3d'.
         /// </summary>
         public object IntersectionWith(Ray3d r)
@@ -668,7 +736,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Get intersection of segment with triangle.
+        /// 获取线段与三角形的交点。<br></br>
+        /// 返回“null”（无交点）或“Point3d”或“Segment3d”类型的对象。<br></br>
+        /// Get intersection of segment with triangle.<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Segment3d'.
         /// </summary>
         public object IntersectionWith(Triangle t)
@@ -677,7 +747,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Get intersection of segment with box.
+        /// 获取线段与框的交点。<br></br>
+        /// 返回“null”（无交点）或“Point3d”或“Segment3d”类型的对象。<br></br>
+        /// Get intersection of segment with box.<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Segment3d'.
         /// </summary>
         public object IntersectionWith(Box3d b)
@@ -686,6 +758,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 线段与圆的相交检查<br></br>
         /// Intersection check between segment and circle
         /// </summary>
         public bool Intersects(Circle3d c)
@@ -694,7 +767,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Get the orthogonal projection of a segment to the line.
+        /// 获取线段到线的正交投影。<br></br>
+        /// 返回“Segment3d”或“Point3d”类型的对象<br></br>
+        /// Get the orthogonal projection of a segment to the line.<br></br>
         /// Return object of type 'Segment3d' or 'Point3d'
         /// </summary>
         public object ProjectionTo(Line3d l)
@@ -711,7 +786,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Get the orthogonal projection of a segment to the plane.
+        /// 获取线段在平面上的正交投影。<br></br>
+        /// 返回“Segment3d”或“Point3d”类型的对象<br></br>
+        /// Get the orthogonal projection of a segment to the plane.<br></br>
         /// Return object of type 'Segment3d' or 'Point3d'
         /// </summary>
         public object ProjectionTo(Plane3d s)
@@ -795,6 +872,7 @@ namespace GeometRi
 
         #region "AngleTo"
         /// <summary>
+        /// 两个物体之间的角度（以弧度表示）(0 &lt; angle &lt; Pi)<br></br>
         /// Angle between two objects in radians (0 &lt; angle &lt; Pi)
         /// </summary>
         public double AngleTo(ILinearObject obj)
@@ -802,6 +880,7 @@ namespace GeometRi
             return GeometRi3D.GetAngle(this, obj);
         }
         /// <summary>
+        /// 两个物体之间的角度（以度为单位）(0 &lt; angle &lt; 180)<br></br>
         /// Angle between two objects in degrees (0 &lt; angle &lt; 180)
         /// </summary>
         public double AngleToDeg(ILinearObject obj)
@@ -810,6 +889,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 两个物体之间的角度（以弧度表示）(0 &lt; angle &lt; Pi)<br></br>
         /// Angle between two objects in radians (0 &lt; angle &lt; Pi)
         /// </summary>
         public double AngleTo(IPlanarObject obj)
@@ -817,6 +897,7 @@ namespace GeometRi
             return GeometRi3D.GetAngle(this, obj);
         }
         /// <summary>
+        /// 两个物体之间的角度（以度为单位） (0 &lt; angle &lt; 180)<br></br>
         /// Angle between two objects in degrees (0 &lt; angle &lt; 180)
         /// </summary>
         public double AngleToDeg(IPlanarObject obj)
@@ -827,6 +908,7 @@ namespace GeometRi
 
         #region "TranslateRotateReflect"
         /// <summary>
+        /// 通过向量平移线段
         /// Translate segment by a vector
         /// </summary>
         public Segment3d Translate(Vector3d v)
@@ -853,6 +935,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 以点 'p' 为中心旋转线段<br></br>
         /// Rotate segment around point 'p' as a rotation center
         /// </summary>
         public virtual Segment3d Rotate(Rotation r, Point3d p)
@@ -861,6 +944,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 在给定点处反射线段<br></br>
         /// Reflect segment in given point
         /// </summary>
         public virtual Segment3d ReflectIn(Point3d p)
@@ -869,6 +953,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 反射给定线段<br></br>
         /// Reflect segment in given line
         /// </summary>
         public virtual Segment3d ReflectIn(Line3d l)
@@ -877,6 +962,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 在给定平面内反射线段<br></br>
         /// Reflect segment in given plane
         /// </summary>
         public virtual Segment3d ReflectIn(Plane3d s)
@@ -885,6 +971,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 相对于给定点的缩放段<br></br>
         /// Scale segment relative to given point
         /// </summary>
         public virtual Segment3d Scale(double scale, Point3d scaling_center)
@@ -895,6 +982,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 相对于其中心缩放片段<br></br>
         /// Scale segment relative to its center
         /// </summary>
         public virtual Segment3d Scale(double scale)

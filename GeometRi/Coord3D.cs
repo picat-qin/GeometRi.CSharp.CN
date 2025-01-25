@@ -4,6 +4,7 @@ using static System.Math;
 namespace GeometRi
 {
     /// <summary>
+    /// 由原点和变换矩阵（行格式）定义的笛卡尔坐标系。<br></br>
     /// Cartesian coordinate system defined by origin and transformation matrix (in row format).
     /// </summary>
 #if NET20
@@ -17,13 +18,17 @@ namespace GeometRi
         private string _name;
         private static int count = 0;
 
+        /// <summary>
+        /// 全局坐标系
+        /// </summary>
         public static readonly Coord3d GlobalCS = new Coord3d("Global_CS");
 
-#region "Constructors"
+        #region "Constructors"
         /// <summary>
+        /// 初始化默认坐标系。<br></br>
         /// Initializes default coordinate system.
         /// </summary>
-        /// <param name="name">Name of the coordinate system.</param>
+        /// <param name="name">坐标系的名称。<br></br> Name of the coordinate system.</param>
         public Coord3d(string name = "")
         {
             _origin = new Point3d(0, 0, 0);
@@ -40,11 +45,12 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 使用原点和变换矩阵初始化坐标系。<br></br>
         /// Initializes coordinate system using origin point  and transformation matrix.
         /// </summary>
-        /// <param name="p">Origin of the coordinate system.</param>
-        /// <param name="m">Transformation matrix (in row format).</param>
-        /// <param name="name">Name of the coordinate system.</param>
+        /// <param name="p">坐标系的原点。<br></br> Origin of the coordinate system.</param>
+        /// <param name="m">转换矩阵（行格式）。<br></br>Transformation matrix (in row format).</param>
+        /// <param name="name">坐标系的名称。<br></br>Name of the coordinate system.</param>
         public Coord3d(Point3d p, Matrix3d m, string name = "")
         {
             if (!m.IsOrthogonal)
@@ -62,16 +68,17 @@ namespace GeometRi
             {
                 _name = "Coord " + count.ToString();
             }
-            count += 1;
+            System.Threading.Interlocked.Increment(ref count);
         }
 
         /// <summary>
+        /// 使用原点和两个向量初始化坐标系。<br></br>
         /// Initializes coordinate system using origin point and two vectors.
         /// </summary>
-        /// <param name="p">Origin of the coordinate system.</param>
-        /// <param name="v1">Vector oriented along the X axis.</param>
-        /// <param name="v2">Vector in the XY plane.</param>
-        /// <param name="name">Name of the coordinate system.</param>
+        /// <param name="p">坐标系的原点。<br></br> Origin of the coordinate system.</param>
+        /// <param name="v1">沿 X 轴方向的矢量。<br></br> Vector oriented along the X axis.</param>
+        /// <param name="v2">XY 平面中的矢量。<br></br> Vector in the XY plane.</param>
+        /// <param name="name">坐标系的名称。<br></br>Name of the coordinate system.</param>
         public Coord3d(Point3d p, Vector3d v1, Vector3d v2, string name = "")
         {
 
@@ -98,12 +105,13 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 使用三点初始化坐标系。<br></br>
         /// Initializes coordinate system using three points.
         /// </summary>
-        /// <param name="p1">Origin of the coordinate system.</param>
-        /// <param name="p2">Point on the X axis.</param>
-        /// <param name="p3">Point on the XY plane.</param>
-        /// <param name="name">Name of the coordinate system.</param>
+        /// <param name="p1">坐标系的原点。<br></br> Origin of the coordinate system.</param>
+        /// <param name="p2">X 轴上的点。<br></br> Point on the X axis.</param>
+        /// <param name="p3">XY 平面上的点。<br></br> Point on the XY plane.</param>
+        /// <param name="name">坐标系的名称。<br></br>Name of the coordinate system.</param>
         public Coord3d(Point3d p1, Point3d p2, Point3d p3, string name = "")
         {
             Vector3d v1 = new Vector3d(p1, p2);
@@ -132,12 +140,13 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 使用原点和两个双精度数组初始化坐标系。<br></br>
         /// Initializes coordinate system using origin point and two double arrays.
         /// </summary>
-        /// <param name="p">Origin of the coordinate system.</param>
-        /// <param name="d1">Vector oriented along the X axis.</param>
-        /// <param name="d2">Vector in the XY plane.</param>
-        /// <param name="name">Name of the coordinate system.</param>
+        /// <param name="p1">坐标系的原点。<br></br> Origin of the coordinate system.</param>
+        /// <param name="d1">沿 X 轴方向的矢量。<br></br> Vector oriented along the X axis.</param>
+        /// <param name="d2">XY 平面中的矢量。<br></br> Vector in the XY plane.</param>
+        /// <param name="name">坐标系的名称。<br></br>Name of the coordinate system.</param>
         public Coord3d(Point3d p, double[] d1, double[] d2, string name = "")
         {
             Vector3d v1 = new Vector3d(d1);
@@ -166,6 +175,7 @@ namespace GeometRi
         #endregion
 
         /// <summary>
+        /// 创建对象的副本<br></br>
         /// Creates copy of the object
         /// </summary>
         public Coord3d Copy()
@@ -175,6 +185,7 @@ namespace GeometRi
 
 
         /// <summary>
+        /// 获取或设置坐标系的原点<br></br>
         /// Get or Set the origin of the coordinate system
         /// </summary>
         /// <returns></returns>
@@ -184,6 +195,7 @@ namespace GeometRi
             set { _origin = value.ConvertToGlobal(); }
         }
         /// <summary>
+        /// 获取或设置轴的单位向量，存储为行矩阵（3x3）<br></br>
         /// Get or Set unit vectors of the axes, stored as row-matrix(3x3)
         /// </summary>
         /// <returns></returns>
@@ -203,12 +215,16 @@ namespace GeometRi
             }
         }
 
+        /// <summary>
+        /// 名称
+        /// </summary>
         public string Name
         {
             get { return _name; }
         }
 
         /// <summary>
+        /// 获取已定义坐标系的总数<br></br>
         /// Get total number of defined coordinate systems
         /// </summary>
         public static int Counts
@@ -218,6 +234,7 @@ namespace GeometRi
 
 
         /// <summary>
+        /// X轴矢量<br></br>
         /// Get X-axis
         /// </summary>
         public Vector3d Xaxis
@@ -225,6 +242,7 @@ namespace GeometRi
             get { return _axes.Row1; }
         }
         /// <summary>
+        /// Y轴矢量<br></br>
         /// Get Y-axis
         /// </summary>
         public Vector3d Yaxis
@@ -232,6 +250,7 @@ namespace GeometRi
             get { return _axes.Row2; }
         }
         /// <summary>
+        /// Z轴矢量<br></br>
         /// Get Z-axis
         /// </summary>
         public Vector3d Zaxis
@@ -240,6 +259,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// XY 平面<br></br>
         /// XY plane in the current coordinate system
         /// </summary>
         public Plane3d XY_plane
@@ -248,6 +268,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// XZ 平面<br></br>
         /// XZ plane in the current coordinate system
         /// </summary>
         public Plane3d XZ_plane
@@ -256,6 +277,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// YZ 平面<br></br>
         /// YZ plane in the current coordinate system
         /// </summary>
         public Plane3d YZ_plane
@@ -264,6 +286,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 旋转坐标系<br></br>
         /// Rotate coordinate system
         /// </summary>
         public void Rotate(Rotation r)
@@ -272,28 +295,37 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 绕旋转轴旋转坐标系<br></br>
         /// Rotate coordinate system around rotation axis
         /// </summary>
-        /// <param name="axis">Rotation axis</param>
-        /// <param name="angle">Rotation angle (radians, counterclockwise)</param>
+        /// <param name="axis">旋转轴<br></br> Rotation axis</param>
+        /// <param name="angle">旋转角度<br></br> Rotation angle (radians, counterclockwise)</param>
         public void Rotate(Vector3d axis, double angle)
         {
             _axes = _axes * Matrix3d.RotationMatrix(axis.ConvertToGlobal(), angle).Transpose();
         }
 
         /// <summary>
+        /// 绕旋转轴旋转坐标系<br></br>
         /// Rotate coordinate system around rotation axis
         /// </summary>
-        /// <param name="axis">Rotation axis</param>
-        /// <param name="angle">Rotation angle (degrees, counterclockwise)</param>
+        /// <param name="axis">旋转轴<br></br> Rotation axis</param>
+        /// <param name="angle">
+        /// 旋转角度（度，逆时针）<br></br>
+        /// Rotation angle (degrees, counterclockwise)
+        /// </param>
         public void RotateDeg(Vector3d axis, double angle)
         {
             _axes = _axes * Matrix3d.RotationMatrix(axis.ConvertToGlobal(), angle * PI / 180).Transpose();
         }
 
         /// <summary>
+        /// 确定两个坐标系是否相等。<br></br>
         /// Determines whether two coordinate systems are equal.
-        /// <para>Object's references are compared for speed.</para>
+        /// <para>
+        /// 比较对象的引用以了解速度。<br></br>
+        /// Object's references are compared for speed.
+        /// </para>
         /// </summary>
         public override bool Equals(object obj)
         {
@@ -301,6 +333,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回对象的哈希码。<br></br>
         /// Returns the hashcode for the object.
         /// </summary>
         public override int GetHashCode()
@@ -309,6 +342,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 全局坐标系中对象的字符串表示形式。<br></br>
         /// String representation of an object in global coordinate system.
         /// </summary>
         public override String ToString()

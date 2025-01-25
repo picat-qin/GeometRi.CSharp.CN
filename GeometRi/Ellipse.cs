@@ -4,6 +4,7 @@ using static System.Math;
 namespace GeometRi
 {
     /// <summary>
+    /// 三维空间中的椭圆，由中心点和两个正交向量（长半轴和短半轴）定义。<br></br>
     /// Ellipse in 3D space, defined by center point and two orthogonal vectors, major and minor semiaxes.
     /// </summary>
 #if NET20
@@ -17,11 +18,12 @@ namespace GeometRi
         private Vector3d _v2;
 
         /// <summary>
+        /// 使用中心点和两个正交向量初始化椭圆实例。<br></br>
         /// Initializes ellipse instance using center point and two orthogonal vectors.
         /// </summary>
-        /// <param name="Center">Center point.</param>
-        /// <param name="v1">First semiaxis.</param>
-        /// <param name="v2">Second semiaxis.</param>
+        /// <param name="Center">中心点<br></br> Center point.</param>
+        /// <param name="v1">第一个矢量<br></br> First semiaxis.</param>
+        /// <param name="v2">第二个矢量<br></br> Second semiaxis.</param>
         public Ellipse(Point3d Center, Vector3d v1, Vector3d v2)
         {
             if (!v1.IsOrthogonalTo(v2))
@@ -43,6 +45,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 创建对象副本<br></br>
         /// Creates copy of the object
         /// </summary>
         public Ellipse Copy()
@@ -51,32 +54,46 @@ namespace GeometRi
         }
 
         #region "Properties"
+        /// <summary>
+        /// 中心点
+        /// </summary>
         public Point3d Center
         {
             get { return _point.Copy(); }
         }
 
+        /// <summary>
+        /// 长半轴
+        /// </summary>
         public Vector3d MajorSemiaxis
         {
             get { return _v1.Copy(); }
         }
 
+        /// <summary>
+        /// 短半轴
+        /// </summary>
         public Vector3d MinorSemiaxis
         {
             get { return _v2.Copy(); }
         }
 
+        /// <summary>
+        /// 普通的
+        /// </summary>
         public Vector3d Normal
         {
             get { return _v1.Cross(_v2).Normalized; }
         }
 
+        /// <inheritdoc/>
         public bool IsOriented
         {
             get { return false; }
         }
 
         /// <summary>
+        /// 长半轴长度<br></br>
         /// Length of the major semiaxis
         /// </summary>
         public double A
@@ -85,6 +102,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 短半轴的长度<br></br>
         /// Length of the minor semiaxis
         /// </summary>
         public double B
@@ -93,6 +111,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 中心到焦点的距离<br></br>
         /// Distance from center to focus
         /// </summary>
         public double F
@@ -101,6 +120,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 第一个焦点<br></br>
         /// First focus
         /// </summary>
         public Point3d F1
@@ -109,6 +129,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 第二个焦点<br></br>
         /// Second focus
         /// </summary>
         public Point3d F2
@@ -117,6 +138,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 椭圆的偏心率<br></br>
         /// Eccentricity of the ellipse
         /// </summary>
         public double E
@@ -124,12 +146,16 @@ namespace GeometRi
             get { return Sqrt(1 - Math.Pow(_v2.Norm, 2) / Math.Pow(_v1.Norm, 2)); }
         }
 
+        /// <summary>
+        /// 面积
+        /// </summary>
         public double Area
         {
             get { return PI * A * B; }
         }
 
         /// <summary>
+        /// 椭圆的近似周长<br></br>
         /// Approximate circumference of the ellipse
         /// </summary>
         public double Perimeter
@@ -144,6 +170,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 将椭圆转换为平面物体。<br></br>
         /// Convert ellipse to plane object.
         /// </summary>
         public Plane3d ToPlane
@@ -155,8 +182,9 @@ namespace GeometRi
         }
         #endregion
 
-        #region "ParallelMethods"
+        #region "平行方法 ParallelMethods"
         /// <summary>
+        /// 检查两个物体是否平行<br></br>
         /// Check if two objects are parallel
         /// </summary>
         public bool IsParallelTo(ILinearObject obj)
@@ -165,6 +193,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否不平行<br></br>
         /// Check if two objects are NOT parallel
         /// </summary>
         public bool IsNotParallelTo(ILinearObject obj)
@@ -173,6 +202,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否正交<br></br>
         /// Check if two objects are orthogonal
         /// </summary>
         public bool IsOrthogonalTo(ILinearObject obj)
@@ -181,6 +211,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否平行<br></br>
         /// Check if two objects are parallel
         /// </summary>
         public bool IsParallelTo(IPlanarObject obj)
@@ -189,6 +220,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否不平行<br></br>
         /// Check if two objects are NOT parallel
         /// </summary>
         public bool IsNotParallelTo(IPlanarObject obj)
@@ -197,6 +229,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否正交<br></br>
         /// Check if two objects are orthogonal
         /// </summary>
         public bool IsOrthogonalTo(IPlanarObject obj)
@@ -205,6 +238,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否共面<br></br>
         /// Check if two objects are coplanar
         /// </summary>
         public bool IsCoplanarTo(IPlanarObject obj)
@@ -213,6 +247,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 检查两个物体是否共面<br></br>
         /// Check if two objects are coplanar
         /// </summary>
         public bool IsCoplanarTo(ILinearObject obj)
@@ -223,6 +258,7 @@ namespace GeometRi
 
         #region "BoundingBox"
         /// <summary>
+        /// 返回最小边界框。<br></br>
         /// Return minimum bounding box.
         /// </summary>
         public Box3d MinimumBoundingBox
@@ -239,6 +275,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回给定坐标系中的边界框。<br></br>
         /// Return Bounding Box in given coordinate system.
         /// </summary>
         public Box3d BoundingBox(Coord3d coord = null)
@@ -254,6 +291,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回轴对齐边界框（AABB）。<br></br>
         /// Return Axis Aligned Bounding Box (AABB).
         /// </summary>
         public AABB AABB()
@@ -268,6 +306,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回边界球。<br></br>
         /// Return bounding sphere.
         /// </summary>
         public Sphere BoundingSphere
@@ -278,6 +317,7 @@ namespace GeometRi
         #endregion
 
         /// <summary>
+        /// 返回给定参数“t”的椭圆上的点 (0 &lt;= t &lt; 2Pi)<br></br>
         /// Returns point on ellipse for given parameter 't' (0 &lt;= t &lt; 2Pi)
         /// </summary>
         public Point3d ParametricForm(double t)
@@ -288,6 +328,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 椭圆到线的正交投影。<br></br>
         /// Orthogonal projection of ellipse to line.
         /// </summary>
         public Segment3d ProjectionTo(Line3d l)
@@ -310,6 +351,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 椭圆到平面的正交投影<br></br>
         /// Orthogonal projection of the ellipse to plane
         /// </summary>
         public Ellipse ProjectionTo(Plane3d s)
@@ -330,7 +372,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Intersection of ellipse with line.
+        /// 椭圆与直线的交点。<br></br>
+        /// Intersection of ellipse with line.<br></br>
+        /// 返回“null”（无交点）或“Point3d”或“Segment3d”类型的对象。<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Segment3d'.
         /// </summary>
         public object IntersectionWith(Line3d l)
@@ -422,7 +466,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Intersection of ellipse with plane.
+        /// 椭圆与平面的交点。<br></br>
+        /// Intersection of ellipse with plane.<br></br>
+        /// 返回“null”（无交点）或“Ellipse”、“Point3d”或“Segment3d”类型的对象。<br></br>
         /// Returns 'null' (no intersection) or object of type 'Ellipse', 'Point3d' or 'Segment3d'.
         /// </summary>
         public object IntersectionWith(Plane3d s)
@@ -463,7 +509,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Intersection of ellipse with segment.
+        /// 椭圆与线段的交点。<br></br>
+        /// Intersection of ellipse with segment.<br></br>
+        /// 返回“null”（无交点）或“Point3d”或“Segment3d”类型的对象。<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Segment3d'.
         /// </summary>
         public object IntersectionWith(Segment3d s)
@@ -507,7 +555,9 @@ namespace GeometRi
         }
 
         /// <summary>
-        /// Intersection of ellipse with ray.
+        /// 椭圆与射线的交点。<br></br>
+        /// Intersection of ellipse with ray.<br></br>
+        /// 返回“null”（无交点）或“Point3d”或“Segment3d”类型的对象。<br></br>
         /// Returns 'null' (no intersection) or object of type 'Point3d' or 'Segment3d'.
         /// </summary>
         public object IntersectionWith(Ray3d r)
@@ -589,6 +639,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 计算椭圆边界上​​距离给定点最近的点。<br></br>
         /// Calculates the point on the ellipse's boundary closest to given point.
         /// </summary>
         public Point3d ClosestPoint(Point3d p)
@@ -633,6 +684,7 @@ namespace GeometRi
 
         #region "AngleTo"
         /// <summary>
+        /// 两个物体之间的角度（以弧度表示）(0 &lt; angle &lt; Pi)<br></br>
         /// Angle between two objects in radians (0 &lt; angle &lt; Pi)
         /// </summary>
         public double AngleTo(ILinearObject obj)
@@ -640,6 +692,7 @@ namespace GeometRi
             return GeometRi3D.GetAngle(this, obj);
         }
         /// <summary>
+        /// 两个物体之间的角度（以度为单位）(0 &lt; angle &lt; 180)<br></br>
         /// Angle between two objects in degrees (0 &lt; angle &lt; 180)
         /// </summary>
         public double AngleToDeg(ILinearObject obj)
@@ -648,6 +701,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 两个物体之间的角度（以弧度表示）(0 &lt; angle &lt; Pi)<br></br>
         /// Angle between two objects in radians (0 &lt; angle &lt; Pi)
         /// </summary>
         public double AngleTo(IPlanarObject obj)
@@ -655,6 +709,7 @@ namespace GeometRi
             return GeometRi3D.GetAngle(this, obj);
         }
         /// <summary>
+        /// 两个物体之间的角度（以度为单位）(0 &lt; angle &lt; 180)<br></br>
         /// Angle between two objects in degrees (0 &lt; angle &lt; 180)
         /// </summary>
         public double AngleToDeg(IPlanarObject obj)
@@ -665,6 +720,7 @@ namespace GeometRi
 
         #region "TranslateRotateReflect"
         /// <summary>
+        /// 通过矢量平移椭圆<br></br>
         /// Translate ellipse by a vector
         /// </summary>
         public Ellipse Translate(Vector3d v)
@@ -673,6 +729,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 根据给定的旋转矩阵旋转椭圆<br></br>
         /// Rotate ellipse by a given rotation matrix
         /// </summary>
         [System.Obsolete("use Rotation object and specify rotation center: this.Rotate(Rotation r, Point3d p)")]
@@ -682,6 +739,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 以点“p”为旋转中心，按照给定的旋转矩阵旋转椭圆<br></br>
         /// Rotate ellipse by a given rotation matrix around point 'p' as a rotation center
         /// </summary>
         [System.Obsolete("use Rotation object: this.Rotate(Rotation r, Point3d p)")]
@@ -691,6 +749,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 围绕点“p”作为旋转中心旋转椭圆。<br></br>
         /// Rotate ellipse around point 'p' as a rotation center.
         /// </summary>
         public Ellipse Rotate(Rotation r, Point3d p)
@@ -699,6 +758,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 在给定点反射椭圆<br></br>
         /// Reflect ellipse in given point
         /// </summary>
         public Ellipse ReflectIn(Point3d p)
@@ -707,6 +767,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 在给定的线上反射椭圆<br></br>
         /// Reflect ellipse in given line
         /// </summary>
         public Ellipse ReflectIn(Line3d l)
@@ -715,6 +776,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 在给定平面上反射椭圆<br></br>
         /// Reflect ellipse in given plane
         /// </summary>
         public Ellipse ReflectIn(Plane3d s)
@@ -723,6 +785,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 相对于给定点缩放椭圆<br></br>
         /// Scale ellipse relative to given point
         /// </summary>
         public virtual Ellipse Scale(double scale, Point3d scaling_center)
@@ -733,6 +796,7 @@ namespace GeometRi
         #endregion
 
         /// <summary>
+        /// 确定两个对象是否相等。<br></br>
         /// Determines whether two objects are equal.
         /// </summary>
         public override bool Equals(object obj)
@@ -803,6 +867,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回对象的哈希码。<br></br>
         /// Returns the hashcode for the object.
         /// </summary>
         public override int GetHashCode()
@@ -811,6 +876,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 全局坐标系中对象的字符串表示形式。
         /// String representation of an object in global coordinate system.
         /// </summary>
         public override String ToString()
@@ -819,6 +885,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 参考坐标系中对象的字符串表示。
         /// String representation of an object in reference coordinate system.
         /// </summary>
         public String ToString(Coord3d coord)

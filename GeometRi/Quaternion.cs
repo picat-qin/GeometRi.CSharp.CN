@@ -4,6 +4,7 @@ using static System.Math;
 namespace GeometRi
 {
     /// <summary>
+    /// 单位四元数（W + X*i + Y*j + Z*k）。
     /// Unit quaternion (W + X*i + Y*j + Z*k).
     /// </summary>
 #if NET20
@@ -17,9 +18,13 @@ namespace GeometRi
 
         #region "Constructors"
         /// <summary>
+        /// 默认构造函数，用零旋转（1,0,0,0）初始化四元数。<br></br>
         /// Default constructor, initializes quaternion with zero rotation (1,0,0,0).
         /// </summary>
-        /// <param name="coord">Reference coordinate system (default - Coord3d.GlobalCS).</param>
+        /// <param name="coord">
+        /// 参考坐标系（默认 - Coord3d.GlobalCS）。<br></br>
+        /// Reference coordinate system (default - Coord3d.GlobalCS).
+        /// </param>
         public Quaternion(Coord3d coord = null)
         {
             _w = 1; _x = 0; _y = 0; _z = 0;
@@ -27,9 +32,13 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 初始化四元数。<br></br>
         /// Initializes quaternion.
         /// </summary>
-        /// <param name="coord">Reference coordinate system (default - Coord3d.GlobalCS).</param>
+        /// <param name="coord">
+        /// 参考坐标系（默认 - Coord3d.GlobalCS）。<br></br>
+        /// Reference coordinate system (default - Coord3d.GlobalCS).
+        /// </param>
         public Quaternion(double w, double x, double y, double z, Coord3d coord = null)
         {
             _w = w; _x = x; _y = y; _z = z;
@@ -37,9 +46,13 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 使用双精度数组初始化四元数。<br></br>
         /// Initializes quaternion using double array.
         /// </summary>
-        /// <param name="coord">Reference coordinate system (default - Coord3d.GlobalCS).</param>
+        /// <param name="coord">
+        /// 参考坐标系（默认 - Coord3d.GlobalCS）。<br></br>
+        /// Reference coordinate system (default - Coord3d.GlobalCS).
+        /// </param>
         public Quaternion(double[] q, Coord3d coord = null)
         {
             if (q.GetUpperBound(0) < 3)
@@ -52,6 +65,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 使用旋转轴和角度初始化四元数。<br></br>
         /// Initializes quaternion using axis of rotation and angle.
         /// </summary>
         public Quaternion(Vector3d axis, double angle)
@@ -66,10 +80,14 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 使用旋转矩阵初始化四元数。<br></br>
         /// Initializes quaternion using rotation matrix.
         /// </summary>
         /// <param name="m">Rotation matrix.</param>
-        /// <param name="coord">Reference coordinate system (default - Coord3d.GlobalCS).</param>
+        /// <param name="coord">
+        /// 参考坐标系（默认 - Coord3d.GlobalCS）。<br></br>
+        /// Reference coordinate system (default - Coord3d.GlobalCS).
+        /// </param>
         public Quaternion(Matrix3d m, Coord3d coord = null)
         {
             if (!m.IsOrthogonal)
@@ -118,6 +136,7 @@ namespace GeometRi
 
         #region "Properties"
         /// <summary>
+        /// 参考坐标系中的 X 分量<br></br>
         /// X component in reference coordinate system
         /// </summary>
         public double X
@@ -127,6 +146,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 参考坐标系中的 Y 分量<br></br>
         /// Y component in reference coordinate system
         /// </summary>
         public double Y
@@ -136,6 +156,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 参考坐标系中的 Z 分量<br></br>
         /// Z component in reference coordinate system
         /// </summary>
         public double Z
@@ -145,6 +166,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 参考坐标系中的 W 分量<br></br>
         /// W component in reference coordinate system
         /// </summary>
         public double W
@@ -154,6 +176,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        ///  参考坐标系<br></br>
         ///  Reference coordinate system
         /// </summary>
         public Coord3d Coord
@@ -162,6 +185,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 四元数的范数<br></br>
         /// Norm of a quaternion
         /// </summary>
         public double Norm
@@ -170,6 +194,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 四元数范数的平方<br></br>
         /// Square of the norm of a quaternion
         /// </summary>
         public double SquareNorm
@@ -178,6 +203,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 四元数的共轭<br></br>
         /// Conjugate of a quaternion
         /// </summary>
         public Quaternion Conjugate
@@ -192,6 +218,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 获取参考坐标系中的旋转轴。<br></br>
         /// Get axis of rotation in reference coordinate system.
         /// </summary>
         public Vector3d ToAxis
@@ -214,6 +241,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 获取参考坐标系中的旋转角度。<br></br>
         /// Get rotation angle in reference coordinate system.
         /// </summary>
         public double ToAngle
@@ -233,6 +261,7 @@ namespace GeometRi
         #endregion
 
         /// <summary>
+        /// 返回规范化的四元数<br></br>
         /// Return normalized quaternion
         /// </summary>
         public Quaternion Normalized
@@ -250,6 +279,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 规范化当前四元数<br></br>
         /// Normalize the current quaternion
         /// </summary>
         public void Normalize()
@@ -261,6 +291,11 @@ namespace GeometRi
             _z = _z * tmp;
         }
 
+        /// <summary>
+        /// 加法
+        /// </summary>
+        /// <param name="q"></param>
+        /// <returns></returns>
         public Quaternion Add(Quaternion q)
         {
             if ((this._coord != q._coord))
@@ -274,6 +309,11 @@ namespace GeometRi
             return m;
         }
 
+        /// <summary>
+        /// 减法
+        /// </summary>
+        /// <param name="q"></param>
+        /// <returns></returns>
         public Quaternion Subtract(Quaternion q)
         {
             if ((this._coord != q._coord))
@@ -287,6 +327,11 @@ namespace GeometRi
             return m;
         }
 
+        /// <summary>
+        /// 乘法
+        /// </summary>
+        /// <param name="q"></param>
+        /// <returns></returns>
         public Quaternion Mult (Quaternion q)
         {
             if ((this._coord != q._coord))
@@ -302,17 +347,27 @@ namespace GeometRi
 
         }
 
+        /// <summary>
+        /// 成比例放大缩小
+        /// </summary>
+        /// <param name="a"></param>
+        /// <returns></returns>
         public Quaternion Scale(double a)
         {
             return new Quaternion(_w*a, _x*a, _y*a, _z*a, this.Coord);
         }
 
+        /// <summary>
+        /// 逆
+        /// </summary>
+        /// <returns></returns>
         public Quaternion Inverse()
         {
             return this.Conjugate.Scale(1.0 / this.SquareNorm);
         }
 
         /// <summary>
+        /// 将四元数转换为全局坐标系。<br></br>
         /// Convert quaternion to global coordinate system.
         /// </summary>
         public Quaternion ConvertToGlobal()
@@ -331,6 +386,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 将四元数转换为参考坐标系。<br></br>
         /// Convert quaternion to reference coordinate system.
         /// </summary>
         public Quaternion ConvertTo(Coord3d coord)
@@ -346,6 +402,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 返回旋转矩阵（在当前参考坐标系中）。<br></br>
         /// Returns rotation matrix (in current reference coordinate system).
         /// </summary>
         public Matrix3d ToRotationMatrix()
@@ -368,11 +425,15 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 两个旋转的球面线性插值。<br></br>
         /// Spherical linear interpolation of two rotations.
         /// </summary>
-        /// <param name="q1">Initial rotation</param>
-        /// <param name="q2">Final rotation</param>
-        /// <param name="t">Interpolation parameter within range [0, 1]</param>
+        /// <param name="q1">初始旋转<br></br> Initial rotation</param>
+        /// <param name="q2">最后旋转<br></br> Final rotation</param>
+        /// <param name="t">
+        /// 插值参数在范围 [0, 1] 内<br></br>
+        /// Interpolation parameter within range [0, 1]
+        /// </param>
         public static Quaternion SLERP(Quaternion q1, Quaternion q2, double t)
         {
             // Algorithm from https://en.wikipedia.org/wiki/Slerp
@@ -408,6 +469,7 @@ namespace GeometRi
         }
 
         /// <summary>
+        /// 确定两个对象是否相等。<br></br>
         /// Determines whether two objects are equal.
         /// </summary>
         public override bool Equals(object obj)
