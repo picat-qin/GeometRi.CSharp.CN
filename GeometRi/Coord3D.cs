@@ -36,7 +36,7 @@ namespace GeometRi
             {
                 _name = "Coord " + count.ToString();
             }
-            count += 1;
+            System.Threading.Interlocked.Increment(ref count);
         }
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace GeometRi
             {
                 _name = "Coord " + count.ToString();
             }
-            count += 1;
+            System.Threading.Interlocked.Increment(ref count);
         }
 
         /// <summary>
@@ -128,7 +128,7 @@ namespace GeometRi
             {
                 _name = "Coord " + count.ToString();
             }
-            count += 1;
+            System.Threading.Interlocked.Increment(ref count);
         }
 
         /// <summary>
@@ -161,7 +161,7 @@ namespace GeometRi
             {
                 _name = "Coord " + count.ToString();
             }
-            count += 1;
+            System.Threading.Interlocked.Increment(ref count);
         }
         #endregion
 
